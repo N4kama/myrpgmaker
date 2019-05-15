@@ -39,12 +39,12 @@ public class Position {
     }
 
     private void moveUp() {
-        setY(x_ - 1);
+        setY(y_ - 1);
         ;
     }
 
     private void moveDown() {
-        setY(x_ + 1);
+        setY(y_ + 1);
         ;
     }
 
