@@ -28,6 +28,12 @@ public class Position {
         }
     }
 
+    public Position tempPos(Direction dir) {
+        Position p = new Position(getX(), getY());
+        p.move(dir);
+        return p;
+    }
+
     private void moveLeft() {
         setX(x_ - 1);
         ;
