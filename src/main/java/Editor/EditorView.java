@@ -24,10 +24,71 @@ public class EditorView extends JFrame {
     JButton removeButton;
     JButton undoButton;
     JButton redoButton;
+    JFrame frame;
+
+    public JFrame getMainFrame() {
+        return frame;
+    }
+
+    public JMenuItem getNew_menuItem() {
+        return file_new;
+    }
+
+    public JMenuItem getOpen_menuItem() {
+        return file_open;
+    }
+
+    public JMenuItem getSave_menuItem() {
+        return file_save;
+    }
+
+    public JMenuItem getExit_menuItem() {
+        return file_exit;
+    }
+
+    public JMenuItem getEditUndo_menuItem() {
+        return edit_undo;
+    }
+
+    public JMenuItem getEditRedo_menuItem() {
+        return edit_redo;
+    }
+
+    public JButton getNewButton() {
+        return newButton;
+    }
+
+    public JButton getOpenButton() {
+        return openButton;
+    }
+
+    public JButton getSaveButton() {
+        return saveButton;
+    }
+
+    public JButton getMoveButton() {
+        return moveButton;
+    }
+
+    public JButton getSelectButton() {
+        return selectButton;
+    }
+
+    public JButton getRemoveButton() {
+        return removeButton;
+    }
+
+    public JButton getUndoButton() {
+        return undoButton;
+    }
+
+    public JButton getRedoButton() {
+        return redoButton;
+    }
 
     public EditorView() {
         //Creating Frame
-        JFrame frame = new JFrame("My RPG Maker");
+        frame = new JFrame("My RPG Maker");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 600);
 
