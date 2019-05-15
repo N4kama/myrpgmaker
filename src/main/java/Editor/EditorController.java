@@ -15,8 +15,8 @@ public class EditorController {
 
     public void set_controls() {
 
-        //set Action Listner for open menu item
-        view.getOpen_menuItem().addActionListener(new ActionListener() {
+
+        ActionListener open_action = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 JFileChooser fc = new JFileChooser();
@@ -28,20 +28,13 @@ public class EditorController {
                     // model open
                 }
             }
-        });
+        };
 
-        view.getExit_menuItem().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                view.getMainFrame().dispose();
-            }
-        });
-
-        view.getSave_menuItem().addActionListener(new ActionListener() {
+        ActionListener save_action = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 JFileChooser fileChooser = new JFileChooser();
-                fileChooser.setDialogTitle("Choose a file that you want to save");
+                fileChooser.setDialogTitle("Choose a file to save");
                 int returnVal = fileChooser.showSaveDialog(view);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
@@ -50,29 +43,55 @@ public class EditorController {
                     //model save
                 }
             }
-        });
+        };
 
-        view.getNew_menuItem().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                // comportement new boutton
-            }
-        });
 
-        view.getEditUndo_menuItem().addActionListener(new ActionListener() {
+        ActionListener undo_action = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 // undo
             }
-        });
+        };
 
-
-        view.getEditRedo_menuItem().addActionListener(new ActionListener() {
+        ActionListener redo_action = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                // rendo
+                // redo
+            }
+        };
+
+
+        ActionListener new_action = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                // comportement new boutton
+            }
+        };
+
+
+        view.getExit_menuItem().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                view.getMainFrame().dispose();
             }
         });
+
+        //set Action Listner for open menu item
+        view.getOpen_menuItem().addActionListener(open_action);
+        view.getOpenButton().addActionListener(open_action);
+
+        view.getSave_menuItem().addActionListener(save_action);
+        view.getSaveButton().addActionListener(save_action);
+
+        view.getNewButton().addActionListener(new_action);
+        view.getNew_menuItem().addActionListener(new_action);
+
+        view.getEditUndo_menuItem().addActionListener(undo_action);
+        view.getUndoButton().addActionListener(undo_action);
+
+        view.getEditRedo_menuItem().addActionListener(redo_action);
+        view.getRedoButton().addActionListener(redo_action);
+
     }
 }
 
