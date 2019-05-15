@@ -10,4 +10,17 @@ public class Tile {
         p_ = new Position(x, y);
         t_ = t;
     }
+    /**
+     * @return the t_
+     */
+    public TileType getT_() {
+        return t_;
+    }
+
+    /**
+     * @return the p_
+     */
+    public Position getP_() {
+        return p_;
+    }
 }
