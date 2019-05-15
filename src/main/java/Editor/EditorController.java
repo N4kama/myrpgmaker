@@ -1,10 +1,10 @@
 package Editor;
 
-import javax.swing.*;
-import javax.swing.filechooser.FileSystemView;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
+        import javax.swing.*;
+        import javax.swing.filechooser.FileSystemView;
+        import java.awt.event.ActionEvent;
+        import java.awt.event.ActionListener;
+        import java.io.File;
 
 public class EditorController {
     private EditorView view;
@@ -15,8 +15,8 @@ public class EditorController {
 
     public void set_controls() {
 
-        //set Action Listner for open button
-        view.getOpen_b().addActionListener(new ActionListener() {
+        //set Action Listner for open menu item
+        view.getOpen_menuItem().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 JFileChooser fc = new JFileChooser();
@@ -30,14 +30,14 @@ public class EditorController {
             }
         });
 
-        view.getExit_b().addActionListener(new ActionListener() {
+        view.getExit_menuItem().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 view.getMainFrame().dispose();
             }
         });
 
-        view.getSave_b().addActionListener(new ActionListener() {
+        view.getSave_menuItem().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 JFileChooser fileChooser = new JFileChooser();
@@ -51,5 +51,28 @@ public class EditorController {
                 }
             }
         });
+
+        view.getNew_menuItem().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                // comportement new boutton
+            }
+        });
+
+        view.getEditUndo_menuItem().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                // undo
+            }
+        });
+
+
+        view.getEditRedo_menuItem().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                // rendo
+            }
+        });
     }
 }
+
