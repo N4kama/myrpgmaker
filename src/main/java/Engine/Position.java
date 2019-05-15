@@ -36,22 +36,18 @@ public class Position {
 
     private void moveLeft() {
         setX(x_ - 1);
-        ;
     }
 
     private void moveRight() {
         setX(x_ + 1);
-        ;
     }
 
     private void moveUp() {
         setY(y_ - 1);
-        ;
     }
 
     private void moveDown() {
         setY(y_ + 1);
-        ;
     }
 
     public Integer getX() {

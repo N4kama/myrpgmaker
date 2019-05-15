@@ -10,6 +10,7 @@ public class Character {
         name_ = name;
         sprite_ = sprite;
         changeDir(Direction.DOWN);
+        setAnim_state_(1);
         position_ = map.getSpawn();
     }
 
@@ -22,6 +23,11 @@ public class Character {
             return true;
         }
         return false;
+    }
+
+    private void animate()
+    {
+        setAnim_state_((anim_state_ + 1) % 3);
     }
 
     private boolean canMove(Direction dir, Map m) {
@@ -38,6 +44,7 @@ public class Character {
         if (dir == getDir()) {
             return false;
         }
+        setAnim_state_(1);
         changeDir(dir);
         return true;
     }
@@ -54,6 +61,7 @@ public class Character {
 
     // state
     private Direction cur_dir_;
+    private Integer anim_state_;
 
     /**
      * @return Integer return the id_
@@ -137,6 +145,21 @@ public class Character {
      */
     public void setPosition_(Position position_) {
         this.position_ = position_;
+    }
+
+
+    /**
+     * @return Integer return the anim_state_
+     */
+    public Integer getAnim_state_() {
+        return anim_state_;
+    }
+
+    /**
+     * @param anim_state_ the anim_state_ to set
+     */
+    public void setAnim_state_(Integer anim_state_) {
+        this.anim_state_ = anim_state_;
     }
 
 }
