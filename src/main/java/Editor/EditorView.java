@@ -100,6 +100,11 @@ public class EditorView extends JFrame {
         //Adding every component to the frame
         frame.setJMenuBar(menuBar);
         frame.add(toolBar, BorderLayout.NORTH);
+
+        //Setting buttons controls
+        EditorController e = new EditorController(this);
+        e.set_controls();
+
         frame.setVisible(true);
     }
 
