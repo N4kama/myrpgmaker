@@ -2,38 +2,65 @@ package Engine;
 
 public class Position {
     public Position(int x, int y) {
-        setX_(x);
-        setY_(y);
+        setX(x);
+        setY(y);
     }
 
     private Integer x_;
     private Integer y_;
 
-    /**
-     * @return Integer return the x_
-     */
-    public Integer getX_() {
+    public void move(Direction dir) {
+        switch (dir) {
+        case UP:
+            moveUp();
+            break;
+        case DOWN:
+            moveDown();
+            break;
+        case LEFT:
+            moveLeft();
+            break;
+        case RIGHT:
+            moveRight();
+            break;
+        default:
+            break;
+        }
+    }
+
+    private void moveLeft() {
+        setX(x_ - 1);
+        ;
+    }
+
+    private void moveRight() {
+        setX(x_ + 1);
+        ;
+    }
+
+    private void moveUp() {
+        setY(x_ - 1);
+        ;
+    }
+
+    private void moveDown() {
+        setY(x_ + 1);
+        ;
+    }
+
+    public Integer getX() {
         return x_;
     }
 
-    /**
-     * @param x_ the x_ to set
-     */
-    public void setX_(Integer x_) {
+    public void setX(Integer x_) {
         this.x_ = x_;
     }
 
-    /**
-     * @return Integer return the y_
-     */
-    public Integer getY_() {
+    public Integer getY() {
         return y_;
     }
 
-    /**
-     * @param y_ the y_ to set
-     */
-    public void setY_(Integer y_) {
+    public void setY(Integer y_) {
         this.y_ = y_;
     }
 
