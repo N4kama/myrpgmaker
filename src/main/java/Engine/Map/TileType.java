@@ -2,6 +2,7 @@ package Engine.Map;
 
 public enum TileType {
     WATER (0),
+    VOID (2),
     GROUND (1);
 
     TileType(int type)
