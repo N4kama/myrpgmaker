@@ -57,6 +57,12 @@ public class EditorView {
         file.add(file_save);
         //EXIT//
         JMenuItem file_exit = new JMenuItem("exit");
+        file_exit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                frame.dispose();
+            }
+        });
         file_exit.setEnabled(true);
         file.add(file_exit);
         //UNDO//
