@@ -3,6 +3,7 @@ package Engine.Player;
 import Engine.Direction;
 import Engine.Position;
 import Engine.Map.Map;
+import Engine.Map.TileType;
 
 public class Character {
     public Character(String name, String sprite, Map map) {
@@ -24,7 +25,13 @@ public class Character {
     }
 
     private boolean canMove(Direction dir, Map m) {
-        return true;
+        TileType t = m.getTile(position_.tempPos(dir)).getT_();
+        switch (t) {
+            case GROUND:
+                return true;
+            default:
+                return false;
+        }
     }
 
     private boolean rotate(Direction dir) {
