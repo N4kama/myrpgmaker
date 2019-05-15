@@ -1,8 +1,12 @@
 package Editor;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 
 public class EditorView {
     public EditorView() {
@@ -27,6 +31,20 @@ public class EditorView {
         file.add(file_new);
         //OPEN//
         JMenuItem file_open = new JMenuItem("open");
+        file_open.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+
+                int returnValue = jfc.showOpenDialog(null);
+
+
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = jfc.getSelectedFile();
+                    String selectFilepath = selectedFile.getAbsolutePath();
+                }
+            }
+        });
         file_open.setMnemonic(KeyEvent.VK_M);
         file_open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, Event.CTRL_MASK, true));
         file_open.setEnabled(true);
