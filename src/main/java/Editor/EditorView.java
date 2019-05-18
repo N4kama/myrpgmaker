@@ -1,5 +1,9 @@
 package Editor;
 
+import FileExplorerPannel.FileExplorerView;
+import MapPannel.MapView;
+import SpritePannel.SpriteView;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.filechooser.FileSystemView;
@@ -8,14 +12,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.util.Observable;
+import java.util.Observer;
 
-public class EditorView extends JFrame {
+public class EditorView extends JFrame implements Observer {
+    EditorModel model;
+
+    JFrame frame;
+
     JMenuItem file_new;
     JMenuItem file_open;
     JMenuItem file_save;
     JMenuItem file_exit;
     JMenuItem edit_undo;
     JMenuItem edit_redo;
+
     JButton newButton;
     JButton openButton;
     JButton saveButton;
@@ -24,69 +35,9 @@ public class EditorView extends JFrame {
     JButton removeButton;
     JButton undoButton;
     JButton redoButton;
-    JFrame frame;
 
-    public JFrame getMainFrame() {
-        return frame;
-    }
-
-    public JMenuItem getNew_menuItem() {
-        return file_new;
-    }
-
-    public JMenuItem getOpen_menuItem() {
-        return file_open;
-    }
-
-    public JMenuItem getSave_menuItem() {
-        return file_save;
-    }
-
-    public JMenuItem getExit_menuItem() {
-        return file_exit;
-    }
-
-    public JMenuItem getEditUndo_menuItem() {
-        return edit_undo;
-    }
-
-    public JMenuItem getEditRedo_menuItem() {
-        return edit_redo;
-    }
-
-    public JButton getNewButton() {
-        return newButton;
-    }
-
-    public JButton getOpenButton() {
-        return openButton;
-    }
-
-    public JButton getSaveButton() {
-        return saveButton;
-    }
-
-    public JButton getMoveButton() {
-        return moveButton;
-    }
-
-    public JButton getSelectButton() {
-        return selectButton;
-    }
-
-    public JButton getRemoveButton() {
-        return removeButton;
-    }
-
-    public JButton getUndoButton() {
-        return undoButton;
-    }
-
-    public JButton getRedoButton() {
-        return redoButton;
-    }
-
-    public EditorView() {
+    public EditorView(EditorModel model) {
+        this.model = model;
         //Creating Frame
         frame = new JFrame("My RPG Maker");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -96,14 +47,34 @@ public class EditorView extends JFrame {
         JMenuBar menuBar = create_menu_bar();
         //Creating Tool bar
         JToolBar toolBar = create_tool_bar();
+        //creating Sprite pannel
+        SpriteView spriteView = new SpriteView();
+        //creating Map pannel
+        MapView mapView = new MapView();
+        //creating file explorer pannel
+        FileExplorerView fileExplorerView = new FileExplorerView();
 
         //Adding every component to the frame
+        //Menu
         frame.setJMenuBar(menuBar);
+        //toolbar
         frame.add(toolBar, BorderLayout.NORTH);
+        //sprite
+        JScrollPane spritePane = new JScrollPane(spriteView);
+        spritePane.setPreferredSize(new Dimension(200,200));
+        //file explorer
+        JScrollPane fileExplorerPane = new JScrollPane(fileExplorerView);
+        spritePane.setPreferredSize(new Dimension(200, 200));
+        //map
+        JScrollPane mapPane = new JScrollPane(mapView);
+        mapPane.setPreferredSize(new Dimension(200, 200));
 
-        //Setting buttons controls
-        EditorController e = new EditorController(this);
-        e.set_controls();
+        //Placing the different scrollPane in order into the main frame
+        JSplitPane sprite_fileExplorer = new JSplitPane(JSplitPane.VERTICAL_SPLIT, spritePane, fileExplorerPane);
+        sprite_fileExplorer.setResizeWeight(0.5);
+        JSplitPane panelsOrganization = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, sprite_fileExplorer, mapPane);
+        panelsOrganization.setResizeWeight(0.5);
+        frame.add(panelsOrganization); //only one JSplitPane should be added
 
         frame.setVisible(true);
     }
@@ -172,6 +143,8 @@ public class EditorView extends JFrame {
         file.add(file_save);
         //EXIT//
         file_exit = new JMenuItem("exit");
+        file_exit.setMnemonic(KeyEvent.VK_M);
+        file_exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, Event.CTRL_MASK, true));
         file_exit.setEnabled(true);
         file.add(file_exit);
         //UNDO//
@@ -188,5 +161,10 @@ public class EditorView extends JFrame {
         edit.add(edit_redo);
 
         return menuBar;
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+
     }
 }

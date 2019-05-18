@@ -1,7 +1,11 @@
+import Editor.EditorController;
+import Editor.EditorModel;
 import Editor.EditorView;
 
 public class Main {
     public static void main(String[] args) {
-        EditorView view = new EditorView();
+        EditorModel model = new EditorModel();
+        EditorView view = new EditorView(model);
+        EditorController controller = new EditorController(model, view);
     }
 }
