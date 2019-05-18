@@ -7,6 +7,7 @@ import SpritePannel.SpriteView;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.filechooser.FileSystemView;
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -48,7 +49,8 @@ public class EditorView extends JFrame implements Observer {
         //Creating Tool bar
         JToolBar toolBar = create_tool_bar();
         //creating Sprite pannel
-        SpriteView spriteView = new SpriteView();
+        SpriteView backgroundSpriteView = new SpriteView();
+        SpriteView foregroundSpriteView = new SpriteView();
         //creating Map pannel
         MapView mapView = new MapView();
         //creating file explorer pannel
@@ -60,20 +62,23 @@ public class EditorView extends JFrame implements Observer {
         //toolbar
         frame.add(toolBar, BorderLayout.NORTH);
         //sprite
-        JScrollPane spritePane = new JScrollPane(spriteView);
-        spritePane.setPreferredSize(new Dimension(200,200));
+        JScrollPane backgroundSpritePane = new JScrollPane(backgroundSpriteView);
+        JScrollPane foregroundSpritePane = new JScrollPane(foregroundSpriteView);
+        backgroundSpritePane.setPreferredSize(new Dimension(200,200));
+        foregroundSpritePane.setPreferredSize(new Dimension(200,200));
         //file explorer
         JScrollPane fileExplorerPane = new JScrollPane(fileExplorerView);
-        spritePane.setPreferredSize(new Dimension(200, 200));
+        backgroundSpritePane.setPreferredSize(new Dimension(200, 200));
         //map
         JScrollPane mapPane = new JScrollPane(mapView);
         mapPane.setPreferredSize(new Dimension(200, 200));
 
         //adding tabs
         JTabbedPane spriteTab = new JTabbedPane();
-        spriteTab.addTab("Background sprites", spritePane);
+        spriteTab.addTab("Background sprites", backgroundSpritePane);
+        spriteTab.addTab("Foreground sprites", foregroundSpritePane);
         JTabbedPane fileExplorerTab = new JTabbedPane();
-        fileExplorerTab.addTab("File explorer", fileExplorerPane);
+        fileExplorerTab.addTab("Map Selector", fileExplorerPane);
         JTabbedPane mapTab = new JTabbedPane();
         mapTab.addTab("Map", mapPane);
 
