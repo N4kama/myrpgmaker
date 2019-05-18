@@ -69,10 +69,18 @@ public class EditorView extends JFrame implements Observer {
         JScrollPane mapPane = new JScrollPane(mapView);
         mapPane.setPreferredSize(new Dimension(200, 200));
 
+        //adding tabs
+        JTabbedPane spriteTab = new JTabbedPane();
+        spriteTab.addTab("Background sprites", spritePane);
+        JTabbedPane fileExplorerTab = new JTabbedPane();
+        fileExplorerTab.addTab("File explorer", fileExplorerPane);
+        JTabbedPane mapTab = new JTabbedPane();
+        mapTab.addTab("Map", mapPane);
+
         //Placing the different scrollPane in order into the main frame
-        JSplitPane sprite_fileExplorer = new JSplitPane(JSplitPane.VERTICAL_SPLIT, spritePane, fileExplorerPane);
+        JSplitPane sprite_fileExplorer = new JSplitPane(JSplitPane.VERTICAL_SPLIT, spriteTab, fileExplorerTab);
         sprite_fileExplorer.setResizeWeight(0.5);
-        JSplitPane panelsOrganization = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, sprite_fileExplorer, mapPane);
+        JSplitPane panelsOrganization = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, sprite_fileExplorer, mapTab);
         panelsOrganization.setResizeWeight(0.5);
         frame.add(panelsOrganization); //only one JSplitPane should be added
 
