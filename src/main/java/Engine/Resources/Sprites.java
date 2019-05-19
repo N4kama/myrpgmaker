@@ -14,8 +14,10 @@ public class Sprites {
         try {
             BufferedImage img = ImageIO.read(new File(path));
             String imagePath = path.replace("\\", "/");
-            Sprites.paths.put(imagePath, img);
-            Sprites.imgs.put(img, imagePath);
+            if (img.getHeight() % 16 == 0 && img.getWidth() % 16 == 0) {
+                Sprites.paths.put(imagePath, img);
+                Sprites.imgs.put(img, imagePath);
+            }
         } catch (Exception e) {
             //
         }
