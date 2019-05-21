@@ -1,18 +1,28 @@
 package Game;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import Engine.Position;
+import Engine.Event.GameEvents;
 
 public class Tile {
     private Position pos_;
     private Boolean is_Walkable_;
     private String tile_img_;
+    private List<GameEvents> events;
 
     public Tile(int x, int y, String img)
     {
         pos_ = new Position(x, y);
         tile_img_ = img;
+        events = new ArrayList<>();
     }
 
+    public void add_event(GameEvents e)
+    {
+        events.add(e);
+    }
     /**
      * @return the p_
      */
