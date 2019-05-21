@@ -1,17 +1,18 @@
-package Engine.Player;
+package Engine.Character;
 
 import Engine.Direction;
 import Engine.Position;
 import Game.Map;
 import Game.Tile;
 
-public class Character {
-    public Character(String name, String sprite, Map map) {
+public class EngineObj {
+    public EngineObj(String name, String sprite, Map map, Boolean alive) {
         name_ = name;
         sprite_ = sprite;
         changeDir(Direction.DOWN);
         setAnim_state_(1);
         position_ = map.getSpawn();
+        this.alive = alive;
     }
 
     public boolean move(Direction dir, Map m) {
@@ -19,7 +20,13 @@ public class Character {
         if (rotate(dir))
             return false;
         if (canMove(dir, m)) {
+            //set prev tile to walkable
+            Tile t = m. getTile(position_);
+            t.setIs_Walkable(true);
             position_.move(dir);
+            //set new tile to nonwalkable
+            t = m. getTile(position_.tempPos(dir));
+            t.setIs_Walkable(false);
             return true;
         }
         return false;
@@ -27,7 +34,8 @@ public class Character {
 
     private void animate()
     {
-        setAnim_state_((anim_state_ + 1) % 3);
+        if(alive)
+            setAnim_state_((anim_state_ + 1) % 3);
     }
 
     private boolean canMove(Direction dir, Map m) {
@@ -50,6 +58,7 @@ public class Character {
 
     // sprite
     private String sprite_;
+    private Boolean alive;
 
     // map
     private Position position_;
