@@ -1,20 +1,17 @@
 package Editor;
 
 import FileExplorerPannel.FileExplorerView;
+import Game.GameMap;
+import Game.GameWorld;
+import MapPannel.MapModel;
 import MapPannel.MapView;
 import SpritePannel.SpriteController;
 import SpritePannel.SpriteModel;
 import SpritePannel.SpriteView;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.filechooser.FileSystemView;
-import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -51,44 +48,17 @@ public class EditorView extends JFrame implements Observer {
         //Creating Tool bar
         JToolBar toolBar = create_tool_bar();
         //creating Sprite pannel
-        SpriteModel backgroundSpriteModel = new SpriteModel(System.getProperty("user.dir") + "/resources/backgroundTile/", true);
-        SpriteModel foregroundSpriteModel = new SpriteModel(System.getProperty("user.dir") + "/resources/foregroundObject/", true);
-        SpriteView backgroundSpriteView = new SpriteView(backgroundSpriteModel);
-        SpriteView foregroundSpriteView = new SpriteView(foregroundSpriteModel);
-        SpriteController backgroundSpriteController = new SpriteController(backgroundSpriteModel, backgroundSpriteView);
-        SpriteController foregroundSpriteController = new SpriteController(foregroundSpriteModel, foregroundSpriteView);
-        backgroundSpriteController.start();
-        foregroundSpriteController.start();
-        //creating Map pannel
-        MapView mapView = new MapView();
+        JTabbedPane spriteTab = create_spriteTab();
         //creating file explorer pannel
-        FileExplorerView fileExplorerView = new FileExplorerView();
+        JTabbedPane fileExplorerTab = create_fileExplorer();
+        //creating Map pannel
+        JTabbedPane mapTab = create_mapTab();
 
         //Adding every component to the frame
         //Menu
         frame.setJMenuBar(menuBar);
         //toolbar
         frame.add(toolBar, BorderLayout.NORTH);
-        //sprite
-        JScrollPane backgroundSpritePane = new JScrollPane(backgroundSpriteView);
-        JScrollPane foregroundSpritePane = new JScrollPane(foregroundSpriteView);
-        backgroundSpritePane.setPreferredSize(new Dimension(200,200));
-        foregroundSpritePane.setPreferredSize(new Dimension(200,200));
-        //file explorer
-        JScrollPane fileExplorerPane = new JScrollPane(fileExplorerView);
-        backgroundSpritePane.setPreferredSize(new Dimension(200, 200));
-        //map
-        JScrollPane mapPane = new JScrollPane(mapView);
-        mapPane.setPreferredSize(new Dimension(200, 200));
-
-        //adding tabs
-        JTabbedPane spriteTab = new JTabbedPane();
-        spriteTab.addTab("Background sprites", backgroundSpritePane);
-        spriteTab.addTab("Foreground sprites", foregroundSpritePane);
-        JTabbedPane fileExplorerTab = new JTabbedPane();
-        fileExplorerTab.addTab("Map Selector", fileExplorerPane);
-        JTabbedPane mapTab = new JTabbedPane();
-        mapTab.addTab("Map", mapPane);
 
         //Placing the different scrollPane in order into the main frame
         JSplitPane sprite_fileExplorer = new JSplitPane(JSplitPane.VERTICAL_SPLIT, spriteTab, fileExplorerTab);
@@ -98,6 +68,63 @@ public class EditorView extends JFrame implements Observer {
         frame.add(panelsOrganization); //only one JSplitPane should be added
 
         frame.setVisible(true);
+    }
+
+    private JTabbedPane create_mapTab() {
+        //Creating world at program launch
+        model.setWorld(new GameWorld("Asuma"));
+        String default_tile_path = System.getProperty("user.dir") + "/resources/backgroundTile/grass.png";
+        model.gameWorld.addMap(new GameMap("Shikamaru", 100, 100, default_tile_path));
+
+        //Init MVC
+        MapModel mapModel = new MapModel(model.gameWorld.getMap(0));
+        MapView mapView = new MapView(mapModel);
+
+        //Linking to Pane
+        JScrollPane mapPane = new JScrollPane(mapView);
+        mapPane.setPreferredSize(new Dimension(200, 200));
+
+        //Joining all the panes into a Tab (bar)
+        JTabbedPane mapTab = new JTabbedPane();
+        mapTab.addTab("Map", mapPane);
+
+        return mapTab;
+    }
+
+    private JTabbedPane create_fileExplorer() {
+        FileExplorerView fileExplorerView = new FileExplorerView();
+        //file explorer
+        JScrollPane fileExplorerPane = new JScrollPane(fileExplorerView);
+
+        //adding tabs
+        JTabbedPane fileExplorerTab = new JTabbedPane();
+        fileExplorerTab.addTab("Map Selector", fileExplorerPane);
+
+        return fileExplorerTab;
+    }
+
+    private JTabbedPane create_spriteTab() {
+        //Init MVC
+        SpriteModel backgroundSpriteModel = new SpriteModel(System.getProperty("user.dir") + "/resources/backgroundTile/", true);
+        SpriteModel foregroundSpriteModel = new SpriteModel(System.getProperty("user.dir") + "/resources/foregroundObject/", true);
+        SpriteView backgroundSpriteView = new SpriteView(backgroundSpriteModel);
+        SpriteView foregroundSpriteView = new SpriteView(foregroundSpriteModel);
+        SpriteController backgroundSpriteController = new SpriteController(backgroundSpriteModel, backgroundSpriteView);
+        SpriteController foregroundSpriteController = new SpriteController(foregroundSpriteModel, foregroundSpriteView);
+        backgroundSpriteController.start();
+        foregroundSpriteController.start();
+
+        //Linking to Pane
+        JScrollPane backgroundSpritePane = new JScrollPane(backgroundSpriteView);
+        JScrollPane foregroundSpritePane = new JScrollPane(foregroundSpriteView);
+        backgroundSpritePane.setPreferredSize(new Dimension(200,200));
+        foregroundSpritePane.setPreferredSize(new Dimension(200,200));
+
+        //Adding tabs all together
+        JTabbedPane spriteTab = new JTabbedPane();
+        spriteTab.addTab("Background sprites", backgroundSpritePane);
+        spriteTab.addTab("Foreground sprites", foregroundSpritePane);
+        return spriteTab;
     }
 
     private JToolBar create_tool_bar() {
