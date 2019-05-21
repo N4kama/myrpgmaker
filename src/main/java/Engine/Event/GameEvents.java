@@ -1,5 +1,5 @@
 package Engine.Event;
 
-public interface Event {
+public interface GameEvents {
     public boolean run();
 }
