@@ -2,8 +2,8 @@ package Engine.Player;
 
 import Engine.Direction;
 import Engine.Position;
-import Engine.Map.Map;
-import Engine.Map.TileType;
+import Game.Map;
+import Game.Tile;
 
 public class Character {
     public Character(String name, String sprite, Map map) {
@@ -31,13 +31,8 @@ public class Character {
     }
 
     private boolean canMove(Direction dir, Map m) {
-        TileType t = m.getTile(position_.tempPos(dir)).getT_();
-        switch (t) {
-            case GROUND:
-                return true;
-            default:
-                return false;
-        }
+        Tile t = m. getTile(position_.tempPos(dir));
+        return t.getIs_Walkable();
     }
 
     private boolean rotate(Direction dir) {
