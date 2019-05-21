@@ -54,13 +54,13 @@ public class EditorController {
 
     private ActionListener save_action() {
         return actionEvent -> {
-            JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setDialogTitle("Choose a file to save");
-            int returnVal = fileChooser.showSaveDialog(view);
+            JFileChooser fc = new JFileChooser();
+            fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            fc.setDialogTitle("Choose a directory to save your world");
+            int returnVal = fc.showSaveDialog(view);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File file = fileChooser.getSelectedFile();
+                File file = fc.getSelectedFile();
                 String filePath = file.getPath();
-
                 //model save
             }
         };
@@ -69,6 +69,8 @@ public class EditorController {
     private ActionListener open_action() {
         return actionEvent -> {
             JFileChooser fc = new JFileChooser();
+            fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            fc.setDialogTitle("Choose a world to load");
             int returnValue = fc.showOpenDialog(view);
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = fc.getSelectedFile();
