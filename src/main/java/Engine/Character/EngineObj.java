@@ -12,10 +12,11 @@ import Engine.Event.GameEvents;
 public class EngineObj {
     private Boolean is_player;
     private List<GameEvents> events;
-
+    private transient Map m;
     public EngineObj(String name, String sprite, Map map, Boolean alive, Boolean is_player) {
         name_ = name;
         sprite_ = sprite;
+        m = map;
         changeDir(Direction.DOWN);
         setAnim_state_(1);
         position_ = map.getSpawn();
