@@ -2,6 +2,8 @@ package Editor;
 
 import FileExplorerPannel.FileExplorerView;
 import MapPannel.MapView;
+import SpritePannel.SpriteController;
+import SpritePannel.SpriteModel;
 import SpritePannel.SpriteView;
 
 import javax.swing.*;
@@ -49,8 +51,14 @@ public class EditorView extends JFrame implements Observer {
         //Creating Tool bar
         JToolBar toolBar = create_tool_bar();
         //creating Sprite pannel
-        SpriteView backgroundSpriteView = new SpriteView();
-        SpriteView foregroundSpriteView = new SpriteView();
+        SpriteModel backgroundSpriteModel = new SpriteModel(System.getProperty("user.dir") + "/resources/backgroundTile/", true);
+        SpriteModel foregroundSpriteModel = new SpriteModel(System.getProperty("user.dir") + "/resources/foregroundObject/", true);
+        SpriteView backgroundSpriteView = new SpriteView(backgroundSpriteModel);
+        SpriteView foregroundSpriteView = new SpriteView(foregroundSpriteModel);
+        SpriteController backgroundSpriteController = new SpriteController(backgroundSpriteModel, backgroundSpriteView);
+        SpriteController foregroundSpriteController = new SpriteController(foregroundSpriteModel, foregroundSpriteView);
+        backgroundSpriteController.start();
+        foregroundSpriteController.start();
         //creating Map pannel
         MapView mapView = new MapView();
         //creating file explorer pannel
