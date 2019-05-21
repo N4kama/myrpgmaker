@@ -1,7 +1,5 @@
 package Game;
 
-import Engine.Position;
-
 import java.util.ArrayList;
 
 public class Map {
