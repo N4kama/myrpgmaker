@@ -2,7 +2,7 @@ package Engine.Event;
 
 import Engine.Vars;
 
-public class Compare implements Event {
+public class Compare implements GameEvents {
 
     public Compare(int type, Vars l, Vars r)
     {

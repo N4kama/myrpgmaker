@@ -1,8 +1,8 @@
 package Engine.Event;
 
-public class Quest implements Event{
+public class Quest implements GameEvents{
 
-    public Quest(Event cond_, Event then_, Event else_)
+    public Quest(GameEvents cond_, GameEvents then_, GameEvents else_)
     {
         this.cond_ = cond_;
         this.then_ = then_;
@@ -15,7 +15,7 @@ public class Quest implements Event{
         return else_.run();
     }
 
-    private Event cond_;
-    private Event then_;
-    private Event else_;
+    private GameEvents cond_;
+    private GameEvents then_;
+    private GameEvents else_;
 }

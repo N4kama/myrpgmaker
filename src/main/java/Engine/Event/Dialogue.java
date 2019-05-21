@@ -1,6 +1,6 @@
 package Engine.Event;
 
-public class Dialogue {
+public class Dialogue implements GameEvents {
 
     public Dialogue(String content) {
         following = null;
@@ -36,6 +36,14 @@ public class Dialogue {
      */
     public void setFollowing(Dialogue following) {
         this.following = following;
+    }
+
+    @Override
+    public boolean run() {
+        //afficher
+        if (following != null)
+            return following.run();
+        return true;
     }
 
 }
