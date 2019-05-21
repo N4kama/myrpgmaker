@@ -79,4 +79,12 @@ public class Map {
     public void addObject(Object o) {
         gameObjects_.add(o);
     }
+
+    public Tile getTile(Position p) {
+        for (int i = 0; i < gameTiles_.size(); i++) {
+            if (gameTiles_.get(i).getPos().equals(p))
+                return gameTiles_.get(i);
+        }
+        return null;
+    }
 }
