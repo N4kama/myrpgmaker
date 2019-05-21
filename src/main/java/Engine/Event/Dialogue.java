@@ -1,4 +1,4 @@
-package Engine.Npc;
+package Engine.Event;
 
 public class Dialogue {
 
