@@ -30,7 +30,7 @@ public class World {
         Gson gson = new Gson();
         String jsonString = gson.toJson(gameWorld_);
         try {
-            BufferedWriter writer = Files.newBufferedWriter(Paths.get(path));
+            BufferedWriter writer = Files.newBufferedWriter(Paths.get(path + '/' + name_ + ".wrld"));
             writer.write(jsonString);
         } catch (IOException e) {
             e.printStackTrace();
@@ -41,9 +41,16 @@ public class World {
     public World loadWorld(String path) throws FileNotFoundException {
         Gson gson = new Gson();
         JsonReader reader = null;
-
-        reader = new JsonReader(new FileReader(path));
-        World w = gson.fromJson(reader, World.class);
+        World w = null;
+        int i = path.lastIndexOf('.');
+        if (i > 0 &&  path.substring(i+1).equals("wrld")) {
+            try {
+                reader = new JsonReader(new FileReader(path));
+                w = gson.fromJson(reader, World.class);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         return w;
     }
 }
