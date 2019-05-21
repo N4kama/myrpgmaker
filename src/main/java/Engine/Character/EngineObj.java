@@ -1,18 +1,39 @@
 package Engine.Character;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import Engine.Direction;
 import Engine.Position;
 import Game.Map;
 import Game.Tile;
+import Engine.Event.GameEvents;
 
 public class EngineObj {
-    public EngineObj(String name, String sprite, Map map, Boolean alive) {
+    private Boolean is_player;
+    private List<GameEvents> events;
+
+    public EngineObj(String name, String sprite, Map map, Boolean alive, Boolean is_player) {
         name_ = name;
         sprite_ = sprite;
         changeDir(Direction.DOWN);
         setAnim_state_(1);
         position_ = map.getSpawn();
         this.alive = alive;
+        this.is_player = is_player;
+        events = new ArrayList<>();
+    }
+
+    public void add_event(GameEvents e) {
+        events.add(e);
+    }
+
+    public boolean run_events() {
+        boolean res = true;
+        for (GameEvents e : events) {
+            res &= e.run();
+        }
+        return res;
     }
 
     public boolean move(Direction dir, Map m) {
@@ -20,26 +41,37 @@ public class EngineObj {
         if (rotate(dir))
             return false;
         if (canMove(dir, m)) {
-            //set prev tile to walkable
-            Tile t = m. getTile(position_);
+            // set prev tile to walkable
+            Tile t = m.getTile(position_);
             t.setIs_Walkable(true);
             position_.move(dir);
-            //set new tile to nonwalkable
-            t = m. getTile(position_.tempPos(dir));
+            // set new tile to nonwalkable
+            t = m.getTile(position_);
             t.setIs_Walkable(false);
+            if (is_player)
+                t.run_events();
             return true;
+        }
+        if (is_player) {
+            Tile t = m.getTile(position_.tempPos(dir));
+            if (t != null)
+                t.run_events();
         }
         return false;
     }
 
-    private void animate()
-    {
-        if(alive)
+    private void animate() {
+        if (alive)
             setAnim_state_((anim_state_ + 1) % 3);
+        else {
+            run_events();
+        }
     }
 
     private boolean canMove(Direction dir, Map m) {
-        Tile t = m. getTile(position_.tempPos(dir));
+        Tile t = m.getTile(position_.tempPos(dir));
+        if (t == null)
+            return false;
         return t.getIs_Walkable();
     }
 
@@ -150,7 +182,6 @@ public class EngineObj {
     public void setPosition_(Position position_) {
         this.position_ = position_;
     }
-
 
     /**
      * @return Integer return the anim_state_

@@ -23,6 +23,16 @@ public class Tile {
     {
         events.add(e);
     }
+
+    public boolean run_events()
+    {
+        boolean res = true;
+        for(GameEvents e : events)
+        {
+            res &= e.run();
+        }
+        return res;
+    }
     /**
      * @return the p_
      */
