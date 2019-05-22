@@ -2,12 +2,9 @@ package MapPannel;
 
 import Utils.SpriteTools;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -17,6 +14,7 @@ public class MapView extends JPanel implements Observer {
 
     public MapView(MapModel mapModel) {
         this.mapModel = mapModel;
+        this.mapModel.addObserver(this);
         setBackground(Color.black);
     }
 
@@ -32,7 +30,7 @@ public class MapView extends JPanel implements Observer {
             for (int j = 0; j < mapModel.getHeight(); j++) {
                 String path = mapModel.map.getPathTile(i, j);
                 BufferedImage img = SpriteTools.openTile(path);
-                g.drawImage(img, x, y, null);
+                g.drawImage(img, y, x, null);
                 x += 16;
             }
             x = 0;
@@ -42,6 +40,7 @@ public class MapView extends JPanel implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-
+        repaint();
+        revalidate();
     }
 }

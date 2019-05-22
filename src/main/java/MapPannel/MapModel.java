@@ -1,8 +1,12 @@
 package MapPannel;
 
 import Game.GameMap;
+import Utils.SpriteTools;
 
-public class MapModel {
+import java.awt.image.BufferedImage;
+import java.util.Observable;
+
+public class MapModel extends Observable {
     public GameMap map;
 
     public MapModel(GameMap map) {
@@ -15,5 +19,18 @@ public class MapModel {
 
     public int getHeight() {
         return map.height;
+    }
+
+    public void modifySprite(int x, int y) {
+        if (SpriteTools.selectedSprite == null)
+            return;
+        if (SpriteTools.is_background) {
+            map.deleteTile(x / 16, y / 16);
+            map.setTile(x / 16, y / 16, SpriteTools.selectedSprite);
+        } else {
+            //do it for foreground
+        }
+        setChanged();
+        notifyObservers();
     }
 }
