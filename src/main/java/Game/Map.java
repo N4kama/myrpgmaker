@@ -75,10 +75,6 @@ public class Map {
         this.height_ = height;
     }
 
-    public void addObject(Object o) {
-        gameObjects_.add(o);
-    }
-
     public Tile getTile(Position p) {
         for (int i = 0; i < gameTiles_.size(); i++) {
             if (gameTiles_.get(i).getPos().equals(p))
@@ -113,20 +109,6 @@ public class Map {
      */
     public void setEngineObjs(ArrayList<EngineObj> engineObjs) {
         this.engineObjs = engineObjs;
-    }
-
-    /**
-     * @return EngineObj return the player_
-     */
-    public EngineObj getPlayer_() {
-        return player_;
-    }
-
-    /**
-     * @param player_ the player_ to set
-     */
-    public void setPlayer_(EngineObj player_) {
-        this.player_ = player_;
     }
 
     /**

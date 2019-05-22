@@ -34,7 +34,7 @@ public class World {
         {
             changeMap(0);
         }
-        this.gameWorld_.add(m, gameWorld_.size());
+        this.gameWorld_.add(gameWorld_.size(), m);
     }
 
     public Map getCurMap()
