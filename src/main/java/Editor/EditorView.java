@@ -3,6 +3,7 @@ package Editor;
 import FileExplorerPannel.FileExplorerView;
 import Game.GameMap;
 import Game.GameWorld;
+import MapPannel.MapController;
 import MapPannel.MapModel;
 import MapPannel.MapView;
 import SpritePannel.SpriteController;
@@ -79,6 +80,8 @@ public class EditorView extends JFrame implements Observer {
         //Init MVC
         MapModel mapModel = new MapModel(model.gameWorld.getMap(0));
         MapView mapView = new MapView(mapModel);
+        MapController mapController = new MapController(mapModel, mapView);
+        mapController.start();
 
         //Linking to Pane
         JScrollPane mapPane = new JScrollPane(mapView);
