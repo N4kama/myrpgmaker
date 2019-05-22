@@ -8,18 +8,21 @@ public class GameMap {
     public String name;
     public int width;
     public int height;
+    String default_tile;
 
-    ArrayList<GameTile> tiles = new ArrayList<>();
-    ArrayList<GameObject> objects = new ArrayList<>();
+    ArrayList<ArrayList<GameTile>> tiles = new ArrayList<>();
+    ArrayList<ArrayList<GameObject>> objects = new ArrayList<>();
 
     public GameMap(String name, int width, int height, String default_tile_path) {
         this.name = name;
         this.width = width;
         this.height = height;
+        this.default_tile = default_tile_path;
 
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                tiles.add(new GameTile(i, j, default_tile_path));
+        for (int i = 0; i < height; i++) {
+            tiles.add(new ArrayList<>());
+            for (int j = 0; j < width; j++) {
+                tiles.get(i).add(new GameTile(j, i, default_tile_path));
             }
         }
     }
@@ -30,22 +33,20 @@ public class GameMap {
     }
 
     private GameTile getGameTile(int i, int j) {
-        ArrayList<GameTile> res = tiles
-                .stream()
-                .filter(tile -> tile.x_pos == i && tile.y_pos == j)
-                .collect(Collectors.toCollection(ArrayList::new));
-        if (res.size() > 0) {
-            return res.get(0);
+        ArrayList<GameTile> tmp = tiles.get(j);
+        if (tmp != null) {
+            return tmp.get(i);
         }
-        else
-            return null;
+        return null;
     }
 
     public void deleteTile(int x, int y) {
-        tiles.removeIf(tile -> tile.x_pos == x && tile.y_pos == y);
+        GameTile tile = getGameTile(x, y);
+        tile.path = default_tile;
     }
 
     public void setTile(int x, int y, String path) {
-        tiles.add(new GameTile(x, y, path));
+        GameTile tile = getGameTile(x, y);
+        tile.path = path;
     }
 }

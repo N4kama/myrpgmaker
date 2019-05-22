@@ -25,11 +25,11 @@ public class MapModel extends Observable {
         if (SpriteTools.selectedSprite == null)
             return;
         if (SpriteTools.is_background) {
-            map.deleteTile(x / 16, y / 16);
             map.setTile(x / 16, y / 16, SpriteTools.selectedSprite);
         } else {
             //do it for foreground
         }
+        System.out.println("Changed!!");
         setChanged();
         notifyObservers();
     }
