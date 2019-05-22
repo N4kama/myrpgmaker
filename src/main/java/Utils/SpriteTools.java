@@ -4,8 +4,20 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 public class SpriteTools {
+
+    public static HashMap<BufferedImage, String> imgToPath = new HashMap<>();
+    public static HashMap<String, BufferedImage> pathToImg = new HashMap<>();
+    public static boolean is_background = true;
+    public static String selectedSprite = null;
+
+    public static void registerSprite(BufferedImage img, String path) {
+        imgToPath.put(img, path);
+        pathToImg.put(path, img);
+    }
+
 
     public static BufferedImage openTile(String path) {
         try {
