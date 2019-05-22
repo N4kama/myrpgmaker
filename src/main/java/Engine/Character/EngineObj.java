@@ -12,17 +12,19 @@ import Engine.Event.GameEvents;
 public class EngineObj {
     private Boolean is_player;
     private List<GameEvents> events;
-    private transient Map m;
-    public EngineObj(String name, String sprite, Map map, Boolean alive, Boolean is_player) {
+    public EngineObj(String name, String sprite, Boolean alive, Boolean is_player) {
         name_ = name;
         sprite_ = sprite;
-        m = map;
         changeDir(Direction.DOWN);
         setAnim_state_(1);
-        position_ = map.getSpawn();
         this.alive = alive;
         this.is_player = is_player;
         events = new ArrayList<>();
+    }
+
+    public void set_map(Map m)
+    {
+        position_ = m.getSpawn();
     }
 
     public void add_event(GameEvents e) {
@@ -61,7 +63,7 @@ public class EngineObj {
         return false;
     }
 
-    private void animate() {
+    public void animate() {
         if (alive)
             setAnim_state_((anim_state_ + 1) % 3);
         else {
