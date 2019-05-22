@@ -29,7 +29,6 @@ public class MapModel extends Observable {
         } else {
             //do it for foreground
         }
-        System.out.println("Changed!!");
         setChanged();
         notifyObservers();
     }
