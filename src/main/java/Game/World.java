@@ -13,12 +13,6 @@ public class World {
     private String name_;
     private EngineObj player_;
 
-
-    public World(String s) {
-        this.gameWorld_ = new ArrayList<>();
-        this.name_ = s;
-    }
-
     public World(String s, String player_sprite_path) {
         this.gameWorld_ = new ArrayList<>();
         this.name_ = s;
@@ -38,11 +32,11 @@ public class World {
     }
 
     public void addMap(Map m) {
-        if(gameWorld_.size() == 0)
+        this.gameWorld_.add(gameWorld_.size(), m);
+        if(gameWorld_.size() == 1)
         {
             changeMap(0);
         }
-        this.gameWorld_.add(gameWorld_.size(), m);
     }
 
     public Map getCurMap()
@@ -52,7 +46,8 @@ public class World {
 
     public void changeMap(int n)
     {
-        player_.set_map(gameWorld_.get(n));
+        Map m = gameWorld_.get(n);
+        player_.set_map(m);
         id_cur_map = n;
     }
 

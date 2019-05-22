@@ -73,7 +73,7 @@ public class EditorView extends JFrame implements Observer {
 
     private JTabbedPane create_mapTab() {
         //Creating world at program launch
-        model.setWorld(new World("Asuma"));
+        model.setWorld(new World("Asuma", System.getProperty("user.dir") + "resources/NPC/player.png"));
         String default_tile_path = System.getProperty("user.dir") + "/resources/backgroundTile/grass.png";
         model.gameWorld.addMap(new Map("Shikamaru", 100, 100, default_tile_path));
 
