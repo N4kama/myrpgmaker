@@ -10,6 +10,8 @@ public class SpriteView extends JPanel implements Observer {
 
     private SpriteModel model;
 
+    public int printing_spacing_value = 5;// '5'for spacing between sprites
+
     public SpriteView(SpriteModel model) {
         this.model = model;
     }
@@ -26,7 +28,7 @@ public class SpriteView extends JPanel implements Observer {
                 maxHeight = 0;
             }
             else {
-                x += img.getWidth() + 5; // '5'for spacing between sprites
+                x += img.getWidth() + printing_spacing_value;
                 maxHeight = Math.max(maxHeight, img.getHeight());
             }
         }

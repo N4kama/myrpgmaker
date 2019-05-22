@@ -1,7 +1,10 @@
 package SpritePannel;
 
+import Utils.SpriteTools;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,11 +27,17 @@ public class SpriteModel {
         for (File file : directory.listFiles()) {
             if (!file.isDirectory()) {
                 try {
-                    sprites.add(ImageIO.read(file));
+                    BufferedImage img = ImageIO.read(file);
+                    sprites.add(img);
+                    SpriteTools.registerSprite(img, file.getPath());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
+    }
+
+    public boolean is_background() {
+        return is_background;
     }
 }
