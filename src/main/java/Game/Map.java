@@ -8,9 +8,7 @@ import java.util.stream.Collectors;
 
 public class Map {
     private ArrayList<Tile> gameTiles_;
-    private ArrayList<Object> gameObjects_;
     private ArrayList<EngineObj> engineObjs;
-    private EngineObj player_;
     private Position spawn_;
     private Integer width_;
     private Integer height_;
@@ -19,12 +17,10 @@ public class Map {
 
     public Map(int width, int height, String tile_model) {
         gameTiles_ = new ArrayList<>();
-        gameObjects_ = new ArrayList<>();
         engineObjs = new ArrayList<>();
         width_ = width;
         height_ = height;
         this.default_tile = tile_model;
-        player_ = new EngineObj("player", "inserer_sprite_du_player", this, true, true);
 
         for (int h = 0; h < height; h++) {
             for (int w = 0; w < width; w++) {
@@ -36,14 +32,12 @@ public class Map {
 
     public Map(int width, int height, Position spawn, Position goal, String tile_model) {
         gameTiles_ = new ArrayList<>();
-        gameObjects_ = new ArrayList<>();
         engineObjs = new ArrayList<>();
         width_ = width;
         height_ = height;
         spawn_ = spawn;
         goal_ = goal;
-        player_ = new EngineObj("player", "inserer_sprite_du_player", this, true, true);
-        
+
         for (int h = 0; h < height; h++) {
             for (int w = 0; w < width; w++) {
                 Tile tile = new Tile(w, h, tile_model);
@@ -54,12 +48,10 @@ public class Map {
 
     public Map(String map, int width, int height, String default_tile_path) {
         gameTiles_ = new ArrayList<>();
-        gameObjects_ = new ArrayList<>();
         engineObjs = new ArrayList<>();
         width_ = width;
         height_ = height;
         this.default_tile = default_tile_path;
-        player_ = new EngineObj("player", "inserer_sprite_du_player", this, true, true);
 
         for (int h = 0; h < height; h++) {
             for (int w = 0; w < width; w++) {
@@ -67,6 +59,11 @@ public class Map {
                 gameTiles_.add(tile);
             }
         }
+    }
+
+    public void addEngineObj(EngineObj e)
+    {
+        engineObjs.add(e);
     }
 
     public ArrayList<Tile> getTiles() {
@@ -77,13 +74,6 @@ public class Map {
         this.gameTiles_ = tiles;
     }
 
-    public ArrayList<Object> getObjects() {
-        return gameObjects_;
-    }
-
-    public void setObjects(ArrayList<Object> objects) {
-        this.gameObjects_ = objects;
-    }
 
     public Position getSpawn() {
         return spawn_;
@@ -115,10 +105,6 @@ public class Map {
 
     public void setHeight(Integer height) {
         this.height_ = height;
-    }
-
-    public void addObject(Object o) {
-        gameObjects_.add(o);
     }
 
     public Tile getTile(Position p) {
@@ -186,20 +172,6 @@ public class Map {
     }
 
     /**
-     * @return ArrayList<Object> return the gameObjects_
-     */
-    public ArrayList<Object> getGameObjects_() {
-        return gameObjects_;
-    }
-
-    /**
-     * @param gameObjects_ the gameObjects_ to set
-     */
-    public void setGameObjects_(ArrayList<Object> gameObjects_) {
-        this.gameObjects_ = gameObjects_;
-    }
-
-    /**
      * @return ArrayList<EngineObj> return the engineObjs
      */
     public ArrayList<EngineObj> getEngineObjs() {
@@ -211,20 +183,6 @@ public class Map {
      */
     public void setEngineObjs(ArrayList<EngineObj> engineObjs) {
         this.engineObjs = engineObjs;
-    }
-
-    /**
-     * @return EngineObj return the player_
-     */
-    public EngineObj getPlayer_() {
-        return player_;
-    }
-
-    /**
-     * @param player_ the player_ to set
-     */
-    public void setPlayer_(EngineObj player_) {
-        this.player_ = player_;
     }
 
     /**
