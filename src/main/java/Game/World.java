@@ -24,6 +24,10 @@ public class World {
         return name_;
     }
 
+    public void addMap(Map m) {
+        this.gameWorld_.add(m);
+    }
+
     public void setName(String name) {
         this.name_ = name;
     }

@@ -7,23 +7,25 @@ import com.google.gson.stream.JsonReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class WorldTools {
-    public void saveWorld(String path, World world) throws IOException {
+    public static void saveWorld(String path, World world) throws IOException {
         Gson gson = new Gson();
         String jsonString = gson.toJson(world);
         try {
-            BufferedWriter writer = Files.newBufferedWriter(Paths.get(path + '/' + world.getName() + ".wrld"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(path + '/' + world.getName() + ".wrld"));
             writer.write(jsonString);
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public World loadWorld(String path) throws FileNotFoundException {
+    public static World loadWorld(String path) throws FileNotFoundException {
         Gson gson = new Gson();
         JsonReader reader = null;
         World w = null;

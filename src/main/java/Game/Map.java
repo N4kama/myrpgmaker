@@ -23,7 +23,7 @@ public class Map {
         height_ = height;
         spawn_ = spawn;
         goal_ = goal;
-        player_ = new EngineObj("player", "inserer_sprite_du_player", this, true, true)
+        player_ = new EngineObj("player", "inserer_sprite_du_player", this, true, true);
         
         for (int h = 0; h < height; h++) {
             for (int w = 0; w < width; w++) {
