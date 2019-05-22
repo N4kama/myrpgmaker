@@ -1,5 +1,6 @@
 package Game;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -38,5 +39,13 @@ public class GameMap {
         }
         else
             return null;
+    }
+
+    public void deleteTile(int x, int y) {
+        tiles.removeIf(tile -> tile.x_pos == x && tile.y_pos == y);
+    }
+
+    public void setTile(int x, int y, String path) {
+        tiles.add(new GameTile(x, y, path));
     }
 }
