@@ -1,15 +1,15 @@
 package Editor;
 
-import Game.GameWorld;
+import Game.World;
 
 public class EditorModel {
 
-    public GameWorld gameWorld;
+    public World gameWorld;
 
     public EditorModel() {
     }
 
-    public void setWorld(GameWorld gameWorld) {
+    public void setWorld(World gameWorld) {
         this.gameWorld = gameWorld;
     }
 }

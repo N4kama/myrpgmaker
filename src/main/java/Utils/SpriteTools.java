@@ -32,4 +32,14 @@ public class SpriteTools {
             return null;
         }
     }
+
+    public static BufferedImage openObject(String path) {
+        try {
+            BufferedImage img = ImageIO.read(new File(path));
+            return img;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package MapPannel;
 
+import Engine.Character.EngineObj;
 import Utils.SpriteTools;
 
 import javax.swing.*;
@@ -22,6 +23,14 @@ public class MapView extends JPanel implements Observer {
         super.paintComponent(g);
 
         drawTiles(g);
+        drayObjects(g);
+    }
+
+    private void drayObjects(Graphics g) {
+        for (EngineObj obj : mapModel.getObjects()) {
+            BufferedImage img = SpriteTools.openObject(obj.getSprite_());
+            g.drawImage(img, obj.get_y() - img.getHeight() / 2, obj.get_x() - img.getWidth() / 2, null);
+        }
     }
 
     private void drawTiles(Graphics g) {

@@ -40,6 +40,22 @@ public class Tile {
         return pos_;
     }
 
+    public int get_x() {
+        return pos_.getX();
+    }
+
+    public int get_y() {
+        return pos_.getY();
+    }
+
+    public String get_path() {
+        return tile_img_;
+    }
+
+    public void set_path(String path) {
+        tile_img_ = path;
+    }
+
     public Boolean getIs_Walkable() {
         return is_Walkable_;
     }

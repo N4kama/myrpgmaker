@@ -5,11 +5,19 @@ import java.util.ArrayList;
 import Engine.Character.EngineObj;
 
 
+
 public class World {
     private ArrayList<Map> gameWorld_;
     private Integer id_cur_map;
+
     private String name_;
     private EngineObj player_;
+
+
+    public World(String s) {
+        this.gameWorld_ = new ArrayList<>();
+        this.name_ = s;
+    }
 
     public World(String s, String player_sprite_path) {
         this.gameWorld_ = new ArrayList<>();
@@ -46,6 +54,11 @@ public class World {
     {
         player_.set_map(gameWorld_.get(n));
         id_cur_map = n;
+    }
+
+
+    public Map getMap(int index) {
+        return gameWorld_.get(index);
     }
 
     public void setName(String name) {

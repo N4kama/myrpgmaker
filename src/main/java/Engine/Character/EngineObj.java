@@ -12,6 +12,12 @@ import Engine.Event.GameEvents;
 public class EngineObj {
     private Boolean is_player;
     private List<GameEvents> events;
+
+    public EngineObj(int x, int y, String sprite_path) {
+        this.position_ = new Position(x, y);
+        this.sprite_ = sprite_path;
+    }
+
     public EngineObj(String name, String sprite, Boolean alive, Boolean is_player) {
         name_ = name;
         sprite_ = sprite;
@@ -21,6 +27,7 @@ public class EngineObj {
         this.is_player = is_player;
         events = new ArrayList<>();
     }
+
 
     public void set_map(Map m)
     {
@@ -177,6 +184,14 @@ public class EngineObj {
      */
     public Position getPosition_() {
         return position_;
+    }
+
+    public int get_x() {
+        return position_.getX();
+    }
+
+    public int get_y() {
+        return position_.getY();
     }
 
     /**

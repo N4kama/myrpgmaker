@@ -1,8 +1,8 @@
 package Editor;
 
 import FileExplorerPannel.FileExplorerView;
-import Game.GameMap;
-import Game.GameWorld;
+import Game.Map;
+import Game.World;
 import MapPannel.MapController;
 import MapPannel.MapModel;
 import MapPannel.MapView;
@@ -73,9 +73,9 @@ public class EditorView extends JFrame implements Observer {
 
     private JTabbedPane create_mapTab() {
         //Creating world at program launch
-        model.setWorld(new GameWorld("Asuma"));
+        model.setWorld(new World("Asuma"));
         String default_tile_path = System.getProperty("user.dir") + "/resources/backgroundTile/grass.png";
-        model.gameWorld.addMap(new GameMap("Shikamaru", 100, 100, default_tile_path));
+        model.gameWorld.addMap(new Map("Shikamaru", 100, 100, default_tile_path));
 
         //Init MVC
         MapModel mapModel = new MapModel(model.gameWorld.getMap(0));
@@ -109,7 +109,7 @@ public class EditorView extends JFrame implements Observer {
     private JTabbedPane create_spriteTab() {
         //Init MVC
         SpriteModel backgroundSpriteModel = new SpriteModel(System.getProperty("user.dir") + "/resources/backgroundTile/", true);
-        SpriteModel foregroundSpriteModel = new SpriteModel(System.getProperty("user.dir") + "/resources/foregroundObject/", true);
+        SpriteModel foregroundSpriteModel = new SpriteModel(System.getProperty("user.dir") + "/resources/foregroundObject/", false);
         SpriteView backgroundSpriteView = new SpriteView(backgroundSpriteModel);
         SpriteView foregroundSpriteView = new SpriteView(foregroundSpriteModel);
         SpriteController backgroundSpriteController = new SpriteController(backgroundSpriteModel, backgroundSpriteView);
