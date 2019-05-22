@@ -1,9 +1,10 @@
 My RPG Maker:
 
     EDITOR:
-        [-]
-        [-]
+        [-] Selectors buttons
+        [-] File (wrld) selector
 
     GAME ENGINE:
-        [-]
-        [-]
+        [-] Player
+        [-] NPC
+        [-] Event
