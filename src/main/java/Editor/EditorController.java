@@ -1,5 +1,11 @@
 package Editor;
 
+import Engine.Character.EngineObj;
+import Engine.EngineController;
+import Engine.EngineModel;
+import Engine.EngineView;
+import Game.Map;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 import java.awt.event.ActionEvent;
@@ -31,8 +37,25 @@ public class EditorController {
         view.newButton.addActionListener(new_action());
         view.undoButton.addActionListener(undo_action());
         view.redoButton.addActionListener(redo_action());
-
+        view.playButton.addActionListener(play_action());
     }
+
+
+    private ActionListener play_action() {
+        return actionEvent -> {
+            EngineObj charact = new EngineObj(0, 0, "path to char");
+
+            Map map = model.gameWorld.getCurMap();
+
+
+            model.gameWorld.setPlayer(charact);
+            EngineModel engineModel = new EngineModel(model.gameWorld);
+            EngineView engineView = new EngineView(engineModel);
+            EngineController engineCtrl = new EngineController(engineModel, engineView);
+            engineCtrl.set_controls();
+        };
+    }
+
 
     private ActionListener redo_action() {
         return actionEvent -> {
