@@ -59,4 +59,8 @@ public class World {
     public void setName(String name) {
         this.name_ = name;
     }
+
+    public void setPlayer(EngineObj p) {
+        this.player_ = p;
+    }
 }
