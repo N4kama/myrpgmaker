@@ -36,6 +36,7 @@ public class EditorView extends JFrame implements Observer {
     JButton removeButton;
     JButton undoButton;
     JButton redoButton;
+    JButton playButton;
 
     public EditorView(EditorModel model) {
         this.model = model;
@@ -157,6 +158,9 @@ public class EditorView extends JFrame implements Observer {
         ImageIcon redo_I = get_icon("redo.png");
         redoButton = new JButton(redo_I);
         toolBar.add(redoButton);
+        ImageIcon play_I = get_icon("play.png");
+        playButton = new JButton(play_I);
+        toolBar.add(playButton);
 
         return toolBar;
     }
