@@ -9,4 +9,8 @@ public class EngineModel {
     public EngineModel(World w) {
         this.gameWorld_ = w;
     }
+
+    public World getGameWorld() {
+        return gameWorld_;
+    }
 }
