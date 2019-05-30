@@ -14,6 +14,14 @@ public class FileExplorerView extends JTree implements Observer {
 
 
 
+
+    private File[] getListFiles(String path) {
+        File file = new File(path);
+        return file.listFiles();
+    }
+
+
+
     private void generateTree(DefaultMutableTreeNode TreeNode, String path) {
         File[] files = this.getListFiles(path);
         for (File file : files) {
