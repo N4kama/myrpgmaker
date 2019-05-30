@@ -125,9 +125,10 @@ public class Map {
         tile.set_path(default_tile);
     }
 
-    public void setTile(int x, int y, String path) {
+    public Tile setTile(int x, int y, String path) {
         Tile tile = getGameTile(x, y);
         tile.set_path(path);
+        return tile;
     }
 
     public EngineObj getGameObject(int x, int y) {
@@ -140,13 +141,14 @@ public class Map {
         return null;
     }
 
-    public void setObject(int x, int y, String path) {
+    public EngineObj setObject(int x, int y, String path) {
         EngineObj obj = getGameObject(x, y);
         if (obj == null) {
             obj = new EngineObj(y, x, path);
             engineObjs.add(obj);
         }
         obj.setSprite_(path);
+        return obj;
     }
 
     public ArrayList<EngineObj> getGameObjects() {
