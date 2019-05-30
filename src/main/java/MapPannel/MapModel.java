@@ -22,15 +22,16 @@ public class MapModel extends Observable {
     }
 
     public void modifySprite(int x, int y) {
+        Object res;
         if (SpriteTools.selectedSprite == null)
             return;
         if (SpriteTools.is_background) {
-            map.setTile(x / 16, y / 16, SpriteTools.selectedSprite);
+            res = map.setTile(x / 16, y / 16, SpriteTools.selectedSprite);
         } else {
-            map.setObject(x, y, SpriteTools.selectedSprite);
+            res = map.setObject(x, y, SpriteTools.selectedSprite);
         }
         setChanged();
-        notifyObservers();
+        notifyObservers(res);
     }
 
     public ArrayList<EngineObj> getObjects() {
