@@ -27,6 +27,8 @@ public class EditorView extends JFrame implements Observer {
     JMenuItem file_exit;
     JMenuItem edit_undo;
     JMenuItem edit_redo;
+    JMenuItem add_tile;
+    JMenuItem add_object;
 
     JButton newButton;
     JButton openButton;
@@ -174,8 +176,10 @@ public class EditorView extends JFrame implements Observer {
         JMenuBar menuBar = new JMenuBar();
         JMenu file = new JMenu("File");
         JMenu edit = new JMenu("Edit");
+        JMenu sprite = new JMenu("Sprite");
         menuBar.add(file);
         menuBar.add(edit);
+        menuBar.add(sprite);
 
         //Creating Menu Items
         //NEW//
@@ -214,6 +218,14 @@ public class EditorView extends JFrame implements Observer {
         edit_redo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, Event.CTRL_MASK, true));
         edit_redo.setEnabled(true);
         edit.add(edit_redo);
+        //ADD_TILE//
+        add_tile = new JMenuItem("add tile");
+        add_tile.setEnabled(true);
+        sprite.add(add_tile);
+        //ADD_OBJECT//
+        add_object = new JMenuItem("add object");
+        add_object.setEnabled(true);
+        sprite.add(add_object);
 
         return menuBar;
     }
