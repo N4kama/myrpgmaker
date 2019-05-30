@@ -2,7 +2,9 @@ package Game;
 
 import Engine.Position;
 import Engine.Character.EngineObj;
+import Utils.SpriteTools;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -131,9 +133,20 @@ public class Map {
         return tile;
     }
 
+    public boolean is_there_obj_at_coords(EngineObj obj, int x, int y) {
+        BufferedImage img = SpriteTools.pathToImg.get(obj.getSprite_());
+        int midHeight = img.getHeight();
+        int midWidth = img.getWidth() ;
+        boolean res = res = (obj.get_x() - midWidth <= x);
+        res &= (x < obj.get_x() + midWidth);
+        res &= (obj.get_y() - midHeight <= y);
+        res &= (y < obj.get_y() + midHeight);
+        return res;
+    }
+
     public EngineObj getGameObject(int x, int y) {
         ArrayList<EngineObj> arr = engineObjs.stream()
-                .filter(obj -> obj.get_x() == x && obj.get_y() == y)
+                .filter(obj -> is_there_obj_at_coords(obj, x, y))
                 .collect(Collectors.toCollection(ArrayList::new));
         if (arr.size() > 0) {
             return arr.get(0);
@@ -144,7 +157,7 @@ public class Map {
     public EngineObj setObject(int x, int y, String path) {
         EngineObj obj = getGameObject(x, y);
         if (obj == null) {
-            obj = new EngineObj(y, x, path);
+            obj = new EngineObj(x, y, path);
             engineObjs.add(obj);
         }
         obj.setSprite_(path);
