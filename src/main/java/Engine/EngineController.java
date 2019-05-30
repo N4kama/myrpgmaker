@@ -16,6 +16,7 @@ public class EngineController {
     public void set_controls() {
         this.view_.startButton.addActionListener(start_action());
         this.view_.exitButton.addActionListener(exit_action());
+        this.view_.addKeyListener(input_listener());
 
     }
 
@@ -31,7 +32,7 @@ public class EngineController {
         };
     }
 
-    private KeyListener input_listner() {
+    private KeyListener input_listener() {
         return new KeyListener() {
             @Override
             public void keyTyped(KeyEvent keyEvent) {
@@ -39,8 +40,15 @@ public class EngineController {
             }
 
             @Override
-            public void keyPressed(KeyEvent keyEvent) {
-
+            public void keyPressed(KeyEvent ke) {
+                if(ke.getKeyCode() == KeyEvent.VK_ESCAPE)
+                {
+                    /*
+                    if (!view_.inMenu) {
+                        view_.displayPauseMenu();
+                        view_.inMenu = true;
+                    }*/
+                }
             }
 
             @Override
