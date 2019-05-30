@@ -1,6 +1,7 @@
 package MapPannel;
 
 import Engine.Character.EngineObj;
+import Game.Tile;
 import Utils.SpriteTools;
 
 import javax.swing.*;
@@ -49,7 +50,21 @@ public class MapView extends JPanel implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        repaint();
-        revalidate();
+        if (arg.getClass() == Tile.class)
+            paintComponent(this.getGraphics(), (Tile) arg);
+        else
+            paintComponent(this.getGraphics(), (EngineObj) arg);
+        //repaint();
+        //revalidate();
+    }
+
+    public void paintComponent(Graphics g, Tile tile) {
+        BufferedImage img = SpriteTools.openTile(tile.get_path());
+        g.drawImage(img, tile.get_x() * 16, tile.get_y() * 16, null);
+    }
+
+    public void paintComponent(Graphics g, EngineObj obj) {
+        BufferedImage img = SpriteTools.openObject(obj.getSprite_());
+        g.drawImage(img, obj.get_y() - img.getHeight() / 2, obj.get_x() - img.getWidth() / 2, null);
     }
 }
