@@ -2,6 +2,7 @@ package MapPannel;
 
 import Utils.SpriteTools;
 
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -39,6 +40,14 @@ public class MapController {
             @Override
             public void mouseExited(MouseEvent e) {
 
+            }
+        });
+        view.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                super.mouseDragged(e);
+                Thread myThread = new Thread(() -> model.modifySprite(e.getX(), e.getY()));
+                myThread.start();
             }
         });
     }
