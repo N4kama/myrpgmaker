@@ -100,13 +100,13 @@ public class EditorView extends JFrame implements Observer {
 
     private JTabbedPane create_fileExplorer() {
 
-        FileExplorerView fileExplorerView = new FileExplorerView(new DefaultMutableTreeNode("Maps"));
+        FileExplorerView fileExplorerView = new FileExplorerView(new DefaultMutableTreeNode("Worlds"));
         //file explorer
         JScrollPane fileExplorerPane = new JScrollPane(fileExplorerView);
 
         //adding tabs
         JTabbedPane fileExplorerTab = new JTabbedPane();
-        fileExplorerTab.addTab("Map Selector", fileExplorerPane);
+        fileExplorerTab.addTab("World Selector", fileExplorerPane);
 
         return fileExplorerTab;
     }
