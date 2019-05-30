@@ -31,7 +31,6 @@ public class MapModel extends Observable {
             res = map.setObject(x, y, SpriteTools.selectedSprite);
         }
         if (res != null) {
-            System.out.println("DEBUG : Placing sprite at x: " + x + " y: " + y);
             setChanged();
             notifyObservers(res);
         }
