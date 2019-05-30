@@ -23,7 +23,10 @@ public class FileExplorerView extends JTree implements Observer {
         return file.listFiles();
     }
 
-
+    private boolean checkWrld(String path) {
+        int i = path.lastIndexOf('.');
+        return (i > 0 && path.substring(i + 1).equals("wrld"));
+    }
 
     private void generateTree(DefaultMutableTreeNode TreeNode, String path) {
         File[] files = this.getListFiles(path);
