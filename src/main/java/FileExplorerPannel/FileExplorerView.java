@@ -13,7 +13,10 @@ import static Utils.WorldTools.loadWorld;
 public class FileExplorerView extends JTree implements Observer {
 
 
-
+    public FileExplorerView(DefaultMutableTreeNode TreeNode) {
+        super(TreeNode);
+        generateTree(TreeNode, "resources");
+    }
 
     private File[] getListFiles(String path) {
         File file = new File(path);
