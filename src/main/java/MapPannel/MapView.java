@@ -65,6 +65,6 @@ public class MapView extends JPanel implements Observer {
 
     public void paintComponent(Graphics g, EngineObj obj) {
         BufferedImage img = SpriteTools.openObject(obj.getSprite_());
-        g.drawImage(img, obj.get_y() - img.getHeight() / 2, obj.get_x() - img.getWidth() / 2, null);
+        g.drawImage(img, obj.get_x() - img.getWidth() / 2, obj.get_y() - img.getHeight() / 2, null);
     }
 }
