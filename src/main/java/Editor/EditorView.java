@@ -11,6 +11,7 @@ import SpritePannel.SpriteModel;
 import SpritePannel.SpriteView;
 
 import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.Observable;
@@ -98,7 +99,8 @@ public class EditorView extends JFrame implements Observer {
     }
 
     private JTabbedPane create_fileExplorer() {
-        FileExplorerView fileExplorerView = new FileExplorerView();
+
+        FileExplorerView fileExplorerView = new FileExplorerView(new DefaultMutableTreeNode("Maps"));
         //file explorer
         JScrollPane fileExplorerPane = new JScrollPane(fileExplorerView);
 
