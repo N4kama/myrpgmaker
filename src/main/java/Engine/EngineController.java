@@ -1,5 +1,9 @@
 package Engine;
 
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 public class EngineController {
     private EngineModel model_;
     private EngineView view_;
@@ -10,6 +14,39 @@ public class EngineController {
     }
 
     public void set_controls() {
+        this.view_.startButton.addActionListener(start_action());
+        this.view_.exitButton.addActionListener(exit_action());
 
+    }
+
+    private ActionListener start_action() {
+        return actionEvent -> {
+            this.view_.startGame();
+        };
+    }
+
+    private ActionListener exit_action() {
+        return actionEvent -> {
+            this.view_.exitGame();
+        };
+    }
+
+    private KeyListener input_listner() {
+        return new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent keyEvent) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent keyEvent) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent keyEvent) {
+
+            }
+        };
     }
 }
