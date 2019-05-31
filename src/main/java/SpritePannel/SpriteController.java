@@ -58,14 +58,14 @@ public class SpriteController {
     }
 
     public String detectSprite(int x, int y) {
-        int tmp_x = 0, tmp_y = 0;
+        int tmp_x = view.pad_x, tmp_y = view.pad_y;
         int max_y = 0;
         for (BufferedImage img : model.sprites) {
             if ((tmp_x < x && x < (tmp_x + img.getWidth()) && (tmp_y < y && y < (tmp_y + img.getHeight())))) {
                 return SpriteTools.imgToPath.get(img);
             }
-            tmp_x += img.getWidth() + view.printing_spacing_value;
-            max_y = Math.max(max_y, img.getHeight());
+            tmp_x += img.getWidth() + view.pad_x;
+            max_y = Math.max(max_y, img.getHeight() + view.pad_y);
             if (tmp_x >= view.getWidth()) {
                 tmp_x = 0;
                 tmp_y = max_y;

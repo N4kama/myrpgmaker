@@ -115,23 +115,30 @@ public class EditorView extends JFrame implements Observer {
         //Init MVC
         SpriteModel backgroundSpriteModel = new SpriteModel(System.getProperty("user.dir") + "/resources/backgroundTile/", true);
         SpriteModel foregroundSpriteModel = new SpriteModel(System.getProperty("user.dir") + "/resources/foregroundObject/", false);
+        SpriteModel NPCSpriteModel = new SpriteModel(System.getProperty("user.dir") + "/resources/npc/", false);
         SpriteView backgroundSpriteView = new SpriteView(backgroundSpriteModel);
         SpriteView foregroundSpriteView = new SpriteView(foregroundSpriteModel);
+        SpriteView NPCSpriteView = new SpriteView(NPCSpriteModel);
         SpriteController backgroundSpriteController = new SpriteController(backgroundSpriteModel, backgroundSpriteView);
         SpriteController foregroundSpriteController = new SpriteController(foregroundSpriteModel, foregroundSpriteView);
+        SpriteController NPCSpriteController = new SpriteController(NPCSpriteModel, NPCSpriteView);
         backgroundSpriteController.start();
         foregroundSpriteController.start();
+        NPCSpriteController.start();
 
         //Linking to Pane
         JScrollPane backgroundSpritePane = new JScrollPane(backgroundSpriteView);
         JScrollPane foregroundSpritePane = new JScrollPane(foregroundSpriteView);
+        JScrollPane NPCSpritePane = new JScrollPane(NPCSpriteView);
         backgroundSpritePane.setPreferredSize(new Dimension(200,200));
         foregroundSpritePane.setPreferredSize(new Dimension(200,200));
+        NPCSpritePane.setPreferredSize(new Dimension(200,200));
 
         //Adding tabs all together
         JTabbedPane spriteTab = new JTabbedPane();
         spriteTab.addTab("Background sprites", backgroundSpritePane);
         spriteTab.addTab("Foreground sprites", foregroundSpritePane);
+        spriteTab.addTab("NPC sprites", NPCSpritePane);
         return spriteTab;
     }
 

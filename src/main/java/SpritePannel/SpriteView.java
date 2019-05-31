@@ -10,7 +10,8 @@ public class SpriteView extends JPanel implements Observer {
 
     private SpriteModel model;
 
-    public int printing_spacing_value = 5;// '5'for spacing between sprites
+    public int pad_x = 10;// '5'for spacing between sprites
+    public int pad_y = 10;
 
     public SpriteView(SpriteModel model) {
         this.model = model;
@@ -21,14 +22,14 @@ public class SpriteView extends JPanel implements Observer {
         int x = 0, y = 0;
         int maxHeight = 0;
         for (BufferedImage img : model.sprites) {
-            g.drawImage(img, x, y, null);
+            g.drawImage(img, x + pad_x, y + pad_y, null);
             if (x + img.getWidth() > getWidth()) {
                 y += maxHeight;
                 x = 0;
                 maxHeight = 0;
             }
             else {
-                x += img.getWidth() + printing_spacing_value;
+                x += img.getWidth() + pad_x;
                 maxHeight = Math.max(maxHeight, img.getHeight());
             }
         }
