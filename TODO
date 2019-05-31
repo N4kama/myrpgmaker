@@ -14,6 +14,6 @@ My RPG Maker:
        [-] Reussir à load
        [-] Wrld Selector to load
 
-       [-] mv les sprites dans nos ressources a ns
+       [Done] Copy les sprites dans nos ressources a ns
             [-] [tiles] background   // uniquement en 16x16
             [-] [object] foreground // uniquement  %16 = 0
