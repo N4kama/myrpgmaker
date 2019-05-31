@@ -81,7 +81,6 @@ public class EditorController {
     private ActionListener save_action() {
         return actionEvent -> {
             JFileChooser fc = new JFileChooser();
-            fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             fc.setDialogTitle("Choose a directory to save your world");
             int returnVal = fc.showSaveDialog(view);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
