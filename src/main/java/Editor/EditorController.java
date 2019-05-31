@@ -87,7 +87,9 @@ public class EditorController {
         return add_action("resources/backgroundTile/");
     }
 
-
+    private ActionListener add_object_action() {
+        return add_action("resources/foregroundObject/");
+    }
 
     private ActionListener add_action(String destPath) {
         return actionEvent -> {
