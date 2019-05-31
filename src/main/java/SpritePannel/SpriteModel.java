@@ -24,9 +24,14 @@ public class SpriteModel {
 
     private void loadSprites(String path) {
         File directory = new File(path);
+        String check_ext = null;
+        if (path.contains("npc"))
+            check_ext = ".npc";
         for (File file : directory.listFiles()) {
             if (!file.isDirectory()) {
                 try {
+                    if (check_ext != null && !file.getName().contains(check_ext))
+                        continue;
                     BufferedImage img = ImageIO.read(file);
                     sprites.add(img);
                     SpriteTools.registerSprite(img, file.getPath());
