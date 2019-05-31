@@ -7,10 +7,13 @@ import Engine.EngineView;
 import Game.Map;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileSystemView;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import static Utils.WorldTools.loadWorld;
+import static Utils.WorldTools.saveWorld;
 
 public class EditorController {
     private EditorModel model;
@@ -85,6 +88,11 @@ public class EditorController {
                 File file = fc.getSelectedFile();
                 String filePath = file.getPath();
                 //model save
+                try {
+                    saveWorld(filePath, model.gameWorld);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         };
     }
