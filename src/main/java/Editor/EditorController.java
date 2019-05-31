@@ -108,6 +108,11 @@ public class EditorController {
                 String filePath = selectedFile.getPath();
 
                 // model open
+                try {
+                    model.gameWorld = loadWorld(filePath);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         };
     }
