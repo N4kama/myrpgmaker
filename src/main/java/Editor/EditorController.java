@@ -110,14 +110,11 @@ public class EditorController {
 
                 try {
                     BufferedImage img = ImageIO.read(file);
-                    if (img.getHeight() % 16 == 0 && img.getWidth() % 16 == 0) {
-                        System.out.println("ca marche !!!");
+                    if ((img.getHeight() / 16 == 1 && img.getWidth() / 16 == 1 && destPath.equals("resources/backgroundTile/")) ||
+                            (img.getHeight() % 16 == 0 && img.getWidth() % 16 == 0 && (destPath.equals("resources/foregroundObject/")) || (destPath.equals("resources/npc/"))))
+                    {
                         Files.copy(filePath, (new File(destPath + file.getName()).toPath()),
                                 StandardCopyOption.REPLACE_EXISTING);
-                    }
-                    else
-                    {
-                        return;
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
