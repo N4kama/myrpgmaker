@@ -17,17 +17,20 @@ public class FileExplorerView extends JTree implements Observer {
     public FileExplorerView(DefaultMutableTreeNode TreeNode) {
         super(TreeNode);
         generateTree(TreeNode, "resources");
-        addTreeSelectionListener(e -> {
-            DefaultMutableTreeNode file = (DefaultMutableTreeNode)
-                    e.getPath().getLastPathComponent();
-            try {
-                String path = "resources/maps/" + file.toString();
-                loadWorld(path);
-            } catch (FileNotFoundException ex) {
-                ex.printStackTrace();
-            }
-            System.out.println("You selected " + file);
-        });
+        addTreeSelectionListener(FileExplorerView::valueChanged);
+    }
+
+    private static void valueChanged(TreeSelectionEvent e) {
+        DefaultMutableTreeNode file = (DefaultMutableTreeNode)
+                e.getPath().getLastPathComponent();
+        try {
+            String path = "resources/maps/" + file.toString();
+            //model.gameWorld =
+            loadWorld (path);
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        System.out.println("You selected " + file);
     }
 
     private File[] getListFiles(String path) {
