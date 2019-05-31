@@ -10,10 +10,10 @@ My RPG Maker:
         [-] Event
 
     BIN:
-       [-] Choisir le nom du fichier à save
+       [DONE] Choisir le nom du fichier à save
        [-] Reussir à load
        [-] Wrld Selector to load
 
        [-] mv les sprites dans nos ressources a ns
-       [tiles] background   // uniquement en 16x16
-       [object] foreground // uniquement  %16 = 0
+            [-] [tiles] background   // uniquement en 16x16
+            [-] [object] foreground // uniquement  %16 = 0
