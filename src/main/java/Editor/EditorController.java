@@ -39,6 +39,7 @@ public class EditorController {
         view.edit_redo.addActionListener(redo_action());
         view.file_exit.addActionListener(actionEvent -> view.frame.dispose());
         view.add_tile.addActionListener(add_tiles_action());
+        view.add_object.addActionListener(add_object_action());
         //set listener for toolbar
         view.openButton.addActionListener(open_action());
         view.saveButton.addActionListener(save_action());
