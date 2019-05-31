@@ -17,7 +17,7 @@ public class WorldTools {
         Gson gson = new Gson();
         String jsonString = gson.toJson(world);
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(path + '/' + world.getName() + ".wrld"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(path + ".wrld"));
             writer.write(jsonString);
             writer.close();
         } catch (IOException e) {
