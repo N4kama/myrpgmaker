@@ -92,6 +92,10 @@ public class EditorController {
         return add_action("resources/foregroundObject/");
     }
 
+    private ActionListener add_npc_action() {
+        return add_action("resources/npc/");
+    }
+
     private ActionListener add_action(String destPath) {
         return actionEvent -> {
             JFileChooser fc = new JFileChooser();
