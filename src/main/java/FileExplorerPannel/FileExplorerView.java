@@ -4,12 +4,12 @@ import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreePath;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Observable;
 import java.util.Observer;
+
+import static Utils.WorldTools.loadWorld;
 
 public class FileExplorerView extends JTree implements Observer {
 
@@ -17,12 +17,16 @@ public class FileExplorerView extends JTree implements Observer {
     public FileExplorerView(DefaultMutableTreeNode TreeNode) {
         super(TreeNode);
         generateTree(TreeNode, "resources");
-        addTreeSelectionListener(new TreeSelectionListener() {
-            public void valueChanged(TreeSelectionEvent e) {
-                DefaultMutableTreeNode file = (DefaultMutableTreeNode)
-                        e.getPath().getLastPathComponent();
-                System.out.println("You selected " + file);
+        addTreeSelectionListener(e -> {
+            DefaultMutableTreeNode file = (DefaultMutableTreeNode)
+                    e.getPath().getLastPathComponent();
+            try {
+                String path = "resources/maps/" + file.toString();
+                loadWorld(path);
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
             }
+            System.out.println("You selected " + file);
         });
     }
 
