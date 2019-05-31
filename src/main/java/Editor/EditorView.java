@@ -30,6 +30,7 @@ public class EditorView extends JFrame implements Observer {
     JMenuItem edit_redo;
     JMenuItem add_tile;
     JMenuItem add_object;
+    JMenuItem add_npc;
 
     JButton newButton;
     JButton openButton;
@@ -235,7 +236,10 @@ public class EditorView extends JFrame implements Observer {
         add_object = new JMenuItem("add object");
         add_object.setEnabled(true);
         sprite.add(add_object);
-
+        //ADD_NPC//
+        add_npc = new JMenuItem("add npc");
+        add_npc.setEnabled(true);
+        sprite.add(add_npc);
         return menuBar;
     }
 
