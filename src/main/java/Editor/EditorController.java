@@ -84,6 +84,12 @@ public class EditorController {
     }
 
     private ActionListener add_tiles_action() {
+        return add_action("resources/backgroundTile/");
+    }
+
+
+
+    private ActionListener add_action(String destPath) {
         return actionEvent -> {
             JFileChooser fc = new JFileChooser();
             fc.setDialogTitle("Choose a file to import");
@@ -92,7 +98,7 @@ public class EditorController {
                 File file = fc.getSelectedFile();
                 Path filePath = Paths.get(file.getPath());
                 try {
-                    Files.copy(filePath, (new File("resources/backgroundTile/" + file.getName()).toPath()),
+                    Files.copy(filePath, (new File(destPath + file.getName()).toPath()),
                             StandardCopyOption.REPLACE_EXISTING);
                 } catch (IOException e) {
                     e.printStackTrace();
