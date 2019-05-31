@@ -6,8 +6,10 @@ import Engine.EngineModel;
 import Engine.EngineView;
 import Game.Map;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -105,9 +107,18 @@ public class EditorController {
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
                 Path filePath = Paths.get(file.getPath());
+
                 try {
-                    Files.copy(filePath, (new File(destPath + file.getName()).toPath()),
-                            StandardCopyOption.REPLACE_EXISTING);
+                    BufferedImage img = ImageIO.read(file);
+                    if (img.getHeight() % 16 == 0 && img.getWidth() % 16 == 0) {
+                        System.out.println("ca marche !!!");
+                        Files.copy(filePath, (new File(destPath + file.getName()).toPath()),
+                                StandardCopyOption.REPLACE_EXISTING);
+                    }
+                    else
+                    {
+                        return;
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
