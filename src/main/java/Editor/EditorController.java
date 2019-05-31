@@ -11,6 +11,10 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 import static Utils.WorldTools.loadWorld;
 import static Utils.WorldTools.saveWorld;
@@ -75,6 +79,24 @@ public class EditorController {
     private ActionListener new_action() {
         return actionEvent -> {
             // comportement new boutton
+        };
+    }
+
+    private ActionListener add_tiles_action() {
+        return actionEvent -> {
+            JFileChooser fc = new JFileChooser();
+            fc.setDialogTitle("Choose a file to import");
+            int returnVal = fc.showSaveDialog(view);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = fc.getSelectedFile();
+                Path filePath = Paths.get(file.getPath());
+                try {
+                    Files.copy(filePath, (new File("resources/backgroundTile/" + file.getName()).toPath()),
+                            StandardCopyOption.REPLACE_EXISTING);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         };
     }
 
