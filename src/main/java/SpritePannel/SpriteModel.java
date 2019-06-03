@@ -4,7 +4,6 @@ import Utils.SpriteTools;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,13 +11,17 @@ import java.util.ArrayList;
 public class SpriteModel {
 
     private boolean is_background;
+    private boolean npc;
+    private boolean player;
     private String path;
 
     public ArrayList<BufferedImage> sprites = new ArrayList<>();
 
-    public SpriteModel(String path, boolean is_background) {
+    public SpriteModel(String path, boolean is_background, boolean npc, boolean player) {
         this.path = path;
         this.is_background = is_background;
+        this.npc = npc;
+        this.player = player;
         loadSprites(path);
     }
 
@@ -44,5 +47,13 @@ public class SpriteModel {
 
     public boolean is_background() {
         return is_background;
+    }
+
+    public boolean isNpc() {
+        return npc;
+    }
+
+    public boolean isPlayer() {
+        return player;
     }
 }

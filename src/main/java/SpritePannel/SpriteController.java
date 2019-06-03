@@ -31,6 +31,8 @@ public class SpriteController {
                         SpriteTools.is_background = model.is_background();
                         SpriteTools.selectedSprite = path;
                     }
+                    if (model.isPlayer())
+                        SpriteTools.playerModelSelected = true;
                 });
                 myThread.start();
             }
