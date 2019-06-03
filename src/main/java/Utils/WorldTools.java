@@ -1,5 +1,6 @@
 package Utils;
 
+import Engine.Character.EngineObj;
 import Game.World;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
@@ -13,6 +14,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class WorldTools {
+    public static EngineObj player; //static reference to unique player object through a unique world
+
     public static void saveWorld(String path, World world) throws IOException {
         Gson gson = new Gson();
         String jsonString = gson.toJson(world);

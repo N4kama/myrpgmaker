@@ -3,6 +3,7 @@ package Game;
 import Engine.Position;
 import Engine.Character.EngineObj;
 import Utils.SpriteTools;
+import Utils.WorldTools;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -63,8 +64,7 @@ public class Map {
         }
     }
 
-    public void addEngineObj(EngineObj e)
-    {
+    public void addEngineObj(EngineObj e) {
         engineObjs.add(e);
     }
 
@@ -139,7 +139,7 @@ public class Map {
     public boolean is_there_obj_at_coords(EngineObj obj, int x, int y) {
         BufferedImage img = SpriteTools.pathToImg.get(obj.getSprite_());
         int midHeight = img.getHeight();
-        int midWidth = img.getWidth() ;
+        int midWidth = img.getWidth();
         boolean res = res = (obj.get_x() - midWidth <= x);
         res &= (x < obj.get_x() + midWidth);
         res &= (obj.get_y() - midHeight <= y);
@@ -266,4 +266,16 @@ public class Map {
         this.goal_ = goal_;
     }
 
+    public EngineObj setPlayer(int x, int y, String path) {
+        EngineObj player = WorldTools.player;
+        if (player == null) {
+            System.err.println("Error, player should exist");
+            return null;
+        }
+        if (player.getSprite_().isEmpty()) {
+            engineObjs.add(player);
+        }
+        player.setSprite_(path);
+        return player;
+    }
 }

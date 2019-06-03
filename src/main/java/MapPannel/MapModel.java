@@ -1,6 +1,7 @@
 package MapPannel;
 
 import Engine.Character.EngineObj;
+import Engine.Position;
 import Game.Map;
 import Utils.SpriteTools;
 import java.util.ArrayList;
@@ -28,7 +29,13 @@ public class MapModel extends Observable {
         if (SpriteTools.is_background) {
             res = map.setTile(x / 16, y / 16, SpriteTools.selectedSprite);
         } else {
-            res = map.setObject(x, y, SpriteTools.selectedSprite);
+            if (SpriteTools.playerModelSelected) {
+                res = map.setPlayer(x, y, SpriteTools.selectedSprite);
+                if (res != null)
+                    map.setSpawn_(new Position(x, y));
+            }
+            else
+                res = map.setObject(x, y, SpriteTools.selectedSprite);
         }
         if (res != null) {
             setChanged();

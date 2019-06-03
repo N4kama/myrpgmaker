@@ -3,7 +3,7 @@ package Game;
 import java.util.ArrayList;
 
 import Engine.Character.EngineObj;
-
+import Utils.WorldTools;
 
 
 public class World {
@@ -17,6 +17,7 @@ public class World {
         this.gameWorld_ = new ArrayList<>();
         this.name_ = s;
         player_ = new EngineObj("player", player_sprite_path, true, true);
+        WorldTools.player = player_;
     }
 
     public ArrayList<Map> getGameWorld() {
