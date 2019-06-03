@@ -5,9 +5,11 @@ import Engine.EngineController;
 import Engine.EngineModel;
 import Engine.EngineView;
 import Game.Map;
+import Utils.SpriteTools;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -50,6 +52,16 @@ public class EditorController {
         view.undoButton.addActionListener(undo_action());
         view.redoButton.addActionListener(redo_action());
         view.playButton.addActionListener(play_action());
+        view.moveButton.addActionListener(move_action());
+        view.placeButton.addActionListener(place_action());
+    }
+
+    private ActionListener place_action() {
+        return ActionEvent -> SpriteTools.mousePointerState = SpriteTools.MousePointerState.PLACE;
+    }
+
+    private ActionListener move_action() {
+        return ActionEvent -> SpriteTools.mousePointerState = SpriteTools.MousePointerState.MOVE;
     }
 
 

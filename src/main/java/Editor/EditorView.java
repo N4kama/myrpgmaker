@@ -35,6 +35,7 @@ public class EditorView extends JFrame implements Observer {
     JButton newButton;
     JButton openButton;
     JButton saveButton;
+    JButton placeButton;
     JButton moveButton;
     JButton selectButton;
     JButton removeButton;
@@ -155,6 +156,9 @@ public class EditorView extends JFrame implements Observer {
         ImageIcon save_i = get_icon("save.png");
         saveButton = new JButton(save_i);
         toolBar.add(saveButton);
+        ImageIcon place_I = get_icon("place.png");
+        placeButton = new JButton(place_I);
+        toolBar.add(placeButton);
         ImageIcon move_I = get_icon("move.png");
         moveButton = new JButton(move_I);
         toolBar.add(moveButton);
