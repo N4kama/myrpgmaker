@@ -115,32 +115,39 @@ public class EditorView extends JFrame implements Observer {
 
     private JTabbedPane create_spriteTab() {
         //Init MVC
-        SpriteModel backgroundSpriteModel = new SpriteModel(System.getProperty("user.dir") + "/resources/backgroundTile/", true);
-        SpriteModel foregroundSpriteModel = new SpriteModel(System.getProperty("user.dir") + "/resources/foregroundObject/", false);
-        SpriteModel NPCSpriteModel = new SpriteModel(System.getProperty("user.dir") + "/resources/npc/", false);
+        SpriteModel backgroundSpriteModel = new SpriteModel(System.getProperty("user.dir") + "/resources/backgroundTile/", true, false, false);
+        SpriteModel foregroundSpriteModel = new SpriteModel(System.getProperty("user.dir") + "/resources/foregroundObject/", false, false, false);
+        SpriteModel NPCSpriteModel = new SpriteModel(System.getProperty("user.dir") + "/resources/npc/", false, true, false);
+        SpriteModel PlayerSpriteModel = new SpriteModel(System.getProperty("user.dir") + "/resources/npc/", false, false, true);
         SpriteView backgroundSpriteView = new SpriteView(backgroundSpriteModel);
         SpriteView foregroundSpriteView = new SpriteView(foregroundSpriteModel);
         SpriteView NPCSpriteView = new SpriteView(NPCSpriteModel);
+        SpriteView PlayerSpriteView = new SpriteView(PlayerSpriteModel);
         SpriteController backgroundSpriteController = new SpriteController(backgroundSpriteModel, backgroundSpriteView);
         SpriteController foregroundSpriteController = new SpriteController(foregroundSpriteModel, foregroundSpriteView);
         SpriteController NPCSpriteController = new SpriteController(NPCSpriteModel, NPCSpriteView);
+        SpriteController PlayerSpriteController = new SpriteController(PlayerSpriteModel, PlayerSpriteView);
         backgroundSpriteController.start();
         foregroundSpriteController.start();
         NPCSpriteController.start();
+        PlayerSpriteController.start();
 
         //Linking to Pane
         JScrollPane backgroundSpritePane = new JScrollPane(backgroundSpriteView);
         JScrollPane foregroundSpritePane = new JScrollPane(foregroundSpriteView);
         JScrollPane NPCSpritePane = new JScrollPane(NPCSpriteView);
+        JScrollPane PlayerSpritePane = new JScrollPane(PlayerSpriteView);
         backgroundSpritePane.setPreferredSize(new Dimension(200,200));
         foregroundSpritePane.setPreferredSize(new Dimension(200,200));
         NPCSpritePane.setPreferredSize(new Dimension(200,200));
+        PlayerSpritePane.setPreferredSize(new Dimension(200,200));
 
         //Adding tabs all together
         JTabbedPane spriteTab = new JTabbedPane();
         spriteTab.addTab("Background sprites", backgroundSpritePane);
         spriteTab.addTab("Foreground sprites", foregroundSpritePane);
         spriteTab.addTab("NPC sprites", NPCSpritePane);
+        spriteTab.addTab("Player sprites", PlayerSpritePane);
         return spriteTab;
     }
 
