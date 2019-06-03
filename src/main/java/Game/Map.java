@@ -122,9 +122,12 @@ public class Map {
         return tile.get_path();
     }
 
-    public void deleteTile(int x, int y) {
+    public boolean deleteTile(int x, int y) {
         Tile tile = getGameTile(x, y);
+        if (tile == null)
+            return false;
         tile.set_path(default_tile);
+        return true;
     }
 
     public Tile setTile(int x, int y, String path) {
@@ -152,6 +155,13 @@ public class Map {
             return arr.get(0);
         }
         return null;
+    }
+
+    public boolean deleteGameObject(int x, int y) {
+        EngineObj obj = getGameObject(x, y);
+        if (obj == null)
+            return false;
+        return engineObjs.remove(obj);
     }
 
     public EngineObj setObject(int x, int y, String path) {
