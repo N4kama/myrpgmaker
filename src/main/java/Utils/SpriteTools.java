@@ -8,10 +8,18 @@ import java.util.HashMap;
 
 public class SpriteTools {
 
+    public enum MousePointerState {
+        PLACE,
+        MOVE,
+        SELECT,
+        DELETE,
+    }
+
     public static HashMap<BufferedImage, String> imgToPath = new HashMap<>();
     public static HashMap<String, BufferedImage> pathToImg = new HashMap<>();
     public static boolean is_background = true;
     public static String selectedSprite = null;
+    public static MousePointerState mousePointerState = MousePointerState.PLACE;
 
     public static void registerSprite(BufferedImage img, String path) {
         imgToPath.put(img, path);
