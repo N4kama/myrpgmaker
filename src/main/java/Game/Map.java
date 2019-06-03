@@ -17,6 +17,7 @@ public class Map {
     private Integer height_;
     private Position goal_;
     private String default_tile;
+    private boolean is_player_set = false;
 
     public Map(int width, int height, String tile_model) {
         gameTiles_ = new ArrayList<>();
@@ -272,8 +273,10 @@ public class Map {
             System.err.println("Error, player should exist");
             return null;
         }
-        if (player.getSprite_().isEmpty()) {
+        if (!is_player_set) {
+            player.setPosition_(new Position(x, y));
             engineObjs.add(player);
+            is_player_set = true;
         }
         player.setSprite_(path);
         return player;

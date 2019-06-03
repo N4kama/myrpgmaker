@@ -16,6 +16,8 @@ public class World {
     public World(String s, String player_sprite_path) {
         this.gameWorld_ = new ArrayList<>();
         this.name_ = s;
+
+        //init player basics
         player_ = new EngineObj("player", player_sprite_path, true, true);
         WorldTools.player = player_;
     }

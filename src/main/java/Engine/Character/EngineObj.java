@@ -25,6 +25,7 @@ public class EngineObj {
         setAnim_state_(1);
         this.alive = alive;
         this.is_player = is_player;
+        this.position_ = new Position(0, 0);
         events = new ArrayList<>();
     }
 
