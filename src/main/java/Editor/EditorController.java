@@ -9,7 +9,6 @@ import Utils.SpriteTools;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -54,6 +53,16 @@ public class EditorController {
         view.playButton.addActionListener(play_action());
         view.moveButton.addActionListener(move_action());
         view.placeButton.addActionListener(place_action());
+        view.selectButton.addActionListener(select_action());
+        view.removeButton.addActionListener(remove_action());
+    }
+
+    private ActionListener remove_action() {
+        return ActionEvent -> SpriteTools.mousePointerState = SpriteTools.MousePointerState.DELETE;
+    }
+
+    private ActionListener select_action() {
+        return ActionEvent -> SpriteTools.mousePointerState = SpriteTools.MousePointerState.SELECT;
     }
 
     private ActionListener place_action() {
@@ -70,7 +79,6 @@ public class EditorController {
             EngineObj charact = new EngineObj(0, 0, "path to char");
 
             Map map = model.gameWorld.getCurMap();
-
 
             model.gameWorld.setPlayer(charact);
             EngineModel engineModel = new EngineModel(model.gameWorld);
