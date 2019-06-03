@@ -1,5 +1,6 @@
 package MapPannel;
 
+import Engine.Character.EngineObj;
 import Utils.SpriteTools;
 
 import java.awt.event.MouseAdapter;
@@ -23,10 +24,7 @@ public class MapController {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                Thread myThread = new Thread(() -> {
-                    if (SpriteTools.mousePointerState == SpriteTools.MousePointerState.PLACE)
-                        model.modifySprite(e.getX(), e.getY());
-                });
+                Thread myThread = new Thread(() -> executeUserAction(e));
                 myThread.start();
             }
 
@@ -49,9 +47,26 @@ public class MapController {
             @Override
             public void mouseDragged(MouseEvent e) {
                 super.mouseDragged(e);
-                Thread myThread = new Thread(() -> model.modifySprite(e.getX(), e.getY()));
+                Thread myThread = new Thread(() -> executeUserAction(e));
                 myThread.start();
             }
         });
+
+    }
+    public void executeUserAction(MouseEvent e) {
+        switch (SpriteTools.mousePointerState) {
+            case PLACE:
+                model.modifySprite(e.getX(), e.getY());
+                break;
+            case MOVE:
+                System.out.println("MOVE MODE");
+                break;
+            case SELECT:
+                System.out.println("SELECT MODE");
+                break;
+            case DELETE:
+                model.deleteSprite(e.getX(), e.getY());
+                break;
+        }
     }
 }
