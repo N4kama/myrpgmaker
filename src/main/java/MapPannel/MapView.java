@@ -54,8 +54,6 @@ public class MapView extends JPanel implements Observer {
             paintComponent(this.getGraphics(), (Tile) arg);
         else
             paintComponent(this.getGraphics(), (EngineObj) arg);
-        //repaint();
-        //revalidate();
     }
 
     public void paintComponent(Graphics g, Tile tile) {

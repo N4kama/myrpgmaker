@@ -27,7 +27,7 @@ public class MapModel extends Observable {
         if (SpriteTools.selectedSprite == null)
             return;
         if (SpriteTools.is_background) {
-            res = map.setTile(x / 16, y / 16, SpriteTools.selectedSprite);
+            res = map.setTile(x, y, SpriteTools.selectedSprite);
         } else {
             if (SpriteTools.playerModelSelected) {
                 res = map.setPlayer(x, y, SpriteTools.selectedSprite);

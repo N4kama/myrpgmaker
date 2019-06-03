@@ -132,15 +132,17 @@ public class Map {
     }
 
     public Tile setTile(int x, int y, String path) {
-        Tile tile = getGameTile(x, y);
+        if (getGameObject(x, y) != null)
+            return null;
+        Tile tile = getGameTile(x / 16, y / 16);
         tile.set_path(path);
         return tile;
     }
 
     public boolean is_there_obj_at_coords(EngineObj obj, int x, int y) {
         BufferedImage img = SpriteTools.pathToImg.get(obj.getSprite_());
-        int midHeight = img.getHeight();
-        int midWidth = img.getWidth();
+        int midHeight = img.getHeight() / 2;
+        int midWidth = img.getWidth() / 2;
         boolean res = res = (obj.get_x() - midWidth <= x);
         res &= (x < obj.get_x() + midWidth);
         res &= (obj.get_y() - midHeight <= y);
