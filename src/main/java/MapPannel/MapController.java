@@ -23,7 +23,10 @@ public class MapController {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                Thread myThread = new Thread(() -> model.modifySprite(e.getX(), e.getY()));
+                Thread myThread = new Thread(() -> {
+                    if (SpriteTools.mousePointerState == SpriteTools.MousePointerState.PLACE)
+                        model.modifySprite(e.getX(), e.getY());
+                });
                 myThread.start();
             }
 
