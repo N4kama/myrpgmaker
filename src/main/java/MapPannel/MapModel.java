@@ -48,7 +48,13 @@ public class MapModel extends Observable {
     }
 
     public void deleteSprite(int x, int y) {
-        if (!map.deleteGameObject(x, y))
-            map.deleteTile(x / 16, y / 16);
+        Object res;
+        res = map.deleteGameObject(x, y);
+        if (res == null)
+            res = map.deleteTile(x / 16, y / 16);
+        if (res != null) {
+            setChanged();
+            notifyObservers(res);
+        }
     }
 }
