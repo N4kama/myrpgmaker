@@ -74,7 +74,7 @@ public class EngineView extends JFrame implements Observer {
         setSize(600,600);
 
         MapModel mapModel = new MapModel(model_.getGameWorld().getCurMap());
-        MapView mapView = new MapView(mapModel);
+        MapView mapView = new EngineMapView(mapModel);
         gamePanel = (JPanel) mapView;
         progressPanel = new JPanel();
         progressPanel.setLayout(new GridBagLayout());
