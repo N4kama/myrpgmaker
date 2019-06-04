@@ -59,7 +59,7 @@ public class MapController {
                 model.modifySprite(e.getX(), e.getY());
                 break;
             case MOVE:
-                System.out.println("MOVE MODE");
+                model.moveSpite(e.getX(), e.getY());
                 break;
             case SELECT:
                 System.out.println("SELECT MODE");
