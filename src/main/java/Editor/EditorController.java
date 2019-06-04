@@ -50,6 +50,7 @@ public class EditorController extends Observable {
         view.add_tile.addActionListener(add_tiles_action());
         view.add_object.addActionListener(add_object_action());
         view.add_npc.addActionListener(add_npc_action());
+        view.add_player.addActionListener(add_player_action());
         //set listener for toolbar
         view.openButton.addActionListener(open_action());
         view.saveButton.addActionListener(save_action());
@@ -61,6 +62,10 @@ public class EditorController extends Observable {
         view.placeButton.addActionListener(place_action());
         view.selectButton.addActionListener(select_action());
         view.removeButton.addActionListener(remove_action());
+    }
+
+    private ActionListener add_player_action() {
+        return add_action("resources/player/");
     }
 
     private ActionListener remove_action() {

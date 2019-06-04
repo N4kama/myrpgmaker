@@ -70,7 +70,7 @@ public class SpriteModel extends Observable implements Observer {
             sprites.add(img);
         else if (player && path.contains("player"))
             sprites.add(img);
-        else
+        else if (!is_background && !npc && !player && path.contains("foreground"))
             sprites.add(img);
         setChanged();
         notifyObservers();
