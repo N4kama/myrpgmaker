@@ -141,9 +141,9 @@ public class Map {
 
     public boolean is_there_obj_at_coords(EngineObj obj, int x, int y) {
         BufferedImage img = SpriteTools.pathToImg.get(obj.getSprite_());
-        int midHeight = img.getHeight() / 2;
-        int midWidth = img.getWidth() / 2;
-        boolean res = res = (obj.get_x() - midWidth <= x);
+        int midHeight = img.getHeight();
+        int midWidth = img.getWidth();
+        boolean res = (obj.get_x() - midWidth <= x);
         res &= (x < obj.get_x() + midWidth);
         res &= (obj.get_y() - midHeight <= y);
         res &= (y < obj.get_y() + midHeight);

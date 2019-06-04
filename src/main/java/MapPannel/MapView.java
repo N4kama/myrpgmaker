@@ -52,8 +52,29 @@ public class MapView extends JPanel implements Observer {
     public void update(Observable o, Object arg) {
         if (arg.getClass() == Tile.class)
             paintComponent(this.getGraphics(), (Tile) arg);
-        else
-            paintComponent(this.getGraphics(), (EngineObj) arg);
+        else {
+            switch (SpriteTools.mousePointerState) {
+                case DELETE:
+                    deleteEngineOBJ(this.getGraphics(), (EngineObj)arg); break;
+                default:
+                    paintComponent(this.getGraphics(), (EngineObj) arg);
+            }
+        }
+    }
+
+    private void deleteEngineOBJ(Graphics g, EngineObj obj) {
+        BufferedImage img = SpriteTools.pathToImg.get(obj.getSprite_());
+        int x_min = (obj.get_x() - img.getWidth()) / 16;
+        int x_max = (obj.get_x() + img.getWidth()) / 16;
+        int y_min = (obj.get_x() - img.getHeight()) / 16;
+        int y_max = (obj.get_x() + img.getHeight()) / 16;
+        for (; x_min <= x_max; x_min += 16) {
+            for (; y_min <= y_max; y_min += 16) {
+                Tile tile = mapModel.map.getGameTile(x_min, y_min);
+                if (tile != null)
+                    g.drawImage(img, tile.get_x() * 16, tile.get_y() * 16, null);
+            }
+        }
     }
 
     public void paintComponent(Graphics g, Tile tile) {
