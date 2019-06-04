@@ -7,8 +7,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
-public class SpriteModel {
+public class SpriteModel extends Observable implements Observer {
 
     private boolean is_background;
     private boolean npc;
@@ -55,5 +57,22 @@ public class SpriteModel {
 
     public boolean isPlayer() {
         return player;
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        String path = (String)arg;
+        BufferedImage img = SpriteTools.openObject(path);
+        SpriteTools.registerSprite(img, path);
+        if (is_background && path.contains("background"))
+            sprites.add(img);
+        else if (npc && path.contains("npc"))
+            sprites.add(img);
+        else if (player && path.contains("player"))
+            sprites.add(img);
+        else
+            sprites.add(img);
+        setChanged();
+        notifyObservers();
     }
 }

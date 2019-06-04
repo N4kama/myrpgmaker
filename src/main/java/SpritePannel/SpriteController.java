@@ -8,8 +8,8 @@ import java.awt.image.BufferedImage;
 
 public class SpriteController {
 
-    private SpriteView view;
-    private SpriteModel model;
+    public SpriteView view;
+    public SpriteModel model;
 
 
     public SpriteController(SpriteModel backgroundSpriteModel, SpriteView backgroundSpriteView) {

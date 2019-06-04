@@ -15,6 +15,7 @@ public class SpriteView extends JPanel implements Observer {
 
     public SpriteView(SpriteModel model) {
         this.model = model;
+        this.model.addObserver(this);
     }
 
     public void paintComponent(Graphics g) {
