@@ -10,7 +10,7 @@ import Game.Tile;
 import Engine.Event.GameEvents;
 
 public class EngineObj {
-    private Boolean is_player;
+    private Boolean is_player = false;
     private List<GameEvents> events;
 
     public EngineObj(int x, int y, String sprite_path) {
@@ -29,6 +29,9 @@ public class EngineObj {
         events = new ArrayList<>();
     }
 
+    public Boolean getIs_player() {
+        return is_player;
+    }
 
     public void set_map(Map m)
     {
@@ -109,6 +112,10 @@ public class EngineObj {
     // state
     private Direction cur_dir_;
     private Integer anim_state_;
+
+    public void setIs_player(Boolean is_player) {
+        this.is_player = is_player;
+    }
 
     /**
      * @return Integer return the id_
