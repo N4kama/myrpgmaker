@@ -65,6 +65,10 @@ public class Map {
         }
     }
 
+    public String getDefault_tile() {
+        return default_tile;
+    }
+
     public void addEngineObj(EngineObj e) {
         engineObjs.add(e);
     }

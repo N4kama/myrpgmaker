@@ -40,6 +40,10 @@ public class Tile {
         return pos_;
     }
 
+    public void setPos(Position pos) {
+        this.pos_ = pos;
+    }
+
     public int get_x() {
         return pos_.getX();
     }
