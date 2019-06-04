@@ -18,17 +18,23 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Observable;
+import java.util.Observer;
 
 import static Utils.WorldTools.loadWorld;
 import static Utils.WorldTools.saveWorld;
 
-public class EditorController {
+public class EditorController extends Observable {
     private EditorModel model;
     private EditorView view;
 
     public EditorController(EditorModel model, EditorView v) {
         this.model = model;
         this.view = v;
+        this.addObserver(view.backgroundSpriteController.model);
+        this.addObserver(view.foregroundSpriteController.model);
+        this.addObserver(view.NPCSpriteController.model);
+        this.addObserver(view.PlayerSpriteController.model);
         set_controls();
     }
 
@@ -135,6 +141,8 @@ public class EditorController {
                     {
                         Files.copy(filePath, (new File(destPath + file.getName()).toPath()),
                                 StandardCopyOption.REPLACE_EXISTING);
+                        setChanged();
+                        notifyObservers(destPath + file.getName());
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

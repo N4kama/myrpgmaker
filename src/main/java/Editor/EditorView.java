@@ -123,10 +123,10 @@ public class EditorView extends JFrame implements Observer {
         SpriteView foregroundSpriteView = new SpriteView(foregroundSpriteModel);
         SpriteView NPCSpriteView = new SpriteView(NPCSpriteModel);
         SpriteView PlayerSpriteView = new SpriteView(PlayerSpriteModel);
-        SpriteController backgroundSpriteController = new SpriteController(backgroundSpriteModel, backgroundSpriteView);
-        SpriteController foregroundSpriteController = new SpriteController(foregroundSpriteModel, foregroundSpriteView);
-        SpriteController NPCSpriteController = new SpriteController(NPCSpriteModel, NPCSpriteView);
-        SpriteController PlayerSpriteController = new SpriteController(PlayerSpriteModel, PlayerSpriteView);
+        backgroundSpriteController = new SpriteController(backgroundSpriteModel, backgroundSpriteView);
+        foregroundSpriteController = new SpriteController(foregroundSpriteModel, foregroundSpriteView);
+        NPCSpriteController = new SpriteController(NPCSpriteModel, NPCSpriteView);
+        PlayerSpriteController = new SpriteController(PlayerSpriteModel, PlayerSpriteView);
         backgroundSpriteController.start();
         foregroundSpriteController.start();
         NPCSpriteController.start();
@@ -258,4 +258,11 @@ public class EditorView extends JFrame implements Observer {
     public void update(Observable o, Object arg) {
 
     }
+
+    //Saved here to init all observers
+    SpriteController backgroundSpriteController;
+    SpriteController foregroundSpriteController;
+    SpriteController NPCSpriteController;
+    SpriteController PlayerSpriteController;
+
 }
