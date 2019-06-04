@@ -276,6 +276,7 @@ public class Map {
 
     public EngineObj setPlayer(int x, int y, String path) {
         EngineObj player = WorldTools.player;
+        player.setIs_player(true);
         if (player == null) {
             System.err.println("Error, player should exist");
             return null;

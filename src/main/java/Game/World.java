@@ -65,5 +65,6 @@ public class World {
 
     public void setPlayer(EngineObj p) {
         this.player_ = p;
+        p.setIs_player(true);
     }
 }

@@ -7,16 +7,26 @@ import Utils.SpriteTools;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
 public class MapView extends JPanel implements Observer {
 
     public MapModel mapModel;
+    private BufferedImage spritePlayer;
+    public ArrayList<BufferedImage> walkingLeft;
+    public ArrayList<BufferedImage> walkingRight;
+    public ArrayList<BufferedImage> walkingUp;
+    public ArrayList<BufferedImage> walkingDown;
 
     public MapView(MapModel mapModel) {
         this.mapModel = mapModel;
         this.mapModel.addObserver(this);
+        this.walkingLeft = new ArrayList<>();
+        this.walkingRight = new ArrayList<>();
+        this.walkingUp = new ArrayList<>();
+        this.walkingDown = new ArrayList<>();
         setBackground(Color.black);
     }
 
@@ -29,8 +39,18 @@ public class MapView extends JPanel implements Observer {
 
     private void drayObjects(Graphics g) {
         for (EngineObj obj : mapModel.getObjects()) {
-            BufferedImage img = SpriteTools.openObject(obj.getSprite_());
-            g.drawImage(img, obj.get_y() - img.getHeight() / 2, obj.get_x() - img.getWidth() / 2, null);
+            if (!obj.getIs_player()) {
+                BufferedImage img = SpriteTools.openObject(obj.getSprite_());
+                g.drawImage(img, obj.get_y() - img.getHeight() / 2, obj.get_x() - img.getWidth() / 2, null);
+                System.out.println("NOP");
+            } else {
+                spritePlayer = SpriteTools.openObject(obj.getSprite_());
+                SpriteTools.setSpriteMove(spritePlayer, walkingLeft, "left");
+                SpriteTools.setSpriteMove(spritePlayer, walkingRight, "right");
+                SpriteTools.setSpriteMove(spritePlayer, walkingUp, "up");
+                SpriteTools.setSpriteMove(spritePlayer, walkingDown, "down");
+                g.drawImage(walkingDown.get(1), obj.get_y() - walkingLeft.get(0).getHeight() / 2, obj.get_x() - walkingLeft.get(0).getWidth() / 2, null);
+            }
         }
     }
 
