@@ -286,7 +286,7 @@ public class Map {
             engineObjs.add(player);
             is_player_set = true;
         }
-        player.setSprite_(path);
+        player.setSprite_(path.substring(0, path.length() - 4));
         return player;
     }
 }
