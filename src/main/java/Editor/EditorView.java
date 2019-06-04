@@ -3,6 +3,8 @@ package Editor;
 import FileExplorerPannel.FileExplorerView;
 import Game.Map;
 import Game.World;
+import InspectorPannel.InspectorModel;
+import InspectorPannel.InspectorView;
 import MapPannel.MapController;
 import MapPannel.MapModel;
 import MapPannel.MapView;
@@ -57,6 +59,8 @@ public class EditorView extends JFrame implements Observer {
         JToolBar toolBar = create_tool_bar();
         //creating Sprite pannel
         JTabbedPane spriteTab = create_spriteTab();
+        //creating inspector pannel
+        JTabbedPane inspectorTab = create_inspectorTab();
         //creating file explorer pannel
         JTabbedPane fileExplorerTab = create_fileExplorer();
         //creating Map pannel
@@ -69,13 +73,26 @@ public class EditorView extends JFrame implements Observer {
         frame.add(toolBar, BorderLayout.NORTH);
 
         //Placing the different scrollPane in order into the main frame
-        JSplitPane sprite_fileExplorer = new JSplitPane(JSplitPane.VERTICAL_SPLIT, spriteTab, fileExplorerTab);
-        sprite_fileExplorer.setResizeWeight(0.5);
-        JSplitPane panelsOrganization = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, sprite_fileExplorer, mapTab);
-        panelsOrganization.setResizeWeight(0.5);
+        JSplitPane sprite_inspector = new JSplitPane(JSplitPane.VERTICAL_SPLIT, spriteTab, inspectorTab);
+        sprite_inspector.setResizeWeight(0.35);
+        JSplitPane leftPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, sprite_inspector, fileExplorerTab);
+        leftPane.setResizeWeight(0.7);
+        JSplitPane panelsOrganization = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPane, mapTab);
+        panelsOrganization.setResizeWeight(0.33);
         frame.add(panelsOrganization); //only one JSplitPane should be added
 
         frame.setVisible(true);
+    }
+
+    private JTabbedPane create_inspectorTab() {
+        InspectorModel inspectorModel = new InspectorModel(null);
+        InspectorView inspectorView = new InspectorView(inspectorModel);
+
+        JScrollPane inspectPane = new JScrollPane(inspectorView);
+        inspectPane.setPreferredSize(new Dimension(200, 200));
+        JTabbedPane inspectTab = new JTabbedPane();
+        inspectTab.addTab("Inspector", inspectPane);
+        return inspectTab;
     }
 
     private JTabbedPane create_mapTab() {
