@@ -59,6 +59,15 @@ public class MapModel extends Observable {
         return map.getGameObjects();
     }
 
+    public EngineObj getPlayer(ArrayList<EngineObj> arr) {
+        for (EngineObj obj : arr) {
+            if (obj.getIs_player()) {
+                return obj;
+            }
+        }
+        return null;
+    }
+
     public void deleteSprite(int x, int y) {
         Object res;
         res = map.deleteGameObject(x, y);
