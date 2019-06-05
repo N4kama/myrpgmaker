@@ -1,6 +1,7 @@
 package Engine;
 
 import Engine.Character.EngineObj;
+import Game.Map;
 import Game.Tile;
 import MapPannel.MapModel;
 import MapPannel.MapView;
@@ -21,6 +22,7 @@ import java.util.Observer;
 
 public class EngineView extends JFrame implements Observer {
     public boolean inMenu = true;
+    public Map map;
     public EngineMapView map_view;
     private EngineModel model_;
     JButton startButton;
@@ -35,6 +37,7 @@ public class EngineView extends JFrame implements Observer {
 
     public EngineView(EngineModel m) {
         this.model_ = m;
+        this.map = m.getGameWorld().getCurMap();
         try {
             displayStartMenu(0);
         } catch (IOException e) {
@@ -133,6 +136,41 @@ public class EngineView extends JFrame implements Observer {
     }
     */
 
+
+    private void deleteEngineOBJ(Graphics g, EngineObj obj) {
+        int x = (obj.get_x() - (obj.get_x() % 16)) / 16;
+        int y = (obj.get_y() - (obj.get_y() % 16)) / 16;
+        System.out.println("x: " + x + " y: " + y);
+        Position p = new Position(x, y);
+        Tile tile = map.getTile(p);
+        System.out.println(tile.get_path());
+        if (tile != null) {
+            BufferedImage i = SpriteTools.pathToImg.get(tile.get_path());
+            g.drawImage(i, x * 16, y * 16, null);
+            g.drawImage(i, (x + 1) * 16, y * 16, null);
+            g.drawImage(i, (x + 1) * 16, (y + 1) * 16, null);
+            g.drawImage(i, (x + 1) * 16, (y + 2) * 16, null);
+            g.drawImage(i, (x + 1) * 16, (y - 2) * 16, null);
+            g.drawImage(i, (x + 1) * 16, (y - 1) * 16, null);
+            g.drawImage(i, (x + 2) * 16, (y - 1) * 16, null);
+            g.drawImage(i, (x + 2) * 16, (y - 2) * 16, null);
+
+            g.drawImage(i, x * 16, (y - 1) * 16, null);
+            g.drawImage(i, x * 16, (y - 2) * 16, null);
+            g.drawImage(i, x * 16, (y + 1) * 16, null);
+            g.drawImage(i, x * 16, (y + 2) * 16, null);
+
+            g.drawImage(i, (x - 1) * 16, y * 16, null);
+            g.drawImage(i, (x - 2) * 16, y * 16, null);
+            g.drawImage(i, (x - 1) * 16, (y + 1) * 16, null);
+            g.drawImage(i, (x - 2) * 16, (y + 1) * 16, null);
+            g.drawImage(i, (x - 1) * 16, (y + 2) * 16, null);
+            g.drawImage(i, (x - 1) * 16, (y - 1) * 16, null);
+            g.drawImage(i, (x - 1) * 16, (y - 2) * 16, null);
+            g.drawImage(i, (x - 2) * 16, (y - 1) * 16, null);
+        }
+    }
+
     public void paintComponent(Graphics g, EngineObj obj) {
         g.drawImage(this.map_view.curAnim.getSprite(), obj.get_x() - this.map_view.curAnim.getSprite().getHeight()
                 / 2, obj.get_y() - this.map_view.curAnim.getSprite().getWidth() / 2, null);
@@ -143,7 +181,7 @@ public class EngineView extends JFrame implements Observer {
         System.out.println("UPDATE!!!");
         map_view.curAnim.update();
         revalidate();
-        //deleteEngineOBJ(this.getGraphics(), this.model_.getGameWorld().player_);
+        deleteEngineOBJ(this.getGraphics(), this.model_.getGameWorld().player_);
         paintComponent(this.getGraphics(), this.model_.getGameWorld().player_);
     }
 
