@@ -123,6 +123,7 @@ public class EditorController extends Observable {
             model.gameWorld.setPlayer(charact);
             EngineModel engineModel = new EngineModel(model.gameWorld);
             EngineView engineView = new EngineView(engineModel);
+            engineModel.addObserver(engineView);
             EngineController engineCtrl = new EngineController(engineModel, engineView);
             engineCtrl.set_controls();
         };
