@@ -45,7 +45,7 @@ public class EngineController {
                 {
                     view_.map_view.curAnim = view_.map_view.walkRight;
                     view_.map_view.curAnim.start();
-                    model_.move("right");
+                    model_.move(Direction.RIGHT);
                     /*
                     if (!view_.inMenu) {
                         view_.displayPauseMenu();

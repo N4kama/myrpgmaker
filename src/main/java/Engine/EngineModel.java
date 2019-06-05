@@ -15,7 +15,7 @@ public class EngineModel extends Observable {
         return gameWorld_;
     }
 
-    public void move(String m)
+    public void move(Direction d)
     {
         /*if (m.equals("right"))
             gameWorld_.player_.move(Direction.RIGHT, gameWorld_.getCurMap());
