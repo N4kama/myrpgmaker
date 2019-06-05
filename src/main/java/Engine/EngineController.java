@@ -61,7 +61,7 @@ public class EngineController {
                     view_.map_view.curAnim.stop();
                     view_.map_view.curAnim.reset();
                     view_.map_view.curAnim = view_.map_view.standDown;
-                    model_.move("");
+                    model_.move(Direction.RIGHT);
                     /*
                     if (!view_.inMenu) {
                         view_.displayPauseMenu();
