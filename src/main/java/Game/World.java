@@ -11,7 +11,7 @@ public class World {
     private Integer id_cur_map;
 
     private String name_;
-    private EngineObj player_;
+    public EngineObj player_;
 
     public World(String s, String player_sprite_path) {
         this.gameWorld_ = new ArrayList<>();
