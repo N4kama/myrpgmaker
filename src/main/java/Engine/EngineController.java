@@ -46,27 +46,53 @@ public class EngineController {
                     view_.map_view.curAnim = view_.map_view.walkRight;
                     view_.map_view.curAnim.start();
                     model_.move(Direction.RIGHT);
-                    /*
-                    if (!view_.inMenu) {
-                        view_.displayPauseMenu();
-                        view_.inMenu = true;
-                    }*/
+                }
+                else if (ke.getKeyCode() == KeyEvent.VK_LEFT) {
+                    view_.map_view.curAnim = view_.map_view.walkLeft;
+                    view_.map_view.curAnim.start();
+                    model_.move(Direction.LEFT);
+                }
+                else if (ke.getKeyCode() == KeyEvent.VK_UP) {
+                    view_.map_view.curAnim = view_.map_view.walkUp;
+                    view_.map_view.curAnim.start();
+                    model_.move(Direction.UP);
+                }
+                else if (ke.getKeyCode() == KeyEvent.VK_DOWN) {
+                    view_.map_view.curAnim = view_.map_view.walkDown;
+                    view_.map_view.curAnim.start();
+                    model_.move(Direction.DOWN);
                 }
             }
 
             @Override
             public void keyReleased(KeyEvent ke) {
-                if(ke.getKeyCode() == KeyEvent.VK_ESCAPE)
+                if(ke.getKeyCode() == KeyEvent.VK_RIGHT)
+                {
+                    view_.map_view.curAnim.stop();
+                    view_.map_view.curAnim.reset();
+                    view_.map_view.curAnim = view_.map_view.standRight;
+                    model_.stand();
+                }
+                else if(ke.getKeyCode() == KeyEvent.VK_LEFT)
+                {
+                    view_.map_view.curAnim.stop();
+                    view_.map_view.curAnim.reset();
+                    view_.map_view.curAnim = view_.map_view.standLeft;
+                    model_.stand();
+                }
+                else if(ke.getKeyCode() == KeyEvent.VK_UP)
+                {
+                    view_.map_view.curAnim.stop();
+                    view_.map_view.curAnim.reset();
+                    view_.map_view.curAnim = view_.map_view.standUp;
+                    model_.stand();
+                }
+                else if(ke.getKeyCode() == KeyEvent.VK_DOWN)
                 {
                     view_.map_view.curAnim.stop();
                     view_.map_view.curAnim.reset();
                     view_.map_view.curAnim = view_.map_view.standDown;
-                    model_.move(Direction.RIGHT);
-                    /*
-                    if (!view_.inMenu) {
-                        view_.displayPauseMenu();
-                        view_.inMenu = true;
-                    }*/
+                    model_.stand();
                 }
             }
         };
