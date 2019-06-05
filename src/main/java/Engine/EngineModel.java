@@ -17,14 +17,7 @@ public class EngineModel extends Observable {
 
     public void move(Direction d)
     {
-        /*if (m.equals("right"))
-            gameWorld_.player_.move(Direction.RIGHT, gameWorld_.getCurMap());
-        else if (m.equals("left"))
-            gameWorld_.player_.move(Direction.RIGHT, gameWorld_.getCurMap());
-        else if (m.equals("up"))
-            gameWorld_.player_.move(Direction.RIGHT, gameWorld_.getCurMap());
-        else if (m.equals("down"))
-            gameWorld_.player_.move(Direction.RIGHT, gameWorld_.getCurMap());*/
+        gameWorld_.player_.move(d, gameWorld_.getCurMap());
         setChanged();
         notifyObservers("move");
     }

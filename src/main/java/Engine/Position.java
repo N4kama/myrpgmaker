@@ -27,9 +27,25 @@ public class Position {
             break;
         }
     }
+    @Override
+    public boolean equals(Object o) { 
+          if (o == this) { 
+            return true; 
+        } 
+  
+        if (!(o instanceof Position)) { 
+            return false; 
+        } 
+          
+        Position c = (Position) o; 
+        return c.getX() == x_&& c.getY() == y_;
+    } 
+
 
     public Position tempPos(Direction dir) {
         Position p = new Position(getX(), getY());
+        p.setX(p.getX() / 16);
+        p.setY(p.getY() / 16);
         p.move(dir);
         return p;
     }

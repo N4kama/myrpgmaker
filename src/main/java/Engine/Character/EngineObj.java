@@ -60,11 +60,11 @@ public class EngineObj {
         if (canMove(dir, m)) {
             // set prev tile to walkable
             Tile t = m.getTile(position_);
-            t.setIs_Walkable(true);
+            //t.setIs_Walkable(true);
             position_.move(dir);
             // set new tile to nonwalkable
             t = m.getTile(position_);
-            t.setIs_Walkable(false);
+            //t.setIs_Walkable(false);
             if (is_player)
                 t.run_events();
             return true;
@@ -87,6 +87,7 @@ public class EngineObj {
 
     private boolean canMove(Direction dir, Map m) {
         Tile t = m.getTile(position_.tempPos(dir));
+        System.out.println(getPosition_().getX()+":"+getPosition_().getY()+" -> "+t.get_x() * 16 +":"+t.get_y() *16);
         if (t == null)
             return false;
         return t.getIs_Walkable();

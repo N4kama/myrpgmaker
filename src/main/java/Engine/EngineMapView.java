@@ -84,9 +84,9 @@ public class EngineMapView extends MapView {
         for (EngineObj obj : mapModel.getObjects()) {
             if (!obj.getIs_player()) {
                 BufferedImage img = SpriteTools.openObject(obj.getSprite_());
-                g.drawImage(img, obj.get_y() - img.getHeight() / 2, obj.get_x() - img.getWidth() / 2, null);
+                g.drawImage(img, obj.get_x() - img.getHeight() / 2, obj.get_y() - img.getWidth() / 2, null);
             } else {
-                g.drawImage(curAnim.getSprite(), obj.get_y() - curAnim.getSprite().getHeight() / 2, obj.get_x() - curAnim.getSprite().getWidth() / 2, null);
+                g.drawImage(curAnim.getSprite(), obj.get_x() - curAnim.getSprite().getHeight() / 2, obj.get_y() - curAnim.getSprite().getWidth() / 2, null);
             }
         }
     }
