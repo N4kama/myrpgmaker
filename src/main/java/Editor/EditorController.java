@@ -87,6 +87,8 @@ public class EditorController extends Observable {
 
     private ActionListener play_action() {
         return actionEvent -> {
+            view.frame.setVisible(false);
+            view.frame.dispose();
             EngineObj charact = new EngineObj(0, 0, "path to char");
 
             Map map = model.gameWorld.getCurMap();
@@ -96,8 +98,6 @@ public class EditorController extends Observable {
             EngineView engineView = new EngineView(engineModel);
             EngineController engineCtrl = new EngineController(engineModel, engineView);
             engineCtrl.set_controls();
-            view.frame.setVisible(false);
-            view.frame.dispose();
         };
     }
 
