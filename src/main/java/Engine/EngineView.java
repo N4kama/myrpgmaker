@@ -134,8 +134,8 @@ public class EngineView extends JFrame implements Observer {
     */
 
     public void paintComponent(Graphics g, EngineObj obj) {
-        g.drawImage(this.map_view.curAnim.getSprite(), obj.get_y() - this.map_view.curAnim.getSprite().getHeight()
-                / 2, obj.get_x() - this.map_view.curAnim.getSprite().getWidth() / 2, null);
+        g.drawImage(this.map_view.curAnim.getSprite(), obj.get_x() - this.map_view.curAnim.getSprite().getHeight()
+                / 2, obj.get_y() - this.map_view.curAnim.getSprite().getWidth() / 2, null);
     }
 
     @Override

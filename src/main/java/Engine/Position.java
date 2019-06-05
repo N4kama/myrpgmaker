@@ -47,23 +47,25 @@ public class Position {
         p.setX(p.getX() / 16);
         p.setY(p.getY() / 16);
         p.move(dir);
+        //4 times for better animation
         return p;
     }
 
+
     private void moveLeft() {
-        setX(x_ - 1);
+        setX(x_ - 8);
     }
 
     private void moveRight() {
-        setX(x_ + 1);
+        setX(x_ + 8);
     }
 
     private void moveUp() {
-        setY(y_ - 1);
+        setY(y_ - 8);
     }
 
     private void moveDown() {
-        setY(y_ + 1);
+        setY(y_ + 8);
     }
 
     public Integer getX() {

@@ -65,8 +65,8 @@ public class EngineObj {
             // set new tile to nonwalkable
             t = m.getTile(position_);
             //t.setIs_Walkable(false);
-            if (is_player)
-                t.run_events();
+            //if (is_player)
+            //    t.run_events();
             return true;
         }
         if (is_player) {
