@@ -46,8 +46,17 @@ public class EngineMapView extends MapView {
         ArrayList<BufferedImage> tmp = new ArrayList<>();
         tmp.add(SpriteTools.getStandingSprite(spritePlayer, 1, 0));
         standDown = new Animation(tmp, 10);
+
+        tmp.remove(0);
+        tmp.add(SpriteTools.getStandingSprite(spritePlayer, 1, 3));
         standUp = new Animation(tmp, 10);
+
+        tmp.remove(0);
+        tmp.add(SpriteTools.getStandingSprite(spritePlayer, 1, 1));
         standLeft = new Animation(tmp, 10);
+
+        tmp.remove(0);
+        tmp.add(SpriteTools.getStandingSprite(spritePlayer, 1, 2));
         standRight = new Animation(tmp, 10);
 
         curAnim = standDown;
