@@ -29,4 +29,9 @@ public class EngineModel extends Observable {
         notifyObservers("move");
     }
 
+    public void stand() {
+        setChanged();
+        notifyObservers("stand");
+    }
+
 }
