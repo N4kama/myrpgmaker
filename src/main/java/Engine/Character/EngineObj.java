@@ -55,15 +55,15 @@ public class EngineObj {
 
     public boolean move(Direction dir, Map m) {
         // if not in correct dir, just rotate
-        if (rotate(dir))
-            return false;
+        //if (rotate(dir))
+        //    return false;
         if (canMove(dir, m)) {
             // set prev tile to walkable
             Tile t = m.getTile(position_);
             //t.setIs_Walkable(true);
             position_.move(dir);
             // set new tile to nonwalkable
-            t = m.getTile(position_);
+            //t = m.getTile(position_);
             //t.setIs_Walkable(false);
             //if (is_player)
             //    t.run_events();

@@ -116,11 +116,11 @@ public class EditorController extends Observable {
         return actionEvent -> {
             view.frame.setVisible(false);
             view.frame.dispose();
-            EngineObj charact = new EngineObj(0, 0, "path to char");
+            //EngineObj charact = new EngineObj(0, 0, "path to char");
 
             Map map = model.gameWorld.getCurMap();
 
-            model.gameWorld.setPlayer(charact);
+            //model.gameWorld.setPlayer(charact);
             EngineModel engineModel = new EngineModel(model.gameWorld);
             EngineView engineView = new EngineView(engineModel);
             engineModel.addObserver(engineView);
