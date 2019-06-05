@@ -21,6 +21,7 @@ public class SpriteTools {
     public static boolean playerModelSelected = false;
     public static boolean is_background = true;
     public static String selectedSprite = null;
+    public static boolean walkable = true;
     public static MousePointerState mousePointerState = MousePointerState.PLACE;
 
     public static void registerSprite(BufferedImage img, String path) {
