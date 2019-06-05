@@ -1,7 +1,10 @@
 package Engine;
 
+import Engine.Character.EngineObj;
+import Game.Tile;
 import MapPannel.MapModel;
 import MapPannel.MapView;
+import Utils.SpriteTools;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -121,12 +124,27 @@ public class EngineView extends JFrame implements Observer {
         r.run();
     }
 
+    /*
+    public void deleteEngineOBJ(Graphics g, EngineObj obj) {
+        Tile tile = this.model_.getGameWorld().getCurMap().getGameTile(obj.get_y() -
+                this.map_view.curAnim.getSprite().getHeight() / 2,obj.get_x()
+                    - this.map_view.curAnim.getSprite().getWidth() / 2);
+        g.drawImage(SpriteTools.pathToImg.get(tile.get_path()), tile.get_x(), tile.get_y(), null);
+    }
+    */
+
+    public void paintComponent(Graphics g, EngineObj obj) {
+        g.drawImage(this.map_view.curAnim.getSprite(), obj.get_y() - this.map_view.curAnim.getSprite().getHeight()
+                / 2, obj.get_x() - this.map_view.curAnim.getSprite().getWidth() / 2, null);
+    }
+
     @Override
     public void update(Observable o, Object arg) {
         System.out.println("UPDATE!!!");
         map_view.curAnim.update();
         revalidate();
-        repaint();
+        //deleteEngineOBJ(this.getGraphics(), this.model_.getGameWorld().player_);
+        paintComponent(this.getGraphics(), this.model_.getGameWorld().player_);
     }
 
     private JPanel create_menuPanel(Dimension d) {
