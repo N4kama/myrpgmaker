@@ -15,6 +15,7 @@ import SpritePannel.SpriteView;
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.Observable;
 import java.util.Observer;
@@ -92,10 +93,13 @@ public class EditorView extends JFrame implements Observer {
         InspectorModel inspectorModel = new InspectorModel(null);
         InspectorView inspectorView = new InspectorView(inspectorModel);
 
-        JScrollPane inspectPane = new JScrollPane(inspectorView);
-        inspectPane.setPreferredSize(new Dimension(200, 200));
+
+        //JScrollPane inspectPane = new JScrollPane(inspectorView);
+        inspectorView.setPreferredSize(new Dimension(200, 80));
+
         JTabbedPane inspectTab = new JTabbedPane();
-        inspectTab.addTab("Inspector", inspectPane);
+        inspectTab.addTab("Inspector", inspectorView);
+
         return inspectTab;
     }
 
