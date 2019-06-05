@@ -9,6 +9,7 @@ import Utils.SpriteTools;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -62,6 +63,32 @@ public class EditorController extends Observable {
         view.placeButton.addActionListener(place_action());
         view.selectButton.addActionListener(select_action());
         view.removeButton.addActionListener(remove_action());
+        view.add_map.addActionListener(addMap_action());
+        view.walkableButton.addActionListener(walkableAction());
+        view.not_walkableButton.addActionListener(not_walkableButtonAction());
+    }
+
+    private ActionListener not_walkableButtonAction() {
+        return ActionEvent -> SpriteTools.walkable = false;
+    }
+
+    private ActionListener walkableAction() {
+        return ActionEvent -> SpriteTools.walkable = true;
+    }
+
+    private ActionListener addMap_action() {
+        return ActionEvent -> {
+            int height = 100;
+            int width = 100;
+            String default_tile_path = System.getProperty("user.dir") + "/resources/backgroundTile/grass.png";
+            //popup asking for width  and height
+            String w = JOptionPane.showInputDialog("enter map width");
+            width = Integer.parseInt(w);
+            String h = JOptionPane.showInputDialog("enter map height");
+            height = Integer.parseInt(h);
+            model.add_map(width, height, default_tile_path);
+            //refresh view
+        };
     }
 
     private ActionListener add_player_action() {

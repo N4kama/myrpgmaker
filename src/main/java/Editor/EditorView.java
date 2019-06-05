@@ -30,6 +30,7 @@ public class EditorView extends JFrame implements Observer {
     JMenuItem file_exit;
     JMenuItem edit_undo;
     JMenuItem edit_redo;
+    JMenuItem add_map;
     JMenuItem add_tile;
     JMenuItem add_object;
     JMenuItem add_npc;
@@ -44,10 +45,13 @@ public class EditorView extends JFrame implements Observer {
     JButton removeButton;
     JButton undoButton;
     JButton redoButton;
+    JButton walkableButton;
+    JButton not_walkableButton;
     JButton playButton;
 
     public EditorView(EditorModel model) {
         this.model = model;
+        this.model.addObserver(this);
         //Creating Frame
         frame = new JFrame("My RPG Maker");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -112,8 +116,8 @@ public class EditorView extends JFrame implements Observer {
         mapPane.setPreferredSize(new Dimension(200, 200));
 
         //Joining all the panes into a Tab (bar)
-        JTabbedPane mapTab = new JTabbedPane();
-        mapTab.addTab("Map", mapPane);
+        mapTab = new JTabbedPane();
+        mapTab.addTab("Map 1", mapPane);
 
         return mapTab;
     }
@@ -202,6 +206,12 @@ public class EditorView extends JFrame implements Observer {
         ImageIcon play_I = get_icon("play.png");
         playButton = new JButton(play_I);
         toolBar.add(playButton);
+        ImageIcon walkable_I = get_icon("walkable.png");
+        walkableButton = new JButton(walkable_I);
+        toolBar.add(walkableButton);
+        ImageIcon not_walkable_I = get_icon("not_walkable.png");
+        not_walkableButton = new JButton(not_walkable_I);
+        toolBar.add(not_walkableButton);
 
         return toolBar;
     }
@@ -215,9 +225,11 @@ public class EditorView extends JFrame implements Observer {
         JMenuBar menuBar = new JMenuBar();
         JMenu file = new JMenu("File");
         JMenu edit = new JMenu("Edit");
+        JMenu world = new JMenu("World");
         JMenu sprite = new JMenu("Sprite");
         menuBar.add(file);
         menuBar.add(edit);
+        menuBar.add(world);
         menuBar.add(sprite);
 
         //Creating Menu Items
@@ -272,15 +284,31 @@ public class EditorView extends JFrame implements Observer {
         add_player = new JMenuItem("add player model");
         add_player.setEnabled(true);
         sprite.add(add_player);
+        add_map = new JMenuItem("add map");
+        add_map.setEnabled(true);
+        world.add(add_map);
         return menuBar;
     }
 
     @Override
     public void update(Observable o, Object arg) {
+        if (arg.getClass() ==  Map.class) {
+            MapModel mapModel = new MapModel((Map)arg);
+            MapView mapView = new MapView(mapModel);
+            MapController mapController = new MapController(mapModel, mapView);
+            mapController.start();
 
+            //Linking to Pane
+            JScrollPane mapPane = new JScrollPane(mapView);
+            mapPane.setPreferredSize(new Dimension(200, 200));
+
+            mapTab.addTab("Map " + (model.gameWorld.gameWorld_.size() - 1), mapPane);
+        }
     }
 
     //Saved here to init all observers
+    JTabbedPane mapTab;
+
     SpriteController backgroundSpriteController;
     SpriteController foregroundSpriteController;
     SpriteController NPCSpriteController;
