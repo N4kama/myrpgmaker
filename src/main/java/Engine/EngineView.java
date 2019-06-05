@@ -18,6 +18,7 @@ import java.util.Observer;
 
 public class EngineView extends JFrame implements Observer {
     public boolean inMenu = true;
+    public EngineMapView map_view;
     private EngineModel model_;
     JButton startButton;
     JButton exitButton;
@@ -74,8 +75,8 @@ public class EngineView extends JFrame implements Observer {
         setSize(600,600);
 
         MapModel mapModel = new MapModel(model_.getGameWorld().getCurMap());
-        MapView mapView = new EngineMapView(mapModel);
-        gamePanel = (JPanel) mapView;
+        map_view = new EngineMapView(mapModel);
+        gamePanel = (JPanel) map_view;
         progressPanel = new JPanel();
         progressPanel.setLayout(new GridBagLayout());
 
@@ -120,10 +121,12 @@ public class EngineView extends JFrame implements Observer {
         r.run();
     }
 
-
     @Override
-    public void update(Observable observable, Object o) {
-
+    public void update(Observable o, Object arg) {
+        System.out.println("UPDATE!!!");
+        map_view.curAnim.update();
+        revalidate();
+        repaint();
     }
 
     private JPanel create_menuPanel(Dimension d) {
