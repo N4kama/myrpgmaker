@@ -96,6 +96,8 @@ public class EditorController extends Observable {
             EngineView engineView = new EngineView(engineModel);
             EngineController engineCtrl = new EngineController(engineModel, engineView);
             engineCtrl.set_controls();
+            view.frame.setVisible(false);
+            view.frame.dispose();
         };
     }
 
