@@ -14,19 +14,10 @@ import java.util.Observer;
 public class MapView extends JPanel implements Observer {
 
     public MapModel mapModel;
-    private BufferedImage spritePlayer;
-    public ArrayList<BufferedImage> walkingLeft;
-    public ArrayList<BufferedImage> walkingRight;
-    public ArrayList<BufferedImage> walkingUp;
-    public ArrayList<BufferedImage> walkingDown;
 
     public MapView(MapModel mapModel) {
         this.mapModel = mapModel;
         this.mapModel.addObserver(this);
-        this.walkingLeft = new ArrayList<>();
-        this.walkingRight = new ArrayList<>();
-        this.walkingUp = new ArrayList<>();
-        this.walkingDown = new ArrayList<>();
         setBackground(Color.black);
     }
 
@@ -39,17 +30,12 @@ public class MapView extends JPanel implements Observer {
 
     public void drayObjects(Graphics g) {
         for (EngineObj obj : mapModel.getObjects()) {
-            if (!obj.getIs_player()) {
-                BufferedImage img = SpriteTools.openObject(obj.getSprite_());
-                g.drawImage(img, obj.get_y() - img.getHeight() / 2, obj.get_x() - img.getWidth() / 2, null);
-            } else {
-                BufferedImage img = SpriteTools.openObject(obj.getSprite_());
-                g.drawImage(img, obj.get_y() - img.getHeight() / 2, obj.get_x() - img.getWidth() / 2, null);
-            }
+            BufferedImage img = SpriteTools.openObject(obj.getSprite_());
+            g.drawImage(img, obj.get_y() - img.getHeight() / 2, obj.get_x() - img.getWidth() / 2, null);
         }
     }
 
-    private void drawTiles(Graphics g) {
+    public void drawTiles(Graphics g) {
         int x = 0, y = 0;
         for (int i = 0; i < mapModel.getWidth(); i++) {
             for (int j = 0; j < mapModel.getHeight(); j++) {
