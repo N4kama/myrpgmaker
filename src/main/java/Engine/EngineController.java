@@ -41,8 +41,11 @@ public class EngineController {
 
             @Override
             public void keyPressed(KeyEvent ke) {
-                if(ke.getKeyCode() == KeyEvent.VK_ESCAPE)
+                if(ke.getKeyCode() == KeyEvent.VK_RIGHT)
                 {
+                    view_.map_view.curAnim = view_.map_view.walkRight;
+                    view_.map_view.curAnim.start();
+                    model_.move("right");
                     /*
                     if (!view_.inMenu) {
                         view_.displayPauseMenu();
@@ -52,8 +55,19 @@ public class EngineController {
             }
 
             @Override
-            public void keyReleased(KeyEvent keyEvent) {
-
+            public void keyReleased(KeyEvent ke) {
+                if(ke.getKeyCode() == KeyEvent.VK_ESCAPE)
+                {
+                    view_.map_view.curAnim.stop();
+                    view_.map_view.curAnim.reset();
+                    view_.map_view.curAnim = view_.map_view.standDown;
+                    model_.move("");
+                    /*
+                    if (!view_.inMenu) {
+                        view_.displayPauseMenu();
+                        view_.inMenu = true;
+                    }*/
+                }
             }
         };
     }
