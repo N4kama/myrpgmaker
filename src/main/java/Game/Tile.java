@@ -8,7 +8,7 @@ import Engine.Event.GameEvents;
 
 public class Tile {
     private Position pos_;
-    private Boolean is_Walkable_;
+    private Boolean is_Walkable_ = true;
     private String tile_img_;
     private List<GameEvents> events;
 

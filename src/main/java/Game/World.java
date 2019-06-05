@@ -7,7 +7,7 @@ import Utils.WorldTools;
 
 
 public class World {
-    private ArrayList<Map> gameWorld_;
+    public ArrayList<Map> gameWorld_;
     private Integer id_cur_map;
 
     private String name_;
@@ -34,12 +34,13 @@ public class World {
         return name_;
     }
 
-    public void addMap(Map m) {
+    public int addMap(Map m) {
         this.gameWorld_.add(gameWorld_.size(), m);
         if(gameWorld_.size() == 1)
         {
             changeMap(0);
         }
+        return gameWorld_.size() - 1;
     }
 
     public Map getCurMap()
