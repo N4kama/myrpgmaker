@@ -32,7 +32,10 @@ public class EngineObj {
     public Boolean getIs_player() {
         return is_player;
     }
-
+    public String getDialog() {
+        return dialog_;
+    }
+    public void setDialog(String d) {dialog_ = d;}
     public void set_map(Map m)
     {
         position_ = m.getSpawn();
@@ -112,6 +115,9 @@ public class EngineObj {
     // state
     private Direction cur_dir_;
     private Integer anim_state_;
+
+    //dialog
+    private String dialog_;
 
     public void setIs_player(Boolean is_player) {
         this.is_player = is_player;
