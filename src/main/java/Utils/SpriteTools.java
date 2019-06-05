@@ -57,23 +57,23 @@ public class SpriteTools {
     public static void setSpriteMove(BufferedImage img, ArrayList<BufferedImage> arr, String move) {
         if (move.equals("left")) {
             arr.add(img.getSubimage(0 * TILE_SIZE, 1 * TILE_SIZE, TILE_SIZE, TILE_SIZE));
-            arr.add(img.getSubimage(1 * TILE_SIZE, 1 * TILE_SIZE, TILE_SIZE, TILE_SIZE));
             arr.add(img.getSubimage(2 * TILE_SIZE, 1 * TILE_SIZE, TILE_SIZE, TILE_SIZE));
         }
         else if (move.equals("right")) {
             arr.add(img.getSubimage(0 * TILE_SIZE, 2 * TILE_SIZE, TILE_SIZE, TILE_SIZE));
-            arr.add(img.getSubimage(1 * TILE_SIZE, 2 * TILE_SIZE, TILE_SIZE, TILE_SIZE));
             arr.add(img.getSubimage(2 * TILE_SIZE, 2 * TILE_SIZE, TILE_SIZE, TILE_SIZE));
         }
         else if (move.equals("up")) {
             arr.add(img.getSubimage(0 * TILE_SIZE, 3 * TILE_SIZE, TILE_SIZE, TILE_SIZE));
-            arr.add(img.getSubimage(1 * TILE_SIZE, 3 * TILE_SIZE, TILE_SIZE, TILE_SIZE));
             arr.add(img.getSubimage(2 * TILE_SIZE, 3 * TILE_SIZE, TILE_SIZE, TILE_SIZE));
         }
         else if (move.equals("down")) {
             arr.add(img.getSubimage(0 * TILE_SIZE, 0 * TILE_SIZE, TILE_SIZE, TILE_SIZE));
-            arr.add(img.getSubimage(1 * TILE_SIZE, 0 * TILE_SIZE, TILE_SIZE, TILE_SIZE));
             arr.add(img.getSubimage(2 * TILE_SIZE, 0 * TILE_SIZE, TILE_SIZE, TILE_SIZE));
         }
+    }
+
+    public static BufferedImage getStandingSprite(BufferedImage img, int x, int y) {
+        return img.getSubimage(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     }
 }
