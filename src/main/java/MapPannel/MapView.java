@@ -108,7 +108,8 @@ public class MapView extends JPanel implements Observer {
             for (; y_min <= y_max; y_min += 16) {
                 Tile tile = mapModel.map.getGameTile(x_min, y_min);
                 if (tile != null)
-                    g.drawImage(img, tile.get_x() * 16, tile.get_y() * 16, null);
+                    g.drawImage(SpriteTools.pathToImg.get(tile.get_path()),
+                            tile.get_x(), tile.get_y(), null);
             }
         }
     }
