@@ -5,16 +5,11 @@ import Engine.Character.EngineObj;
 import Game.Map;
 import Game.Tile;
 import MapPannel.MapModel;
-import MapPannel.MapView;
 import Utils.SpriteTools;
-import Utils.WorldTools;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +18,6 @@ import java.util.Observer;
 
 public class EngineView extends JFrame implements Observer {
     public boolean inMenu = true;
-    private boolean started = false;
     public Map map;
     public EngineMapView map_view;
     private EngineModel model_;
@@ -32,7 +26,6 @@ public class EngineView extends JFrame implements Observer {
     JButton continueButton;
     JPanel gamePanel;
     JPanel menuPanel;
-    JPanel progressPanel;
 
     BufferedImage gameImage;
 
@@ -90,7 +83,8 @@ public class EngineView extends JFrame implements Observer {
         gamePanel.setVisible(true);
         setFocusable(true);
         requestFocusInWindow();
-        started = true;
+
+        createPauseMenu();
 
         for (EngineObj obj: model_.getGameWorld().getCurMap().getEngineObjs()) {
 
@@ -106,6 +100,14 @@ public class EngineView extends JFrame implements Observer {
             });
             myThread.start();
         }
+    }
+
+    private void createPauseMenu() {
+        menuPanel.removeAll();
+        menuPanel.setBackground(Color.black);
+        menuPanel.add(continueButton);
+        menuPanel.add(exitButton);
+        menuPanel.setVisible(false);
     }
 
     private void repaintPos(Graphics g, Position p) {
@@ -149,6 +151,7 @@ public class EngineView extends JFrame implements Observer {
 
     public void paintComponent(Graphics g, EngineObj obj) {
         map_view.drayObjects(this.getGraphics());
+        remove(gamePanel);
     }
 
     @Override
@@ -160,7 +163,7 @@ public class EngineView extends JFrame implements Observer {
             {
                 return;
             }
-            if (obj.isAlive() && started) {
+            if (obj.isAlive() && !inMenu) {
                 obj.getEs().getCurAnim().update();
                 revalidate();
                 deletePos(this.getGraphics(), new Position(obj.get_x(), obj.get_y()));
@@ -174,6 +177,7 @@ public class EngineView extends JFrame implements Observer {
             return;
         }
     }
+
 
     private JPanel create_menuPanel(Dimension d) {
         return new JPanel() {
