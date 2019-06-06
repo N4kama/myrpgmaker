@@ -68,7 +68,7 @@ public class EngineObj {
             // set prev tile to walkable
             Tile t = m.getTile(position_);
             //t.setIs_Walkable(true);
-            position_.move(dir);
+            this.pposition_ = position_.move(dir);
             // set new tile to nonwalkable
             t = m.getTile(position_);
             //t.setIs_Walkable(false);
@@ -127,6 +127,7 @@ public class EngineObj {
 
     // map
     private Position position_;
+    private Position pposition_;
 
     // state
     private Direction cur_dir_;
@@ -224,11 +225,27 @@ public class EngineObj {
         return position_.getY();
     }
 
+    public int get_px() {
+        return pposition_.getX();
+    }
+
+    public int get_py() {
+        return pposition_.getY();
+    }
+
+
     /**
      * @param position_ the position_ to set
      */
     public void setPosition_(Position position_) {
         this.position_ = position_;
+    }
+
+    /**
+     * @param pposition_ the position_ to set
+     */
+    public void setPPosition_(Position position_) {
+        this.pposition_ = position_;
     }
 
     /**
