@@ -5,6 +5,7 @@ import Engine.Position;
 import Game.Map;
 import Game.Tile;
 import Utils.SpriteTools;
+import Utils.WorldTools;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -25,6 +26,7 @@ public class MapModel extends Observable {
 
     public MapModel(Map map) {
         this.map = map;
+        this.addObserver(WorldTools.inspectorModel);
     }
 
     public int getWidth() {
@@ -50,7 +52,6 @@ public class MapModel extends Observable {
                 res = map.setNpc(x, y, SpriteTools.selectedSprite);
                 else
                 res = map.setObject(x, y, SpriteTools.selectedSprite);
-
         }
         if (res != null) {
             setChanged();

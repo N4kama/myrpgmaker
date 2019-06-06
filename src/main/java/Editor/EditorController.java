@@ -63,9 +63,14 @@ public class EditorController extends Observable {
         view.placeButton.addActionListener(place_action());
         view.selectButton.addActionListener(select_action());
         view.removeButton.addActionListener(remove_action());
+        view.gridButton.addActionListener(grid_action());
         view.add_map.addActionListener(addMap_action());
         view.walkableButton.addActionListener(walkableAction());
         view.not_walkableButton.addActionListener(not_walkableButtonAction());
+    }
+
+    private ActionListener grid_action() {
+        return ActionEvent -> System.out.println("Should display or not the grid");
     }
 
     private ActionListener not_walkableButtonAction() {

@@ -2,6 +2,7 @@ package Utils;
 
 import Engine.Character.EngineObj;
 import Game.World;
+import InspectorPannel.InspectorModel;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
@@ -10,11 +11,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class WorldTools {
     public static EngineObj player; //static reference to unique player object through a unique world
+    public static InspectorModel inspectorModel = new InspectorModel(null); //used almost like a singleton for MapModel reference
 
     public static void saveWorld(String path, World world) throws IOException {
         Gson gson = new Gson();

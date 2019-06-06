@@ -12,6 +12,7 @@ import MapPannel.MapView;
 import SpritePannel.SpriteController;
 import SpritePannel.SpriteModel;
 import SpritePannel.SpriteView;
+import Utils.WorldTools;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -45,6 +46,7 @@ public class EditorView extends JFrame implements Observer {
     JButton moveButton;
     JButton selectButton;
     JButton removeButton;
+    JButton gridButton;
     JButton undoButton;
     JButton redoButton;
     JButton walkableButton;
@@ -91,7 +93,7 @@ public class EditorView extends JFrame implements Observer {
     }
 
     private JTabbedPane create_inspectorTab() {
-        InspectorModel inspectorModel = new InspectorModel(null);
+        InspectorModel inspectorModel = WorldTools.inspectorModel;
         InspectorView inspectorView = new InspectorView(inspectorModel);
         InspectorController inspectorController = new InspectorController(inspectorModel, inspectorView);
 
@@ -202,6 +204,9 @@ public class EditorView extends JFrame implements Observer {
         ImageIcon remove_I = get_icon("remove.png");
         removeButton = new JButton(remove_I);
         toolBar.add(removeButton);
+        ImageIcon grid_I = get_icon("grid.png");
+        gridButton = new JButton(grid_I);
+        toolBar.add(gridButton);
         ImageIcon undo_I = get_icon("undo.png");
         undoButton = new JButton(undo_I);
         toolBar.add(undoButton);
