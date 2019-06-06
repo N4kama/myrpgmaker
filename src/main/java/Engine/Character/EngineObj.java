@@ -9,6 +9,7 @@ import Game.Map;
 import Game.Tile;
 import Engine.Event.GameEvents;
 import Engine.Event.MoveEvent;
+import Engine.Event.TeleportEvent;
 
 public class EngineObj {
     private Boolean is_player = false;
@@ -94,7 +95,7 @@ public class EngineObj {
         Tile t = m.getTile(position_.tempPos(dir));
         if (t == null)
         {
-            GameEvents g = new MoveEvent(this, Direction.DOWN, m);
+            GameEvents g = new TeleportEvent(this, 10, 10, m);
             g.run();
             return false;
         }
