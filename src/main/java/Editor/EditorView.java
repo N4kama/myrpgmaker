@@ -3,6 +3,7 @@ package Editor;
 import FileExplorerPannel.FileExplorerView;
 import Game.Map;
 import Game.World;
+import InspectorPannel.InspectorController;
 import InspectorPannel.InspectorModel;
 import InspectorPannel.InspectorView;
 import MapPannel.MapController;
@@ -92,7 +93,7 @@ public class EditorView extends JFrame implements Observer {
     private JTabbedPane create_inspectorTab() {
         InspectorModel inspectorModel = new InspectorModel(null);
         InspectorView inspectorView = new InspectorView(inspectorModel);
-
+        InspectorController inspectorController = new InspectorController(inspectorModel, inspectorView);
 
         //JScrollPane inspectPane = new JScrollPane(inspectorView);
         inspectorView.setPreferredSize(new Dimension(200, 80));
