@@ -1,5 +1,7 @@
 package InspectorPannel;
 
+import Engine.Position;
+
 import java.awt.event.ActionListener;
 
 public class InspectorController {
@@ -13,6 +15,7 @@ public class InspectorController {
     }
     public void set_controls() {
         view.calbtn.addActionListener(get_new_dialog());
+        view.telbtn.addActionListener(get_new_teleport());
     }
 
     private ActionListener get_new_dialog() {
@@ -20,6 +23,21 @@ public class InspectorController {
             String data = view.dialog.getText();
             if (InspectorModel.obj != null)
                 InspectorModel.obj.setDialog(data);
+        };
+    }
+
+    private ActionListener get_new_teleport() {
+        return actionEvent -> {
+            Position data;
+            if (view.get_telx.getText().equals("") || view.get_tely.getText().equals(""))
+                data = null;
+            else {
+                data = new Position(Integer.parseInt((view.get_telx.getText())),
+                        Integer.parseInt((view.get_tely.getText())));
+            }
+            if (InspectorModel.obj != null)
+                InspectorModel.obj.setTeleportedPos(data);
+
         };
     }
 }
