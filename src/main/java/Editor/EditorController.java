@@ -217,6 +217,9 @@ public class EditorController extends Observable {
                 // model open
                 try {
                     model.gameWorld = loadWorld(filePath);
+                    model.setWorld(model.gameWorld);
+                    //view.update();
+
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
