@@ -134,59 +134,59 @@ public class EngineView extends JFrame implements Observer {
      * tile.get_y(), null); }
      */
 
+    /*
+     * private void deleteEngineOBJ(Graphics g, EngineObj obj) { BufferedImage img =
+     * SpriteTools.pathToImg.get(obj.getSprite_()); int x = (obj.get_px()); int y =
+     * (obj.get_py()); int w = img.getWidth(); int h = img.getHeight();
+     * System.out.println("x: " + x + " y: " + y); Position p = new Position(x, y);
+     * Tile tile = map.getTile(p); System.out.println(tile.get_path()); if (tile !=
+     * null) { BufferedImage tilehere = SpriteTools.pathToImg.get(tile.get_path());
+     * for (int i = 0; i < w; i++) { for (int j = 0; j < h; j++) {
+     * g.drawImage(tilehere, (x + i) * 16, (y + j) * 16, null); } } } }
+     */
+
     private void deleteEngineOBJ(Graphics g, EngineObj obj) {
-        BufferedImage img = SpriteTools.pathToImg.get(obj.getSprite_());
-        int x = (obj.get_px());
-        int y = (obj.get_py());
-        int w = img.getWidth();
-        int h = img.getHeight();
+        int x = (obj.get_x());
+        int y = (obj.get_y());
         System.out.println("x: " + x + " y: " + y);
         Position p = new Position(x, y);
         Tile tile = map.getTile(p);
         System.out.println(tile.get_path());
         if (tile != null) {
-            BufferedImage tilehere = SpriteTools.pathToImg.get(tile.get_path());
-            for (int i = 0; i < w; i++) {
-                for (int j = 0; j < h; j++) {
-                    g.drawImage(tilehere, (x + i) * 16, (y + j) * 16, null);
-                }
-            }
+            BufferedImage i = SpriteTools.pathToImg.get(tile.get_path());
+
+            g.drawImage(i, x * 16, y * 16, null);
+            g.drawImage(i, (x + 1) * 16, y * 16, null);
+            g.drawImage(i, (x + 2) * 16, y * 16, null);
+            g.drawImage(i, (x - 1) * 16, y * 16, null);
+            g.drawImage(i, (x - 2) * 16, y * 16, null);
+
+            g.drawImage(i, x * 16, (y - 1) * 16, null);
+            g.drawImage(i, (x + 1) * 16, (y - 1) * 16, null);
+            g.drawImage(i, (x + 2) * 16, (y - 1) * 16, null);
+            g.drawImage(i, (x - 1) * 16, (y - 1) * 16, null);
+            g.drawImage(i, (x - 2) * 16, (y - 1) * 16, null);
+
+            g.drawImage(i, x * 16, (y - 2) * 16, null);
+            g.drawImage(i, (x + 1) * 16, (y - 2) * 16, null);
+            g.drawImage(i, (x + 2) * 16, (y - 2) * 16, null);
+            g.drawImage(i, (x - 1) * 16, (y - 2) * 16, null);
+            g.drawImage(i, (x - 2) * 16, (y - 2) * 16, null);
+
+            g.drawImage(i, x * 16, (y + 2) * 16, null);
+            g.drawImage(i, (x + 1) * 16, (y + 2) * 16, null);
+            g.drawImage(i, (x + 2) * 16, (y + 2) * 16, null);
+            g.drawImage(i, (x - 1) * 16, (y + 2) * 16, null);
+            g.drawImage(i, (x - 2) * 16, (y + 2) * 16, null);
+
+            g.drawImage(i, x * 16, (y + 1) * 16, null);
+            g.drawImage(i, (x + 1) * 16, (y + 1) * 16, null);
+            g.drawImage(i, (x + 2) * 16, (y + 1) * 16, null);
+            g.drawImage(i, (x - 1) * 16, (y + 1) * 16, null);
+            g.drawImage(i, (x - 2) * 16, (y + 1) * 16, null);
+
         }
     }
-
-    /*
-     * private void deleteEngineOBJ(Graphics g, EngineObj obj) { int x =
-     * (obj.get_x()); int y = (obj.get_y()); System.out.println("x: " + x + " y: " +
-     * y); Position p = new Position(x, y); Tile tile = map.getTile(p);
-     * System.out.println(tile.get_path()); if (tile != null) { BufferedImage i =
-     * SpriteTools.pathToImg.get(tile.get_path());
-     * 
-     * g.drawImage(i, x * 16, y * 16, null); g.drawImage(i, (x + 1) * 16, y * 16,
-     * null); g.drawImage(i, (x + 2) * 16, y * 16, null); g.drawImage(i, (x - 1) *
-     * 16, y * 16, null); g.drawImage(i, (x - 2) * 16, y * 16, null);
-     * 
-     * g.drawImage(i, x * 16, (y - 1) * 16, null); g.drawImage(i, (x + 1) * 16, (y -
-     * 1) * 16, null); g.drawImage(i, (x + 2) * 16, (y - 1) * 16, null);
-     * g.drawImage(i, (x - 1) * 16, (y - 1) * 16, null); g.drawImage(i, (x - 2) *
-     * 16, (y - 1) * 16, null);
-     * 
-     * g.drawImage(i, x * 16, (y - 2) * 16, null); g.drawImage(i, (x + 1) * 16, (y -
-     * 2) * 16, null); g.drawImage(i, (x + 2) * 16, (y - 2) * 16, null);
-     * g.drawImage(i, (x - 1) * 16, (y - 2) * 16, null); g.drawImage(i, (x - 2) *
-     * 16, (y - 2) * 16, null);
-     * 
-     * g.drawImage(i, x * 16, (y + 2) * 16, null); g.drawImage(i, (x + 1) * 16, (y +
-     * 2) * 16, null); g.drawImage(i, (x + 2) * 16, (y + 2) * 16, null);
-     * g.drawImage(i, (x - 1) * 16, (y + 2) * 16, null); g.drawImage(i, (x - 2) *
-     * 16, (y + 2) * 16, null);
-     * 
-     * g.drawImage(i, x * 16, (y + 1) * 16, null); g.drawImage(i, (x + 1) * 16, (y +
-     * 1) * 16, null); g.drawImage(i, (x + 2) * 16, (y + 1) * 16, null);
-     * g.drawImage(i, (x - 1) * 16, (y + 1) * 16, null); g.drawImage(i, (x - 2) *
-     * 16, (y + 1) * 16, null);
-     * 
-     * } }
-     */
 
     public void paintComponent(Graphics g, EngineObj obj) {
         if (obj.isAlive()) {

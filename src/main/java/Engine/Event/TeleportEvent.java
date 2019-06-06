@@ -17,7 +17,6 @@ public class TeleportEvent implements GameEvents {
     public boolean run() {
         if(m.getTile(p).getIs_Walkable())
             {
-                c.setPPosition_(c.getPosition_());
                 c.setPosition_(p);
                 return true;
             }

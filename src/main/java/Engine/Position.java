@@ -9,8 +9,7 @@ public class Position {
     private Integer x_;
     private Integer y_;
 
-    public Position move(Direction dir) {
-        Position p = new Position(x_,y_);
+    public void move(Direction dir) {
         switch (dir) {
         case UP:
             moveUp();
@@ -27,7 +26,6 @@ public class Position {
         default:
             break;
         }
-        return p;
     }
     @Override
     public boolean equals(Object o) { 
