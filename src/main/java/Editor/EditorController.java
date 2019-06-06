@@ -70,7 +70,7 @@ public class EditorController extends Observable {
     }
 
     private ActionListener grid_action() {
-        return ActionEvent -> System.out.println("Should display or not the grid");
+        return ActionEvent -> model.toggleGrid();
     }
 
     private ActionListener not_walkableButtonAction() {

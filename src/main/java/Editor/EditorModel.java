@@ -2,14 +2,17 @@ package Editor;
 
 import Game.Map;
 import Game.World;
+import Utils.SpriteTools;
 
 import java.util.Observable;
 
 public class EditorModel extends Observable {
+    public static EditorModel singleton;
 
     public World gameWorld;
 
     public EditorModel() {
+        this.singleton = this;
     }
 
     public void setWorld(World gameWorld) {
@@ -22,5 +25,11 @@ public class EditorModel extends Observable {
         gameWorld.changeMap(id);
         setChanged();
         notifyObservers(map);
+    }
+
+    public void toggleGrid() {
+        SpriteTools.grid_display = !SpriteTools.grid_display;
+        setChanged();
+        notifyObservers("toggleGrid");
     }
 }

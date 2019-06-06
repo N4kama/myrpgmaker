@@ -113,7 +113,7 @@ public class EditorView extends JFrame implements Observer {
         model.gameWorld.addMap(new Map("Shikamaru", 100, 100, default_tile_path));
 
         //Init MVC
-        MapModel mapModel = new MapModel(model.gameWorld.getMap(0));
+        MapModel mapModel = new MapModel(model.gameWorld.getMap(0), model);
         MapView mapView = new MapView(mapModel);
         MapController mapController = new MapController(mapModel, mapView);
         mapController.start();
@@ -303,7 +303,7 @@ public class EditorView extends JFrame implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         if (arg.getClass() ==  Map.class) {
-            MapModel mapModel = new MapModel((Map)arg);
+            MapModel mapModel = new MapModel((Map)arg, model);
             MapView mapView = new MapView(mapModel);
             MapController mapController = new MapController(mapModel, mapView);
             mapController.start();
@@ -323,5 +323,4 @@ public class EditorView extends JFrame implements Observer {
     SpriteController foregroundSpriteController;
     SpriteController NPCSpriteController;
     SpriteController PlayerSpriteController;
-
 }
