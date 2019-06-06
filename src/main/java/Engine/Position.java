@@ -27,28 +27,29 @@ public class Position {
             break;
         }
     }
-    @Override
-    public boolean equals(Object o) { 
-          if (o == this) { 
-            return true; 
-        } 
-  
-        if (!(o instanceof Position)) { 
-            return false; 
-        } 
-          
-        Position c = (Position) o; 
-        return c.getX() == x_&& c.getY() == y_;
-    } 
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof Position)) {
+            return false;
+        }
+
+        Position c = (Position) o;
+        return c.getX() == x_ && c.getY() == y_;
+    }
 
     public Position tempPos(Direction dir) {
         Position p = new Position(getX(), getY());
         p.move(dir);
-        //4 times for better animation
+        if (dir == Direction.RIGHT)
+            p.move(dir);
+        // 4 times for better animation
         return p;
     }
-
 
     private void moveLeft() {
         setX(x_ - 1);

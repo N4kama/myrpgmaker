@@ -185,12 +185,13 @@ public class Map {
             BufferedImage img = SpriteTools.openObject(obj.getSprite_());
             for (int i = 0; i < img.getWidth() / 16; i++) {
                 for (int j = 0; j < img.getHeight() / 16; j++) {
-                    Tile t = getTile(new Position(x / 16 - i ,y / 16 - j));
-                    t.setHas_Obj(true);
+                    Tile t = getTile(new Position(x / 16 + i ,y / 16 + j - 1));
+                    if(t != null)
+                        t.setHas_Obj(true);
                 }
             }
-            GameEvents e = new TeleportEvent(obj, 10,10, this);
-            obj.add_event(e);
+            //GameEvents e = new TeleportEvent(obj, 10,10, this);
+            //obj.add_event(e);
             engineObjs.add(obj);
         }
         obj.setSprite_(path);

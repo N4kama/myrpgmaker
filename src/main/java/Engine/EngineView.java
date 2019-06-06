@@ -119,7 +119,7 @@ public class EngineView extends JFrame implements Observer {
     private void deletePos(Graphics g, Position p) {
         int x = (p.getX());
         int y = (p.getY());
-        System.out.println("x: " + x + " y: " + y);
+        //System.out.println("x: " + x + " y: " + y);
         repaintPos(g, new Position(x, y));
         repaintPos(g, new Position(x + 1, y));
         repaintPos(g, new Position(x + 2, y));

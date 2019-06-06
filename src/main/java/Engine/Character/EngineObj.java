@@ -115,7 +115,7 @@ public class EngineObj {
             Tile t = null;
             for (int i = 0; i < 2; i++) {
                 t = m.getTile(new Position(position_.getX() / 16 + i,
-                position_.getY() / 16));
+                position_.getY() / 16 + 1));
             t.setHas_Obj(false);
             }
             if(alive)
@@ -124,7 +124,7 @@ public class EngineObj {
             // set new tile to nonwalkable
             for (int i = 0; i < 2; i++) {
                 t = m.getTile(new Position(position_.getX() / 16 + i,
-                position_.getY() / 16));
+                position_.getY() / 16 + 1));
             t.setHas_Obj(true);
             }
             //t.setHas_Obj(true);
