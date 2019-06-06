@@ -5,6 +5,7 @@ import Engine.Character.EngineObj;
 import MapPannel.MapModel;
 import MapPannel.MapView;
 import Utils.SpriteTools;
+import Utils.WorldTools;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

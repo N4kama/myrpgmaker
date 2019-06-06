@@ -54,6 +54,7 @@ public class EngineObj {
     }
 
     public boolean run_events() {
+        System.out.println("SISI");
         boolean res = true;
         for (GameEvents e : events) {
             res &= e.run();
@@ -81,13 +82,13 @@ public class EngineObj {
             Tile t = m.getTile(position_.tempPos(dir));
             if (t != null)
                 t.run_events();
-            for(EngineObj eo : m.getEngineObjs())
+            /*for(EngineObj eo : m.getEngineObjs())
             {
                 for (GameEvents g : eo.events)
                 {
                     g.run();
                 }
-            }
+            }*/
         }
         return false;
     }

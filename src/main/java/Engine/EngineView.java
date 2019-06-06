@@ -6,6 +6,7 @@ import Game.Tile;
 import MapPannel.MapModel;
 import MapPannel.MapView;
 import Utils.SpriteTools;
+import Utils.WorldTools;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
