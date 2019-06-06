@@ -3,6 +3,7 @@ package Game;
 import Engine.Direction;
 import Engine.Position;
 import Engine.Character.EngineObj;
+import Engine.Character.EngineSprite;
 import Engine.Event.GameEvents;
 import Engine.Event.MoveEvent;
 import Engine.Event.TeleportEvent;
@@ -293,6 +294,7 @@ public class Map {
             is_player_set = true;
         }
         player.setSprite_(path);
+        player.setEs(new EngineSprite(path));
         return player;
     }
 }

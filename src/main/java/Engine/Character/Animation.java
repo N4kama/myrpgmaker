@@ -16,12 +16,12 @@ public class Animation {
 
     private List<Frame> frames = new ArrayList<Frame>();
 
-    public Animation(ArrayList<BufferedImage> frames, int frameDelay) {
+    public Animation(ArrayList<BufferedImage> walkingLeft, int frameDelay) {
         this.frameDelay = frameDelay;
         this.stopped = true;
 
-        for (int i = 0; i < frames.size(); i++) {
-            addFrame(frames.get(i), frameDelay);
+        for (int i = 0; i < walkingLeft.size(); i++) {
+            addFrame(walkingLeft.get(i), frameDelay);
         }
 
         this.frameCount = 0;

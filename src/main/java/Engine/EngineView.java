@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
-
 public class EngineView extends JFrame implements Observer {
     public boolean inMenu = true;
     public Map map;
@@ -33,7 +32,6 @@ public class EngineView extends JFrame implements Observer {
     JPanel progressPanel;
 
     BufferedImage gameImage;
-
 
     public EngineView(EngineModel m) {
         this.model_ = m;
@@ -59,7 +57,6 @@ public class EngineView extends JFrame implements Observer {
         exitButton = new JButton("Exit");
         continueButton = new JButton("Continue");
 
-
         menuPanel.add(startButton);
         menuPanel.add(exitButton);
 
@@ -78,7 +75,7 @@ public class EngineView extends JFrame implements Observer {
         setResizable(true);
         setContentPane(gamePanel);
         setTitle(this.model_.getGameWorld().getName());
-        setSize(600,600);
+        setSize(600, 600);
 
         MapModel mapModel = new MapModel(model_.getGameWorld().getCurMap());
         map_view = new EngineMapView(mapModel);
@@ -101,10 +98,11 @@ public class EngineView extends JFrame implements Observer {
             public void run() {
                 Timer timer = new Timer(10, new ActionListener() {
                     float p = 0;
+
                     @Override
                     public void actionPerformed(ActionEvent actionEvent) {
                         if (p != 101) {
-                            jProgressBar.setValue((int)p);
+                            jProgressBar.setValue((int) p);
                             p += 0.5;
                         } else {
                             Timer t = (Timer) actionEvent.getSource();
@@ -128,66 +126,115 @@ public class EngineView extends JFrame implements Observer {
     }
 
     /*
-    public void deleteEngineOBJ(Graphics g, EngineObj obj) {
-        Tile tile = this.model_.getGameWorld().getCurMap().getGameTile(obj.get_y() -
-                this.map_view.curAnim.getSprite().getHeight() / 2,obj.get_x()
-                    - this.map_view.curAnim.getSprite().getWidth() / 2);
-        g.drawImage(SpriteTools.pathToImg.get(tile.get_path()), tile.get_x(), tile.get_y(), null);
-    }
-    */
-
+     * public void deleteEngineOBJ(Graphics g, EngineObj obj) { Tile tile =
+     * this.model_.getGameWorld().getCurMap().getGameTile(obj.get_y() -
+     * this.map_view.curAnim.getSprite().getHeight() / 2,obj.get_x() -
+     * this.map_view.curAnim.getSprite().getWidth() / 2);
+     * g.drawImage(SpriteTools.pathToImg.get(tile.get_path()), tile.get_x(),
+     * tile.get_y(), null); }
+     */
 
     private void deleteEngineOBJ(Graphics g, EngineObj obj) {
+        BufferedImage img = SpriteTools.pathToImg.get(obj.getSprite_());
         int x = (obj.get_px());
         int y = (obj.get_py());
+        int w = img.getWidth();
+        int h = img.getHeight();
         System.out.println("x: " + x + " y: " + y);
         Position p = new Position(x, y);
         Tile tile = map.getTile(p);
         System.out.println(tile.get_path());
         if (tile != null) {
-            BufferedImage i = SpriteTools.pathToImg.get(tile.get_path());
-
-            g.drawImage(i, x * 16, y * 16, null);
-            g.drawImage(i, (x + 1) * 16, y * 16, null);
-            g.drawImage(i, (x - 1) * 16, y * 16, null);
-            g.drawImage(i, x * 16, (y - 1) * 16, null);
-            g.drawImage(i, (x + 1) * 16, (y - 1) * 16, null);
-            g.drawImage(i, (x - 1) * 16, (y - 1) * 16, null);
-            g.drawImage(i, x * 16, (y + 1) * 16, null);
-            g.drawImage(i, (x + 1) * 16, (y + 1) * 16, null);
-            g.drawImage(i, (x - 1) * 16, (y + 1) * 16, null);
+            BufferedImage tilehere = SpriteTools.pathToImg.get(tile.get_path());
+            for (int i = 0; i < w; i++) {
+                for (int j = 0; j < h; j++) {
+                    g.drawImage(tilehere, (x + i) * 16, (y + j) * 16, null);
+                }
+            }
         }
     }
 
+    /*
+     * private void deleteEngineOBJ(Graphics g, EngineObj obj) { int x =
+     * (obj.get_x()); int y = (obj.get_y()); System.out.println("x: " + x + " y: " +
+     * y); Position p = new Position(x, y); Tile tile = map.getTile(p);
+     * System.out.println(tile.get_path()); if (tile != null) { BufferedImage i =
+     * SpriteTools.pathToImg.get(tile.get_path());
+     * 
+     * g.drawImage(i, x * 16, y * 16, null); g.drawImage(i, (x + 1) * 16, y * 16,
+     * null); g.drawImage(i, (x + 2) * 16, y * 16, null); g.drawImage(i, (x - 1) *
+     * 16, y * 16, null); g.drawImage(i, (x - 2) * 16, y * 16, null);
+     * 
+     * g.drawImage(i, x * 16, (y - 1) * 16, null); g.drawImage(i, (x + 1) * 16, (y -
+     * 1) * 16, null); g.drawImage(i, (x + 2) * 16, (y - 1) * 16, null);
+     * g.drawImage(i, (x - 1) * 16, (y - 1) * 16, null); g.drawImage(i, (x - 2) *
+     * 16, (y - 1) * 16, null);
+     * 
+     * g.drawImage(i, x * 16, (y - 2) * 16, null); g.drawImage(i, (x + 1) * 16, (y -
+     * 2) * 16, null); g.drawImage(i, (x + 2) * 16, (y - 2) * 16, null);
+     * g.drawImage(i, (x - 1) * 16, (y - 2) * 16, null); g.drawImage(i, (x - 2) *
+     * 16, (y - 2) * 16, null);
+     * 
+     * g.drawImage(i, x * 16, (y + 2) * 16, null); g.drawImage(i, (x + 1) * 16, (y +
+     * 2) * 16, null); g.drawImage(i, (x + 2) * 16, (y + 2) * 16, null);
+     * g.drawImage(i, (x - 1) * 16, (y + 2) * 16, null); g.drawImage(i, (x - 2) *
+     * 16, (y + 2) * 16, null);
+     * 
+     * g.drawImage(i, x * 16, (y + 1) * 16, null); g.drawImage(i, (x + 1) * 16, (y +
+     * 1) * 16, null); g.drawImage(i, (x + 2) * 16, (y + 1) * 16, null);
+     * g.drawImage(i, (x - 1) * 16, (y + 1) * 16, null); g.drawImage(i, (x - 2) *
+     * 16, (y + 1) * 16, null);
+     * 
+     * } }
+     */
+
     public void paintComponent(Graphics g, EngineObj obj) {
-        g.drawImage(this.map_view.curAnim.getSprite(), 
-        16*(obj.get_x()),
-         16*(obj.get_y()),
-          null);
+        if (obj.isAlive()) {
+            g.drawImage(obj.getEs().getCurAnim().getSprite(), 16 * (obj.get_x()), 16 * (obj.get_y()), null);
+            return;
+        }
+        BufferedImage img = SpriteTools.openObject(obj.getSprite_());
+        g.drawImage(img, 16 * (obj.get_x()), 16 * (obj.get_y()), null);
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        map_view.curAnim.update();
-        revalidate();
-        deleteEngineOBJ(this.getGraphics(), this.model_.getGameWorld().player_);
-        paintComponent(this.getGraphics(), this.model_.getGameWorld().player_);
+        for (EngineObj e : map.getEngineObjs()) {
+            if (e.isAlive()) {
+                e.getEs().getCurAnim().update();
+                revalidate();
+                deleteEngineOBJ(this.getGraphics(), e);
+                paintComponent(this.getGraphics(), e);
+            }
+        }
     }
 
     private JPanel create_menuPanel(Dimension d) {
         return new JPanel() {
             @Override
-            protected void paintComponent(Graphics g)
-            {
+            protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                g.drawImage(gameImage, 0, 0 , null);
+                g.drawImage(gameImage, 0, 0, null);
             }
         };
     }
-/*
-    public void displayPauseMenu() {
-        inMenu=true;
-        remove(gamePanel);
-        add(menuPanel);
-    }*/
+    /*
+     * public void displayPauseMenu() { inMenu=true; remove(gamePanel);
+     * add(menuPanel); }
+     */
+
+    /**
+     * @return EngineModel return the model_
+     */
+    public EngineModel getModel_() {
+        return model_;
+    }
+
+    /**
+     * @param model_ the model_ to set
+     */
+    public void setModel_(EngineModel model_) {
+        this.model_ = model_;
+    }
+
 }

@@ -14,6 +14,7 @@ import Engine.Event.TeleportEvent;
 public class EngineObj {
     private Boolean is_player = false;
     private List<GameEvents> events;
+    private EngineSprite es;
 
     public EngineObj(int x, int y, String sprite_path) {
         this.position_ = new Position(x, y);
@@ -260,6 +261,84 @@ public class EngineObj {
      */
     public void setAnim_state_(Integer anim_state_) {
         this.anim_state_ = anim_state_;
+    }
+
+
+    /**
+     * @return Boolean return the is_player
+     */
+    public Boolean isIs_player() {
+        return is_player;
+    }
+
+    /**
+     * @return List<GameEvents> return the events
+     */
+    public List<GameEvents> getEvents() {
+        return events;
+    }
+
+    /**
+     * @param events the events to set
+     */
+    public void setEvents(List<GameEvents> events) {
+        this.events = events;
+    }
+
+    /**
+     * @return EngineSprite return the es
+     */
+    public EngineSprite getEs() {
+        return es;
+    }
+
+    /**
+     * @param es the es to set
+     */
+    public void setEs(EngineSprite es) {
+        this.es = es;
+    }
+
+    /**
+     * @return Boolean return the alive
+     */
+    public Boolean isAlive() {
+        return alive;
+    }
+
+    /**
+     * @param alive the alive to set
+     */
+    public void setAlive(Boolean alive) {
+        this.alive = alive;
+    }
+
+    /**
+     * @return Position return the pposition_
+     */
+    public Position getPposition_() {
+        return pposition_;
+    }
+
+    /**
+     * @param pposition_ the pposition_ to set
+     */
+    public void setPposition_(Position pposition_) {
+        this.pposition_ = pposition_;
+    }
+
+    /**
+     * @return String return the dialog_
+     */
+    public String getDialog_() {
+        return dialog_;
+    }
+
+    /**
+     * @param dialog_ the dialog_ to set
+     */
+    public void setDialog_(String dialog_) {
+        this.dialog_ = dialog_;
     }
 
 }

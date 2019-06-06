@@ -4,6 +4,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import Engine.Character.Animation;
+
 public class EngineController {
     private EngineModel model_;
     private EngineView view_;
@@ -41,57 +43,56 @@ public class EngineController {
 
             @Override
             public void keyPressed(KeyEvent ke) {
-                if(ke.getKeyCode() == KeyEvent.VK_RIGHT)
-                {
-                    view_.map_view.curAnim = view_.map_view.walkRight;
-                    view_.map_view.curAnim.start();
+                Animation cur = model_.getGameWorld().player_.getEs().getCurAnim();
+                if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {
+                    model_.getGameWorld().player_.getEs()
+                    .setCurAnim(model_.getGameWorld().player_.getEs().getWalkRight());
+                                cur.start();
                     model_.move(Direction.RIGHT);
-                }
-                else if (ke.getKeyCode() == KeyEvent.VK_LEFT) {
-                    view_.map_view.curAnim = view_.map_view.walkLeft;
-                    view_.map_view.curAnim.start();
+                } else if (ke.getKeyCode() == KeyEvent.VK_LEFT) {
+                    model_.getGameWorld().player_.getEs()
+                    .setCurAnim(model_.getGameWorld().player_.getEs().getWalkLeft());
+                                cur.start();
                     model_.move(Direction.LEFT);
-                }
-                else if (ke.getKeyCode() == KeyEvent.VK_UP) {
-                    view_.map_view.curAnim = view_.map_view.walkUp;
-                    view_.map_view.curAnim.start();
+                } else if (ke.getKeyCode() == KeyEvent.VK_UP) {
+                    model_.getGameWorld().player_.getEs()
+                    .setCurAnim(model_.getGameWorld().player_.getEs().getWalkUp());
+                                cur.start();
                     model_.move(Direction.UP);
-                }
-                else if (ke.getKeyCode() == KeyEvent.VK_DOWN) {
-                    view_.map_view.curAnim = view_.map_view.walkDown;
-                    view_.map_view.curAnim.start();
+                } else if (ke.getKeyCode() == KeyEvent.VK_DOWN) {
+                    model_.getGameWorld().player_.getEs()
+                    .setCurAnim(model_.getGameWorld().player_.getEs().getWalkDown());
+                                cur.start();
                     model_.move(Direction.DOWN);
                 }
             }
 
             @Override
             public void keyReleased(KeyEvent ke) {
-                if(ke.getKeyCode() == KeyEvent.VK_RIGHT)
-                {
-                    view_.map_view.curAnim.stop();
-                    view_.map_view.curAnim.reset();
-                    view_.map_view.curAnim = view_.map_view.standRight;
+                Animation cur = model_.getGameWorld().player_.getEs().getCurAnim();
+                if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {
+                    cur.stop();
+                    cur.reset();
+                    model_.getGameWorld().player_.getEs()
+                            .setCurAnim(model_.getGameWorld().player_.getEs().getStandRight());
                     model_.stand();
-                }
-                else if(ke.getKeyCode() == KeyEvent.VK_LEFT)
-                {
-                    view_.map_view.curAnim.stop();
-                    view_.map_view.curAnim.reset();
-                    view_.map_view.curAnim = view_.map_view.standLeft;
+                } else if (ke.getKeyCode() == KeyEvent.VK_LEFT) {
+                    cur.stop();
+                    cur.reset();
+                    model_.getGameWorld().player_.getEs()
+                            .setCurAnim(model_.getGameWorld().player_.getEs().getStandLeft());
                     model_.stand();
-                }
-                else if(ke.getKeyCode() == KeyEvent.VK_UP)
-                {
-                    view_.map_view.curAnim.stop();
-                    view_.map_view.curAnim.reset();
-                    view_.map_view.curAnim = view_.map_view.standUp;
+                } else if (ke.getKeyCode() == KeyEvent.VK_UP) {
+                    cur.stop();
+                    cur.reset();
+                    model_.getGameWorld().player_.getEs()
+                            .setCurAnim(model_.getGameWorld().player_.getEs().getStandUp());
                     model_.stand();
-                }
-                else if(ke.getKeyCode() == KeyEvent.VK_DOWN)
-                {
-                    view_.map_view.curAnim.stop();
-                    view_.map_view.curAnim.reset();
-                    view_.map_view.curAnim = view_.map_view.standDown;
+                } else if (ke.getKeyCode() == KeyEvent.VK_DOWN) {
+                    cur.stop();
+                    cur.reset();
+                    model_.getGameWorld().player_.getEs()
+                            .setCurAnim(model_.getGameWorld().player_.getEs().getStandDown());
                     model_.stand();
                 }
             }
