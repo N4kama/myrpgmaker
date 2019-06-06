@@ -151,12 +151,12 @@ public class Map {
 
     public boolean is_there_obj_at_coords(EngineObj obj, int x, int y) {
         BufferedImage img = SpriteTools.pathToImg.get(obj.getSprite_());
-        int midHeight = img.getHeight() / 16 - 1;
-        int midWidth = img.getWidth() / 16 - 1;
-        boolean res = (obj.get_x() - midWidth <= x);
-        res &= (x < obj.get_x() + midWidth);
-        res &= (obj.get_y() - midHeight <= y);
-        res &= (y < obj.get_y() + midHeight);
+        int Height = img.getHeight() / 16;
+        int Width = img.getWidth() / 16;
+        boolean res = (obj.get_x() <= x);
+        res &= (x < obj.get_x() + Width);
+        res &= (obj.get_y() <= y);
+        res &= (y < obj.get_y() + Height);
         return res;
     }
 
@@ -171,7 +171,7 @@ public class Map {
     }
 
     public EngineObj deleteGameObject(int x, int y) {
-        EngineObj obj = getGameObject(x, y);
+        EngineObj obj = getGameObject(x / 16, y / 16);
         if (obj == null)
             return null;
         engineObjs.remove(obj);
