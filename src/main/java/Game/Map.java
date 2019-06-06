@@ -183,13 +183,13 @@ public class Map {
         if (canPlaceObj(x / 16, y /16, path)) {
             obj = new EngineObj(x / 16, y / 16, path);
             BufferedImage img = SpriteTools.openObject(obj.getSprite_());
-            for (int i = 0; i < img.getWidth() / 16; i++) {
+            /*for (int i = 0; i < img.getWidth() / 16; i++) {
                 for (int j = 0; j < img.getHeight() / 16; j++) {
                     Tile t = getTile(new Position(x / 16 + i ,y / 16 + j - 1));
                     if(t != null)
                         t.setHas_Obj(true);
                 }
-            }
+            }*/
             //GameEvents e = new TeleportEvent(obj, 10,10, this);
             //obj.add_event(e);
             engineObjs.add(obj);

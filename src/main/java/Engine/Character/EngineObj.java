@@ -151,12 +151,10 @@ public class EngineObj {
         Tile t = m.getTile(position_.tempPos(dir));
         if (t == null)
         {
-            GameEvents g = new TeleportEvent(this, 10, 10, m);
-            g.run();
+            //GameEvents g = new TeleportEvent(this, 10, 10, m);
+            //g.run();
             return false;
         }
-        System.out.println(t.isHas_Obj());
-        //System.out.println(getPosition_().getX()+":"+getPosition_().getY()+" -> "+t.get_x() +":"+t.get_y());
         return t.getIs_Walkable();
     }
 
