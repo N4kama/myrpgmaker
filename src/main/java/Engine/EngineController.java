@@ -5,6 +5,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import Engine.Character.Animation;
+import Engine.Character.EngineObj;
+import Game.Map;
+import Game.World;
 
 public class EngineController {
     private EngineModel model_;
@@ -13,6 +16,7 @@ public class EngineController {
     public EngineController(EngineModel engineModel, EngineView engineView) {
         this.model_ = engineModel;
         this.view_ = engineView;
+
     }
 
     public void set_controls() {
@@ -43,26 +47,13 @@ public class EngineController {
 
             @Override
             public void keyPressed(KeyEvent ke) {
-                Animation cur = model_.getGameWorld().player_.getEs().getCurAnim();
                 if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {
-                    model_.getGameWorld().player_.getEs()
-                    .setCurAnim(model_.getGameWorld().player_.getEs().getWalkRight());
-                                cur.start();
                     model_.move(Direction.RIGHT);
                 } else if (ke.getKeyCode() == KeyEvent.VK_LEFT) {
-                    model_.getGameWorld().player_.getEs()
-                    .setCurAnim(model_.getGameWorld().player_.getEs().getWalkLeft());
-                                cur.start();
                     model_.move(Direction.LEFT);
                 } else if (ke.getKeyCode() == KeyEvent.VK_UP) {
-                    model_.getGameWorld().player_.getEs()
-                    .setCurAnim(model_.getGameWorld().player_.getEs().getWalkUp());
-                                cur.start();
                     model_.move(Direction.UP);
                 } else if (ke.getKeyCode() == KeyEvent.VK_DOWN) {
-                    model_.getGameWorld().player_.getEs()
-                    .setCurAnim(model_.getGameWorld().player_.getEs().getWalkDown());
-                                cur.start();
                     model_.move(Direction.DOWN);
                 }
             }

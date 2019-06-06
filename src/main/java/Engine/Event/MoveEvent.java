@@ -1,5 +1,7 @@
 package Engine.Event;
 
+import java.util.Random;
+
 import Engine.Direction;
 import Engine.Character.EngineObj;
 import Game.Map;
@@ -14,6 +16,21 @@ public class MoveEvent implements GameEvents {
     }
     @Override
     public boolean run() {
+        if(d == null)
+        {
+            Random rnd = new Random();
+            switch(rnd.nextInt(3))
+            {
+                case 0:
+                return c.move(Direction.UP, m);
+                case 1:
+                return c.move(Direction.LEFT, m);
+                case 2:
+                return c.move(Direction.RIGHT, m);
+                default:
+                return c.move(Direction.DOWN, m);
+            }
+        }
         return c.move(d, m);
     }
 

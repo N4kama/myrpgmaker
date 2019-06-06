@@ -125,6 +125,21 @@ public class EngineView extends JFrame implements Observer {
             }
         };
         r.run();
+        
+        for (EngineObj obj: model_.getGameWorld().getCurMap().getEngineObjs()) {
+
+            Thread myThread = new Thread(() -> {
+                while(true) {
+                    model_.moveNPC(obj);
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            });
+            myThread.start();
+            }
     }
 
     /*
@@ -186,19 +201,62 @@ public class EngineView extends JFrame implements Observer {
         repaintPos(g, new Position(x - 2, y + 1));
     }
 
+    private void deletePos(Graphics g, Position p) {
+        int x = (p.getX());
+        int y = (p.getY());
+        System.out.println("x: " + x + " y: " + y);
+        repaintPos(g, new Position(x, y));
+        repaintPos(g, new Position(x + 1, y));
+        repaintPos(g, new Position(x + 2, y));
+        repaintPos(g, new Position(x - 1, y));
+        repaintPos(g, new Position(x - 2, y));
+        repaintPos(g, new Position(x, y - 1));
+        repaintPos(g, new Position(x + 1, y - 1));
+        repaintPos(g, new Position(x + 2, y - 1));
+        repaintPos(g, new Position(x - 1, y - 1));
+        repaintPos(g, new Position(x - 2, y - 1));
+        repaintPos(g, new Position(x, y - 2));
+        repaintPos(g, new Position(x + 1, y - 2));
+        repaintPos(g, new Position(x + 2, y - 2));
+        repaintPos(g, new Position(x - 1, y - 2));
+        repaintPos(g, new Position(x - 2, y - 2));
+        repaintPos(g, new Position(x, y + 2));
+        repaintPos(g, new Position(x + 1, y + 2));
+        repaintPos(g, new Position(x + 2, y + 2));
+        repaintPos(g, new Position(x - 1, y + 2));
+        repaintPos(g, new Position(x - 2, y + 2));
+        repaintPos(g, new Position(x, y + 1));
+        repaintPos(g, new Position(x + 1, y + 1));
+        repaintPos(g, new Position(x + 2, y + 1));
+        repaintPos(g, new Position(x - 1, y + 1));
+        repaintPos(g, new Position(x - 2, y + 1));
+    }
+
     public void paintComponent(Graphics g, EngineObj obj) {
         map_view.drayObjects(this.getGraphics());
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        for (EngineObj e : map.getEngineObjs()) {
-            if (e.isAlive()) {
-                e.getEs().getCurAnim().update();
-                revalidate();
-                deleteEngineOBJ(this.getGraphics(), e);
-                paintComponent(this.getGraphics(), e);
+        if(arg != null)
+        {
+            EngineObj obj = (EngineObj) arg;
+            if(obj == null)
+            {
+                return;
             }
+            if (obj.isAlive()) {
+                obj.getEs().getCurAnim().update();
+                revalidate();
+                deleteEngineOBJ(this.getGraphics(), obj);
+                paintComponent(this.getGraphics(), obj);
+                if(obj.getTeleported())
+                {
+                    obj.setTeleported(false);
+                    deletePos(this.getGraphics(), obj.getTeleportedPos());
+                }
+            }
+            return;
         }
     }
 

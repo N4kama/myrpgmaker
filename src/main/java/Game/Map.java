@@ -195,7 +195,7 @@ public class Map {
         if (objj == null) {
             final EngineObj obj = new EngineObj("npc", path, true, false);
             obj.setPosition_(new Position(x /16, y /16));
-            GameEvents e = new MoveEvent(obj, Direction.DOWN, this);
+            GameEvents e = new MoveEvent(obj, null, this);
             obj.setEs(new EngineSprite(path));
             obj.add_event(e);
 

@@ -14,7 +14,30 @@ import Engine.Event.TeleportEvent;
 public class EngineObj {
     private Boolean is_player = false;
     private List<GameEvents> events;
+    private List<GameEvents> msgs;
+    private boolean teleported;
+    private Position teleportedPos;
     private EngineSprite es;
+
+    public void setTeleported(boolean b)
+    {
+        teleported = b;
+    }
+
+    public boolean getTeleported()
+    {
+        return teleported;
+    }
+
+    public void setTeleportedPos(Position b)
+    {
+        teleportedPos = b;
+    }
+
+    public Position getTeleportedPos()
+    {
+        return teleportedPos;
+    }
 
     public EngineObj(int x, int y, String sprite_path) {
         this.position_ = new Position(x, y);
@@ -54,12 +77,31 @@ public class EngineObj {
     }
 
     public boolean run_events() {
-        System.out.println("SISI");
         boolean res = true;
         for (GameEvents e : events) {
             res &= e.run();
         }
         return res;
+    }
+
+    public void animate(Direction d)
+    {
+        Animation cur = es.getCurAnim();
+        switch (d) {
+            case DOWN:
+            es.setCurAnim(es.getWalkDown());
+            break;
+            case UP:
+            es.setCurAnim(es.getWalkUp());
+            break;
+            case LEFT:
+            es.setCurAnim(es.getWalkLeft());
+            break;
+            case RIGHT:
+            es.setCurAnim(es.getWalkRight());
+            break;
+        }
+        cur.start();
     }
 
     public boolean move(Direction dir, Map m) {
@@ -70,6 +112,8 @@ public class EngineObj {
             // set prev tile to walkable
             Tile t = m.getTile(position_);
             //t.setIs_Walkable(true);
+            if(alive)
+                animate(dir);
             position_.move(dir);
             // set new tile to nonwalkable
             t = m.getTile(position_);
