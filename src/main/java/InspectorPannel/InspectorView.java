@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class InspectorView extends JPanel implements ActionListener {
+public class InspectorView extends JPanel  {
     JLabel namet;
     JLabel typet;
     JLabel post;
@@ -54,17 +54,8 @@ public class InspectorView extends JPanel implements ActionListener {
         add(Box.createRigidArea(new Dimension(1, 5)));
         add(dialog);
         add(calbtn);
-        calbtn.addActionListener(this);
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(boxLayout);
 
-    }
-
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == calbtn) {
-            String data = dialog.getText();
-            if (InspectorModel.obj != null)
-                InspectorModel.obj.setDialog(data);
-        }
     }
 }
