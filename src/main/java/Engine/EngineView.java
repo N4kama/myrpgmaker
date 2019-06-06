@@ -23,6 +23,7 @@ import java.util.Observer;
 
 public class EngineView extends JFrame implements Observer {
     public boolean inMenu = true;
+    private boolean started = false;
     public Map map;
     public EngineMapView map_view;
     private EngineModel model_;
@@ -82,50 +83,15 @@ public class EngineView extends JFrame implements Observer {
         MapModel mapModel = new MapModel(model_.getGameWorld().getCurMap(), EditorModel.singleton);
         map_view = new EngineMapView(mapModel);
         gamePanel = (JPanel) map_view;
-        progressPanel = new JPanel();
-        progressPanel.setLayout(new GridBagLayout());
 
-        JProgressBar jProgressBar = new JProgressBar();
-        Border border = BorderFactory.createTitledBorder("Loading in progress");
-        jProgressBar.setBorder(border);
-        jProgressBar.setValue(0);
-        jProgressBar.setStringPainted(true);
+        setBackground(Color.black);
+        add(gamePanel);
+        gamePanel.repaint();
+        gamePanel.setVisible(true);
+        setFocusable(true);
+        requestFocusInWindow();
+        started = true;
 
-        progressPanel.add(jProgressBar);
-        add(progressPanel);
-        setVisible(true);
-
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                Timer timer = new Timer(10, new ActionListener() {
-                    float p = 0;
-
-                    @Override
-                    public void actionPerformed(ActionEvent actionEvent) {
-                        if (p != 101) {
-                            jProgressBar.setValue((int) p);
-                            p += 0.5;
-                        } else {
-                            Timer t = (Timer) actionEvent.getSource();
-                            t.stop();
-                            jProgressBar.setVisible(false);
-                            remove(progressPanel);
-
-                            setBackground(Color.black);
-                            add(gamePanel);
-                            gamePanel.repaint();
-                            gamePanel.setVisible(true);
-                            setFocusable(true);
-                            requestFocusInWindow();
-                        }
-                    }
-                });
-                timer.start();
-            }
-        };
-        r.run();
-        
         for (EngineObj obj: model_.getGameWorld().getCurMap().getEngineObjs()) {
 
             Thread myThread = new Thread(() -> {
@@ -139,7 +105,7 @@ public class EngineView extends JFrame implements Observer {
                 }
             });
             myThread.start();
-            }
+        }
     }
 
     private void repaintPos(Graphics g, Position p) {
@@ -194,7 +160,7 @@ public class EngineView extends JFrame implements Observer {
             {
                 return;
             }
-            if (obj.isAlive()) {
+            if (obj.isAlive() && started) {
                 obj.getEs().getCurAnim().update();
                 revalidate();
                 deletePos(this.getGraphics(), new Position(obj.get_x(), obj.get_y()));
