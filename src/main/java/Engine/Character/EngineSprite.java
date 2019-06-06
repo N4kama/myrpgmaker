@@ -30,7 +30,7 @@ public class EngineSprite {
         this.walkingRight = new ArrayList<>();
         this.walkingUp = new ArrayList<>();
         this.walkingDown = new ArrayList<>();
-        spritePlayer = SpriteTools.openObject(path.substring(0, path.length() - 4));
+        spritePlayer = SpriteTools.openObject(path);
         SpriteTools.setSpriteMove(spritePlayer, walkingLeft, "left");
         SpriteTools.setSpriteMove(spritePlayer, walkingRight, "right");
         SpriteTools.setSpriteMove(spritePlayer, walkingUp, "up");

@@ -23,15 +23,21 @@ public class SpriteView extends JPanel implements Observer {
         int x = 0, y = 0;
         int maxHeight = 0;
         for (BufferedImage img : model.sprites) {
-            g.drawImage(img, x + pad_x, y + pad_y, null);
-            if (x + img.getWidth() > getWidth()) {
+            BufferedImage sub = img;
+            try {
+                sub = img.getSubimage(32, 0, 32, 32);
+            } catch (Exception e) {
+                //TODO: handle exception
+            }
+            g.drawImage(sub, x + pad_x, y + pad_y, null);
+            if (x + sub.getWidth() > getWidth()) {
                 y += maxHeight;
                 x = 0;
                 maxHeight = 0;
             }
             else {
-                x += img.getWidth() + pad_x;
-                maxHeight = Math.max(maxHeight, img.getHeight());
+                x += sub.getWidth() + pad_x;
+                maxHeight = Math.max(maxHeight, sub.getHeight());
             }
         }
     }
