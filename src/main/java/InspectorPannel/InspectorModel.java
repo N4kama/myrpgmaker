@@ -12,6 +12,7 @@ public class InspectorModel extends Observable  implements Observer {
     String typet;
     String post;
     String old;
+    String teleport;
     JTextField dialog;
     public InspectorModel(EngineObj obj) {
         this.obj = obj;
@@ -31,6 +32,10 @@ public class InspectorModel extends Observable  implements Observer {
                 old = "Current dialog: " + obj.getDialog();
             else
                 old = "Current dialog: ";
+            if (obj.getTeleportedPos() != null)
+                teleport = "Current teleport position:" + obj.getTeleportedPos().getX() + "  " + obj.getTeleportedPos().getY();
+            else
+                teleport = "Current teleport position: NULL";
         }
         else
         {
@@ -38,6 +43,7 @@ public class InspectorModel extends Observable  implements Observer {
             typet = "Type: ";
             post = "Position: ";
             old = "Current dialog: ";
+            teleport = "Current teleport position: NULL";
         }
     }
 
