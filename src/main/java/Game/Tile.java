@@ -9,6 +9,7 @@ import Engine.Event.GameEvents;
 public class Tile {
     private Position pos_;
     private Boolean is_Walkable_ = true;
+    private Boolean has_Obj = true;
     private String tile_img_;
     private List<GameEvents> events;
 
@@ -63,7 +64,7 @@ public class Tile {
     }
 
     public Boolean getIs_Walkable() {
-        return is_Walkable_;
+        return is_Walkable_ && has_Obj;
     }
 
     public void setIs_Walkable(Boolean is_Walkable_) {
@@ -76,6 +77,77 @@ public class Tile {
 
     public void setForeGround_img(String foreGround_img_) {
         this.tile_img_ = foreGround_img_;
+    }
+
+
+    /**
+     * @return Position return the pos_
+     */
+    public Position getPos_() {
+        return pos_;
+    }
+
+    /**
+     * @param pos_ the pos_ to set
+     */
+    public void setPos_(Position pos_) {
+        this.pos_ = pos_;
+    }
+
+    /**
+     * @return Boolean return the is_Walkable_
+     */
+    public Boolean isIs_Walkable_() {
+        return is_Walkable_;
+    }
+
+    /**
+     * @param is_Walkable_ the is_Walkable_ to set
+     */
+    public void setIs_Walkable_(Boolean is_Walkable_) {
+        this.is_Walkable_ = is_Walkable_;
+    }
+
+    /**
+     * @return Boolean return the has_Obj
+     */
+    public Boolean isHas_Obj() {
+        return has_Obj;
+    }
+
+    /**
+     * @param has_Obj the has_Obj to set
+     */
+    public void setHas_Obj(Boolean has_Obj) {
+        this.has_Obj = has_Obj;
+    }
+
+    /**
+     * @return String return the tile_img_
+     */
+    public String getTile_img_() {
+        return tile_img_;
+    }
+
+    /**
+     * @param tile_img_ the tile_img_ to set
+     */
+    public void setTile_img_(String tile_img_) {
+        this.tile_img_ = tile_img_;
+    }
+
+    /**
+     * @return List<GameEvents> return the events
+     */
+    public List<GameEvents> getEvents() {
+        return events;
+    }
+
+    /**
+     * @param events the events to set
+     */
+    public void setEvents(List<GameEvents> events) {
+        this.events = events;
     }
 
 }

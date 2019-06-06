@@ -1,5 +1,6 @@
 package Engine.Character;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +58,7 @@ public class EngineObj {
         this.is_player = is_player;
         this.position_ = new Position(0, 0);
         events = new ArrayList<>();
+ 
     }
 
     public Boolean getIs_player() {
@@ -111,13 +113,13 @@ public class EngineObj {
         if (canMove(dir, m)) {
             // set prev tile to walkable
             Tile t = m.getTile(position_);
-            //t.setIs_Walkable(true);
+            t.setHas_Obj(false);
             if(alive)
                 animate(dir);
             position_.move(dir);
             // set new tile to nonwalkable
             t = m.getTile(position_);
-            //t.setIs_Walkable(false);
+            t.setHas_Obj(true);
             //if (is_player)
             //    t.run_events();
             return true;
@@ -145,7 +147,8 @@ public class EngineObj {
             g.run();
             return false;
         }
-        System.out.println(getPosition_().getX()+":"+getPosition_().getY()+" -> "+t.get_x() +":"+t.get_y());
+        System.out.println(t.isHas_Obj());
+        //System.out.println(getPosition_().getX()+":"+getPosition_().getY()+" -> "+t.get_x() +":"+t.get_y());
         return t.getIs_Walkable();
     }
 

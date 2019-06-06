@@ -182,6 +182,13 @@ public class Map {
         EngineObj obj = getGameObject(x / 16, y / 16);
         if (obj == null) {
             obj = new EngineObj(x / 16, y / 16, path);
+            BufferedImage img = SpriteTools.openObject(obj.getSprite_());
+            for (int i = 0; i < img.getWidth(); i++) {
+                for (int j = 0; j < img.getHeight(); j++) {
+                    Tile t = getTile(new Position(x / 16 + i ,x / 16 + j));
+                    t.setHas_Obj(true);
+                }
+            }
             GameEvents e = new TeleportEvent(obj, 10,10, this);
             obj.add_event(e);
             engineObjs.add(obj);
@@ -198,7 +205,12 @@ public class Map {
             GameEvents e = new MoveEvent(obj, null, this);
             obj.setEs(new EngineSprite(path));
             obj.add_event(e);
-
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 2; j++) {
+                    Tile t = getTile(new Position(x / 16 + i ,x / 16 + j));
+                    t.setHas_Obj(true);
+                }
+            }
             engineObjs.add(obj);
             obj.setSprite_(path);
             return obj;
@@ -310,6 +322,12 @@ public class Map {
             player.setPosition_(new Position(x / 16, y / 16));
             engineObjs.add(player);
             is_player_set = true;
+        }
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                Tile t = getTile(new Position(x / 16 + i ,x / 16 + j));
+                t.setHas_Obj(true);
+            }
         }
         player.setSprite_(path);
         player.setEs(new EngineSprite(path));

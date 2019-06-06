@@ -25,7 +25,8 @@ public class SpriteView extends JPanel implements Observer {
         for (BufferedImage img : model.sprites) {
             BufferedImage sub = img;
             try {
-                sub = img.getSubimage(32, 0, 32, 32);
+                if(model.isNpc() || model.isPlayer())
+                    sub = img.getSubimage(32, 0, 32, 32);
             } catch (Exception e) {
                 //TODO: handle exception
             }
@@ -33,8 +34,7 @@ public class SpriteView extends JPanel implements Observer {
             if (x + sub.getWidth() > getWidth()) {
                 y += maxHeight;
                 x = 0;
-                maxHeight = 0;
-            }
+              }
             else {
                 x += sub.getWidth() + pad_x;
                 maxHeight = Math.max(maxHeight, sub.getHeight());
