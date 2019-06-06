@@ -12,6 +12,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class MapView extends JPanel implements Observer {
+    private static final int TILE_SIZE = 32;
 
     public MapModel mapModel;
 
@@ -128,7 +129,7 @@ public class MapView extends JPanel implements Observer {
     public void paintComponent(Graphics g, EngineObj obj) {
         BufferedImage img = SpriteTools.openObject(obj.getSprite_());
         if (obj.isAlive())
-            img = img.getSubimage(32, 0, 32, 32);
+            img = img.getSubimage(TILE_SIZE, 0, TILE_SIZE, TILE_SIZE);
         g.drawImage(img, obj.get_x() * 16, obj.get_y() * 16, null);
     }
 

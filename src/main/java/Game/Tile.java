@@ -18,6 +18,8 @@ public class Tile {
         pos_ = new Position(x, y);
         tile_img_ = img;
         events = new ArrayList<>();
+        has_Obj = false;
+        is_Walkable_ = true;
     }
 
     public void add_event(GameEvents e)
@@ -64,7 +66,7 @@ public class Tile {
     }
 
     public Boolean getIs_Walkable() {
-        return is_Walkable_ && has_Obj;
+        return is_Walkable_ && !has_Obj;
     }
 
     public void setIs_Walkable(Boolean is_Walkable_) {

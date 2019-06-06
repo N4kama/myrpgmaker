@@ -7,6 +7,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class SpriteView extends JPanel implements Observer {
+    private static final int TILE_SIZE = 32;
 
     private SpriteModel model;
 
@@ -26,7 +27,7 @@ public class SpriteView extends JPanel implements Observer {
             BufferedImage sub = img;
             try {
                 if(model.isNpc() || model.isPlayer())
-                    sub = img.getSubimage(32, 0, 32, 32);
+                    sub = img.getSubimage(TILE_SIZE, 0, TILE_SIZE, TILE_SIZE);
             } catch (Exception e) {
                 //TODO: handle exception
             }
