@@ -36,4 +36,9 @@ public class EngineModel extends Observable {
         notifyObservers(gameWorld_.player_);
     }
 
+    public void pause() {
+        setChanged();
+        notifyObservers(null);
+    }
+
 }
