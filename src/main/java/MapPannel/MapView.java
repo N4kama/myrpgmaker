@@ -31,7 +31,7 @@ public class MapView extends JPanel implements Observer {
     public void drayObjects(Graphics g) {
         for (EngineObj obj : mapModel.getObjects()) {
             BufferedImage img = SpriteTools.openObject(obj.getSprite_());
-            g.drawImage(img, obj.get_y() - img.getHeight() / 2, obj.get_x() - img.getWidth() / 2, null);
+            g.drawImage(img, obj.get_y() * 16, obj.get_x() * 16, null);
         }
     }
 
@@ -95,7 +95,7 @@ public class MapView extends JPanel implements Observer {
                 Tile tile = mapModel.map.getGameTile(x_min, y_min);
                 if (tile != null)
                     g.drawImage(SpriteTools.pathToImg.get(tile.get_path()),
-                            tile.get_x(), tile.get_y(), null);
+                            tile.get_x() * 16, tile.get_y() * 16, null);
             }
         }
     }
@@ -107,7 +107,7 @@ public class MapView extends JPanel implements Observer {
 
     public void paintComponent(Graphics g, EngineObj obj) {
         BufferedImage img = SpriteTools.openObject(obj.getSprite_());
-        g.drawImage(img, obj.get_x() - img.getWidth() / 2, obj.get_y() - img.getHeight() / 2, null);
+        g.drawImage(img, obj.get_x()* 16, obj.get_y() * 16, null);
     }
 
 }

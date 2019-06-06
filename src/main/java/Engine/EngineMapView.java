@@ -28,7 +28,6 @@ public class EngineMapView extends MapView {
     public Animation standDown;
     public Animation curAnim;
 
-
     public EngineMapView(MapModel mapModel) {
         super(mapModel);
         this.walkingLeft = new ArrayList<>();
@@ -38,26 +37,26 @@ public class EngineMapView extends MapView {
         mapModel.addObserver(this);
         EngineObj player = mapModel.getPlayer(mapModel.getObjects());
         loadPlayerMoves(player);
-        walkLeft = new Animation(walkingLeft, 10);
-        walkRight = new Animation(walkingRight, 10);
-        walkUp = new Animation(walkingUp, 10);
-        walkDown = new Animation(walkingDown, 10);
+        walkLeft = new Animation(walkingLeft, 3);
+        walkRight = new Animation(walkingRight, 3);
+        walkUp = new Animation(walkingUp, 3);
+        walkDown = new Animation(walkingDown, 3);
 
         ArrayList<BufferedImage> tmp = new ArrayList<>();
         tmp.add(SpriteTools.getStandingSprite(spritePlayer, 1, 0));
-        standDown = new Animation(tmp, 10);
+        standDown = new Animation(tmp, 3);
 
         tmp.remove(0);
         tmp.add(SpriteTools.getStandingSprite(spritePlayer, 1, 3));
-        standUp = new Animation(tmp, 10);
+        standUp = new Animation(tmp, 3);
 
         tmp.remove(0);
         tmp.add(SpriteTools.getStandingSprite(spritePlayer, 1, 1));
-        standLeft = new Animation(tmp, 10);
+        standLeft = new Animation(tmp, 3);
 
         tmp.remove(0);
         tmp.add(SpriteTools.getStandingSprite(spritePlayer, 1, 2));
-        standRight = new Animation(tmp, 10);
+        standRight = new Animation(tmp, 3);
 
         curAnim = standDown;
     }
@@ -84,10 +83,11 @@ public class EngineMapView extends MapView {
         for (EngineObj obj : mapModel.getObjects()) {
             if (!obj.getIs_player()) {
                 BufferedImage img = SpriteTools.openObject(obj.getSprite_());
-                g.drawImage(img, obj.get_x() - img.getHeight() / 2, obj.get_y() - img.getWidth() / 2, null);
+                g.drawImage(img, 16 * (obj.get_x()), 16 * (obj.get_y()), null);
             } else {
-                g.drawImage(curAnim.getSprite(), obj.get_x() - curAnim.getSprite().getHeight() / 2, obj.get_y() - curAnim.getSprite().getWidth() / 2, null);
+                g.drawImage(curAnim.getSprite(), 16 * (obj.get_x()), 16 * (obj.get_y()), null);
             }
         }
     }
+
 }

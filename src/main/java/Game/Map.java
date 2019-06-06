@@ -1,7 +1,10 @@
 package Game;
 
+import Engine.Direction;
 import Engine.Position;
 import Engine.Character.EngineObj;
+import Engine.Event.GameEvents;
+import Engine.Event.MoveEvent;
 import Utils.SpriteTools;
 import Utils.WorldTools;
 
@@ -176,6 +179,8 @@ public class Map {
         EngineObj obj = getGameObject(x, y);
         if (obj == null) {
             obj = new EngineObj(x, y, path);
+            GameEvents e = new MoveEvent(obj, Direction.UP, this);
+            obj.add_event(e);
             engineObjs.add(obj);
         }
         obj.setSprite_(path);
@@ -282,7 +287,7 @@ public class Map {
             return null;
         }
         if (!is_player_set) {
-            player.setPosition_(new Position(x, y));
+            player.setPosition_(new Position(x / 16, y / 16));
             engineObjs.add(player);
             is_player_set = true;
         }

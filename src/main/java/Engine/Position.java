@@ -44,8 +44,6 @@ public class Position {
 
     public Position tempPos(Direction dir) {
         Position p = new Position(getX(), getY());
-        p.setX(p.getX() / 16);
-        p.setY(p.getY() / 16);
         p.move(dir);
         //4 times for better animation
         return p;
@@ -53,19 +51,19 @@ public class Position {
 
 
     private void moveLeft() {
-        setX(x_ - 8);
+        setX(x_ - 1);
     }
 
     private void moveRight() {
-        setX(x_ + 8);
+        setX(x_ + 1);
     }
 
     private void moveUp() {
-        setY(y_ - 8);
+        setY(y_ - 1);
     }
 
     private void moveDown() {
-        setY(y_ + 8);
+        setY(y_ + 1);
     }
 
     public Integer getX() {

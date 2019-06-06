@@ -27,6 +27,8 @@ public class Tile {
     public boolean run_events()
     {
         boolean res = true;
+        if(events.size() == 0)
+            return true;
         for(GameEvents e : events)
         {
             res &= e.run();

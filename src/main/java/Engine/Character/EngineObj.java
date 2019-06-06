@@ -16,6 +16,10 @@ public class EngineObj {
     public EngineObj(int x, int y, String sprite_path) {
         this.position_ = new Position(x, y);
         this.sprite_ = sprite_path;
+        alive = false;
+        is_player = false;
+        events = new ArrayList<>();
+        name_ = "NPC";
     }
 
     public EngineObj(String name, String sprite, Boolean alive, Boolean is_player) {
@@ -36,6 +40,7 @@ public class EngineObj {
         return dialog_;
     }
     public void setDialog(String d) {dialog_ = d;}
+
     public void set_map(Map m)
     {
         position_ = m.getSpawn();
@@ -63,7 +68,7 @@ public class EngineObj {
             //t.setIs_Walkable(true);
             position_.move(dir);
             // set new tile to nonwalkable
-            //t = m.getTile(position_);
+            t = m.getTile(position_);
             //t.setIs_Walkable(false);
             //if (is_player)
             //    t.run_events();
@@ -73,23 +78,22 @@ public class EngineObj {
             Tile t = m.getTile(position_.tempPos(dir));
             if (t != null)
                 t.run_events();
+            for(EngineObj eo : m.getEngineObjs())
+            {
+                for (GameEvents g : eo.events)
+                {
+                    g.run();
+                }
+            }
         }
         return false;
     }
 
-    public void animate() {
-        if (alive)
-            setAnim_state_((anim_state_ + 1) % 3);
-        else {
-            run_events();
-        }
-    }
-
     private boolean canMove(Direction dir, Map m) {
         Tile t = m.getTile(position_.tempPos(dir));
-        System.out.println(getPosition_().getX()+":"+getPosition_().getY()+" -> "+t.get_x() * 16 +":"+t.get_y() *16);
         if (t == null)
             return false;
+        System.out.println(getPosition_().getX()+":"+getPosition_().getY()+" -> "+t.get_x() +":"+t.get_y());
         return t.getIs_Walkable();
     }
 
@@ -100,6 +104,11 @@ public class EngineObj {
         setAnim_state_(1);
         changeDir(dir);
         return true;
+    }
+
+    public Boolean getAlive()
+    {
+        return alive;
     }
 
     // ids

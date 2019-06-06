@@ -138,47 +138,77 @@ public class EngineView extends JFrame implements Observer {
 
 
     private void deleteEngineOBJ(Graphics g, EngineObj obj) {
-        int x = (obj.get_x() - (obj.get_x() % 16)) / 16;
-        int y = (obj.get_y() - (obj.get_y() % 16)) / 16;
+        int x = (obj.get_x());
+        int y = (obj.get_y());
         System.out.println("x: " + x + " y: " + y);
         Position p = new Position(x, y);
         Tile tile = map.getTile(p);
         System.out.println(tile.get_path());
         if (tile != null) {
             BufferedImage i = SpriteTools.pathToImg.get(tile.get_path());
+
             g.drawImage(i, x * 16, y * 16, null);
             g.drawImage(i, (x + 1) * 16, y * 16, null);
-            g.drawImage(i, (x + 1) * 16, (y + 1) * 16, null);
-            g.drawImage(i, (x + 1) * 16, (y + 2) * 16, null);
-            g.drawImage(i, (x + 1) * 16, (y - 2) * 16, null);
-            g.drawImage(i, (x + 1) * 16, (y - 1) * 16, null);
-            g.drawImage(i, (x + 2) * 16, (y - 1) * 16, null);
-            g.drawImage(i, (x + 2) * 16, (y - 2) * 16, null);
-
-            g.drawImage(i, x * 16, (y - 1) * 16, null);
-            g.drawImage(i, x * 16, (y - 2) * 16, null);
-            g.drawImage(i, x * 16, (y + 1) * 16, null);
-            g.drawImage(i, x * 16, (y + 2) * 16, null);
-
+            g.drawImage(i, (x + 2) * 16, y * 16, null);
             g.drawImage(i, (x - 1) * 16, y * 16, null);
             g.drawImage(i, (x - 2) * 16, y * 16, null);
+
+            g.drawImage(i, x * 16, (y - 1) * 16, null);
+            g.drawImage(i, (x + 1) * 16, (y - 1) * 16, null);
+            g.drawImage(i, (x + 2) * 16, (y - 1) * 16, null);
+            g.drawImage(i, (x - 1) * 16, (y - 1) * 16, null);
+            g.drawImage(i, (x - 2) * 16, (y - 1) * 16, null);
+
+            g.drawImage(i, x * 16, (y - 2) * 16, null);
+            g.drawImage(i, (x + 1) * 16, (y - 2) * 16, null);
+            g.drawImage(i, (x + 2) * 16, (y - 2) * 16, null);
+            g.drawImage(i, (x - 1) * 16, (y - 2) * 16, null);
+            g.drawImage(i, (x - 2) * 16, (y - 2) * 16, null);
+
+            g.drawImage(i, x * 16, (y + 2) * 16, null);
+            g.drawImage(i, (x + 1) * 16, (y + 2) * 16, null);
+            g.drawImage(i, (x + 2) * 16, (y + 2) * 16, null);
+            g.drawImage(i, (x - 1) * 16, (y + 2) * 16, null);
+            g.drawImage(i, (x - 2) * 16, (y + 2) * 16, null);
+
+            g.drawImage(i, x * 16, (y + 1) * 16, null);
+            g.drawImage(i, (x + 1) * 16, (y + 1) * 16, null);
+            g.drawImage(i, (x + 2) * 16, (y + 1) * 16, null);
             g.drawImage(i, (x - 1) * 16, (y + 1) * 16, null);
             g.drawImage(i, (x - 2) * 16, (y + 1) * 16, null);
-            g.drawImage(i, (x - 1) * 16, (y + 2) * 16, null);
-            g.drawImage(i, (x - 1) * 16, (y - 1) * 16, null);
-            g.drawImage(i, (x - 1) * 16, (y - 2) * 16, null);
-            g.drawImage(i, (x - 2) * 16, (y - 1) * 16, null);
+
+            // g.drawImage(i, (x + 1) * 16, (y + 1) * 16, null);
+            // g.drawImage(i, (x + 1) * 16, (y + 2) * 16, null);
+            // g.drawImage(i, (x + 1) * 16, (y - 2) * 16, null);
+            // g.drawImage(i, (x + 1) * 16, (y - 1) * 16, null);
+            // g.drawImage(i, (x + 2) * 16, (y - 1) * 16, null);
+            // g.drawImage(i, (x + 2) * 16, (y - 2) * 16, null);
+
+            // g.drawImage(i, x * 16, (y - 1) * 16, null);
+            // g.drawImage(i, x * 16, (y - 2) * 16, null);
+            // g.drawImage(i, x * 16, (y + 1) * 16, null);
+            // g.drawImage(i, x * 16, (y + 2) * 16, null);
+
+            // g.drawImage(i, (x - 1) * 16, y * 16, null);
+            // g.drawImage(i, (x - 1) * 16, (y + 1) * 16, null);
+            // g.drawImage(i, (x - 1) * 16, (y + 2) * 16, null);
+            // g.drawImage(i, (x - 1) * 16, (y - 1) * 16, null);
+            // g.drawImage(i, (x - 1) * 16, (y - 2) * 16, null);
+            // g.drawImage(i, (x - 2) * 16, (y + 1) * 16, null);
+            // g.drawImage(i, (x - 2) * 16, y * 16, null);
+            // g.drawImage(i, (x - 2) * 16, (y - 1) * 16, null);
         }
     }
 
     public void paintComponent(Graphics g, EngineObj obj) {
-        g.drawImage(this.map_view.curAnim.getSprite(), obj.get_x() - this.map_view.curAnim.getSprite().getHeight()
-                / 2, obj.get_y() - this.map_view.curAnim.getSprite().getWidth() / 2, null);
+        g.drawImage(this.map_view.curAnim.getSprite(), 
+        16*(obj.get_x()),
+         16*(obj.get_y()),
+          null);
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println("UPDATE!!!");
         map_view.curAnim.update();
         revalidate();
         deleteEngineOBJ(this.getGraphics(), this.model_.getGameWorld().player_);
