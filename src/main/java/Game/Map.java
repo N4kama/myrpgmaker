@@ -180,8 +180,6 @@ public class Map {
         if (obj == null) {
             obj = new EngineObj(x, y, path);
             GameEvents e = new MoveEvent(obj, Direction.UP, this);
-            obj.add_event(e);
-            engineObjs.add(obj);
         }
         obj.setSprite_(path);
         return obj;

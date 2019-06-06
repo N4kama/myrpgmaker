@@ -8,6 +8,7 @@ import Engine.Position;
 import Game.Map;
 import Game.Tile;
 import Engine.Event.GameEvents;
+import Engine.Event.MoveEvent;
 
 public class EngineObj {
     private Boolean is_player = false;
@@ -92,7 +93,11 @@ public class EngineObj {
     private boolean canMove(Direction dir, Map m) {
         Tile t = m.getTile(position_.tempPos(dir));
         if (t == null)
+        {
+            GameEvents g = new MoveEvent(this, Direction.DOWN, m);
+            g.run();
             return false;
+        }
         System.out.println(getPosition_().getX()+":"+getPosition_().getY()+" -> "+t.get_x() +":"+t.get_y());
         return t.getIs_Walkable();
     }
