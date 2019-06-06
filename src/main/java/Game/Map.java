@@ -144,6 +144,7 @@ public class Map {
         if (getGameObject(x, y) != null)
             return null;
         Tile tile = getGameTile(x / 16, y / 16);
+        tile.setIs_Walkable(SpriteTools.walkable);
         tile.set_path(path);
         return tile;
     }
