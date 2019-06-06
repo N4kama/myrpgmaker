@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.util.Observable;
 import java.util.Observer;
 
-public class InspectorModel implements Observer   {
+public class InspectorModel extends Observable  implements Observer {
     public static EngineObj obj;
     String namet;
     String typet;
@@ -26,7 +26,7 @@ public class InspectorModel implements Observer   {
                 typet = "Type: NPC";
             else
                 typet = "Type: Player";
-            post = "Position: " + obj.getPosition_();
+            post = "Position: " + obj.getPosition_().getX() + "  " + obj.getPosition_().getY();
             if (obj.getDialog() != null)
                 old = "Current dialog: " + obj.getDialog();
             else
@@ -43,10 +43,12 @@ public class InspectorModel implements Observer   {
 
     @Override
     public void update(Observable o, Object arg) {
-        obj = (EngineObj) arg;
-        setInspector();
+        if (arg.getClass() == EngineObj.class) {
+            obj = (EngineObj) arg;
+            setInspector();
+            setChanged();
+            notifyObservers();
+        }
     }
-
-
 
 }
