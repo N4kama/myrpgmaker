@@ -22,6 +22,7 @@ public class EngineController {
     public void set_controls() {
         this.view_.startButton.addActionListener(start_action());
         this.view_.exitButton.addActionListener(exit_action());
+        this.view_.continueButton.addActionListener(continue_action());
         this.view_.addKeyListener(input_listener());
 
     }
@@ -35,6 +36,12 @@ public class EngineController {
     private ActionListener exit_action() {
         return actionEvent -> {
             this.view_.exitGame();
+        };
+    }
+
+    private ActionListener continue_action() {
+        return actionEvent -> {
+            this.view_.displayGame();
         };
     }
 
@@ -55,6 +62,8 @@ public class EngineController {
                     model_.move(Direction.UP);
                 } else if (ke.getKeyCode() == KeyEvent.VK_DOWN) {
                     model_.move(Direction.DOWN);
+                } else if (ke.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    model_.pause();
                 }
             }
 
