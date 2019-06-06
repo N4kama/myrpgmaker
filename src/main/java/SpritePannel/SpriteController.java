@@ -30,6 +30,7 @@ public class SpriteController {
                     } else {
                         SpriteTools.is_background = model.is_background();
                         SpriteTools.playerModelSelected = model.isPlayer();
+                        SpriteTools.npcModelSelected = model.isNpc();
                         SpriteTools.selectedSprite = path;
                     }
                 });

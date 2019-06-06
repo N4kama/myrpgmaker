@@ -19,6 +19,7 @@ public class SpriteTools {
     public static HashMap<BufferedImage, String> imgToPath = new HashMap<>();
     public static HashMap<String, BufferedImage> pathToImg = new HashMap<>();
     public static boolean playerModelSelected = false;
+    public static boolean npcModelSelected = false;
     public static boolean is_background = true;
     public static String selectedSprite = null;
     public static boolean walkable = true;

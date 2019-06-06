@@ -46,8 +46,11 @@ public class MapModel extends Observable {
                 res = map.setPlayer(x, y, SpriteTools.selectedSprite);
                 if (res != null)
                     map.setSpawn_(new Position(x, y));
-            } else
+            } else if(SpriteTools.npcModelSelected)
+                res = map.setNpc(x, y, SpriteTools.selectedSprite);
+                else
                 res = map.setObject(x, y, SpriteTools.selectedSprite);
+
         }
         if (res != null) {
             setChanged();

@@ -189,6 +189,20 @@ public class Map {
         return obj;
     }
 
+    public EngineObj setNpc(int x, int y, String path) {
+        EngineObj obj = getGameObject(x / 16, y / 16);
+        if (obj == null) {
+            obj = new EngineObj("npc", path, true, false);
+            obj.setPosition_(new Position(x /16, y /16));
+            GameEvents e = new TeleportEvent(obj, 10,10, this);
+            obj.setEs(new EngineSprite(path));
+            obj.add_event(e);
+            engineObjs.add(obj);
+        }
+        obj.setSprite_(path);
+        return obj;
+    }
+
     public ArrayList<EngineObj> getGameObjects() {
         return engineObjs;
     }
