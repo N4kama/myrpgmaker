@@ -5,6 +5,7 @@ import Engine.Position;
 import Engine.Character.EngineObj;
 import Engine.Event.GameEvents;
 import Engine.Event.MoveEvent;
+import Engine.Event.TeleportEvent;
 import Utils.SpriteTools;
 import Utils.WorldTools;
 
@@ -148,8 +149,8 @@ public class Map {
 
     public boolean is_there_obj_at_coords(EngineObj obj, int x, int y) {
         BufferedImage img = SpriteTools.pathToImg.get(obj.getSprite_());
-        int midHeight = img.getHeight();
-        int midWidth = img.getWidth();
+        int midHeight = img.getHeight() / 16 - 1;
+        int midWidth = img.getWidth() / 16 - 1;
         boolean res = (obj.get_x() - midWidth <= x);
         res &= (x < obj.get_x() + midWidth);
         res &= (obj.get_y() - midHeight <= y);
@@ -176,10 +177,12 @@ public class Map {
     }
 
     public EngineObj setObject(int x, int y, String path) {
-        EngineObj obj = getGameObject(x, y);
+        EngineObj obj = getGameObject(x / 16, y / 16);
         if (obj == null) {
-            obj = new EngineObj(x, y, path);
-            GameEvents e = new MoveEvent(obj, Direction.UP, this);
+            obj = new EngineObj(x / 16, y / 16, path);
+            GameEvents e = new TeleportEvent(obj, 10,10, this);
+            obj.add_event(e);
+            engineObjs.add(obj);
         }
         obj.setSprite_(path);
         return obj;
