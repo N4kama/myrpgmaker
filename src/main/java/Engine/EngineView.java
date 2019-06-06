@@ -190,6 +190,14 @@ public class EngineView extends JFrame implements Observer {
         setContentPane(menuPanel);
     }
 
+    public void displayGame() {
+        inMenu = false;
+        menuPanel.setVisible(false);
+        remove(menuPanel);
+        gamePanel.setVisible(true);
+        setContentPane(gamePanel);
+    }
+
     private JPanel create_menuPanel(Dimension d) {
         return new JPanel() {
             @Override
