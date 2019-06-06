@@ -9,8 +9,17 @@ import Utils.WorldTools;
 
 import java.util.ArrayList;
 import java.util.Observable;
+import java.util.Observer;
 
-public class MapModel extends Observable {
+public class MapModel extends Observable implements Observer {
+    @Override
+    public void update(Observable o, Object arg) {
+        if (arg.getClass() == String.class && ((String)arg).equals("toggleGrid")) {
+            setChanged();
+            notifyObservers("toggleGrid");
+        }
+    }
+
     public enum ObjectMoved {
         ENGINEOBJ,
         TILE,
@@ -24,9 +33,10 @@ public class MapModel extends Observable {
     public String saved_moved_tilePath;
     public EngineObj moved_object;
 
-    public MapModel(Map map) {
+    public MapModel(Map map, Observable editorModel) {
         this.map = map;
         this.addObserver(WorldTools.inspectorModel);
+        editorModel.addObserver(this);
     }
 
     public int getWidth() {

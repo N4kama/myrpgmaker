@@ -25,7 +25,21 @@ public class MapView extends JPanel implements Observer {
         super.paintComponent(g);
 
         drawTiles(g);
+        if (SpriteTools.grid_display)
+            drawGrid(g);
         drayObjects(g);
+    }
+
+    private void drawGrid(Graphics g) {
+        Color savedColor = g.getColor();
+        g.setColor(new Color(0,0,0, 200));
+        for (int x = 0; x < mapModel.getHeight() * 16; x += 16) {
+            g.drawLine(0, x, mapModel.getWidth() * 16, x);
+        }
+        for (int x = 0; x < mapModel.getWidth() * 16; x += 16) {
+            g.drawLine(x, 0, x, mapModel.getHeight() * 16);
+        }
+        g.setColor(savedColor);
     }
 
     public void drayObjects(Graphics g) {
@@ -62,7 +76,7 @@ public class MapView extends JPanel implements Observer {
                 default:
                     paintComponent(this.getGraphics(), (Tile) arg);
             }
-        } else {
+        } else if (arg.getClass() == EngineObj.class) {
             switch (SpriteTools.mousePointerState) {
                 case DELETE:
                     deleteEngineOBJ(this.getGraphics(), (EngineObj) arg);
@@ -75,6 +89,13 @@ public class MapView extends JPanel implements Observer {
                     break;
                 default:
                     paintComponent(this.getGraphics(), (EngineObj) arg);
+            }
+        } else if (arg.getClass() == String.class && ((String) arg).equals("toggleGrid")) {
+            if (SpriteTools.grid_display)
+                drawGrid(getGraphics());
+            else {
+                revalidate();
+                repaint();
             }
         }
     }
@@ -107,7 +128,7 @@ public class MapView extends JPanel implements Observer {
 
     public void paintComponent(Graphics g, EngineObj obj) {
         BufferedImage img = SpriteTools.openObject(obj.getSprite_());
-        g.drawImage(img, obj.get_x()* 16, obj.get_y() * 16, null);
+        g.drawImage(img, obj.get_x() * 16, obj.get_y() * 16, null);
     }
 
 }
