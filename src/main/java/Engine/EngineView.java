@@ -142,63 +142,12 @@ public class EngineView extends JFrame implements Observer {
             }
     }
 
-    /*
-     * public void deleteEngineOBJ(Graphics g, EngineObj obj) { Tile tile =
-     * this.model_.getGameWorld().getCurMap().getGameTile(obj.get_y() -
-     * this.map_view.curAnim.getSprite().getHeight() / 2,obj.get_x() -
-     * this.map_view.curAnim.getSprite().getWidth() / 2);
-     * g.drawImage(SpriteTools.pathToImg.get(tile.get_path()), tile.get_x(),
-     * tile.get_y(), null); }
-     */
-
-    /*
-     * private void deleteEngineOBJ(Graphics g, EngineObj obj) { BufferedImage img =
-     * SpriteTools.pathToImg.get(obj.getSprite_()); int x = (obj.get_px()); int y =
-     * (obj.get_py()); int w = img.getWidth(); int h = img.getHeight();
-     * System.out.println("x: " + x + " y: " + y); Position p = new Position(x, y);
-     * Tile tile = map.getTile(p); System.out.println(tile.get_path()); if (tile !=
-     * null) { BufferedImage tilehere = SpriteTools.pathToImg.get(tile.get_path());
-     * for (int i = 0; i < w; i++) { for (int j = 0; j < h; j++) {
-     * g.drawImage(tilehere, (x + i) * 16, (y + j) * 16, null); } } } }
-     */
-
     private void repaintPos(Graphics g, Position p) {
         Tile tile = map.getTile(p);
         if (tile != null) {
             BufferedImage i = SpriteTools.pathToImg.get(tile.get_path());
             g.drawImage(i, p.getX() * 16, p.getY() * 16, null);
         }
-    }
-
-    private void deleteEngineOBJ(Graphics g, EngineObj obj) {
-        int x = (obj.get_x());
-        int y = (obj.get_y());
-        System.out.println("x: " + x + " y: " + y);
-        repaintPos(g, new Position(x, y));
-        repaintPos(g, new Position(x + 1, y));
-        repaintPos(g, new Position(x + 2, y));
-        repaintPos(g, new Position(x - 1, y));
-        repaintPos(g, new Position(x - 2, y));
-        repaintPos(g, new Position(x, y - 1));
-        repaintPos(g, new Position(x + 1, y - 1));
-        repaintPos(g, new Position(x + 2, y - 1));
-        repaintPos(g, new Position(x - 1, y - 1));
-        repaintPos(g, new Position(x - 2, y - 1));
-        repaintPos(g, new Position(x, y - 2));
-        repaintPos(g, new Position(x + 1, y - 2));
-        repaintPos(g, new Position(x + 2, y - 2));
-        repaintPos(g, new Position(x - 1, y - 2));
-        repaintPos(g, new Position(x - 2, y - 2));
-        repaintPos(g, new Position(x, y + 2));
-        repaintPos(g, new Position(x + 1, y + 2));
-        repaintPos(g, new Position(x + 2, y + 2));
-        repaintPos(g, new Position(x - 1, y + 2));
-        repaintPos(g, new Position(x - 2, y + 2));
-        repaintPos(g, new Position(x, y + 1));
-        repaintPos(g, new Position(x + 1, y + 1));
-        repaintPos(g, new Position(x + 2, y + 1));
-        repaintPos(g, new Position(x - 1, y + 1));
-        repaintPos(g, new Position(x - 2, y + 1));
     }
 
     private void deletePos(Graphics g, Position p) {
@@ -248,7 +197,7 @@ public class EngineView extends JFrame implements Observer {
             if (obj.isAlive()) {
                 obj.getEs().getCurAnim().update();
                 revalidate();
-                deleteEngineOBJ(this.getGraphics(), obj);
+                deletePos(this.getGraphics(), new Position(obj.get_x(), obj.get_y()));
                 paintComponent(this.getGraphics(), obj);
                 if(obj.getTeleported())
                 {
