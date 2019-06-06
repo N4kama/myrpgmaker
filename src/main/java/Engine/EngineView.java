@@ -1,5 +1,6 @@
 package Engine;
 
+import Editor.EditorModel;
 import Engine.Character.EngineObj;
 import Game.Map;
 import Game.Tile;
@@ -78,7 +79,7 @@ public class EngineView extends JFrame implements Observer {
         setTitle(this.model_.getGameWorld().getName());
         setSize(600, 600);
 
-        MapModel mapModel = new MapModel(model_.getGameWorld().getCurMap());
+        MapModel mapModel = new MapModel(model_.getGameWorld().getCurMap(), EditorModel.singleton);
         map_view = new EngineMapView(mapModel);
         gamePanel = (JPanel) map_view;
         progressPanel = new JPanel();
