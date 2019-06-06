@@ -107,13 +107,13 @@ public class MapView extends JPanel implements Observer {
 
     private void deleteEngineOBJ(Graphics g, EngineObj obj) {
         BufferedImage img = SpriteTools.pathToImg.get(obj.getSprite_());
-        int x_min = (obj.get_x() - img.getWidth()) / 16;
-        int x_max = (obj.get_x() + img.getWidth()) / 16;
-        int y_min = (obj.get_x() - img.getHeight()) / 16;
-        int y_max = (obj.get_x() + img.getHeight()) / 16;
-        for (; x_min <= x_max; x_min += 16) {
-            for (; y_min <= y_max; y_min += 16) {
-                Tile tile = mapModel.map.getGameTile(x_min, y_min);
+        int x_min = obj.get_x();
+        int x_max = obj.get_x() + img.getWidth() / 16 - 1;
+        int y_min = obj.get_x();
+        int y_max = obj.get_x() + img.getHeight() / 16 - 1;
+        for (int x = x_min; x <= x_max; x++) {
+            for (int y = y_min; y <= y_max; y++) {
+                Tile tile = mapModel.map.getGameTile(x, y);
                 if (tile != null)
                     g.drawImage(SpriteTools.pathToImg.get(tile.get_path()),
                             tile.get_x() * 16, tile.get_y() * 16, null);
