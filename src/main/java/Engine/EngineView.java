@@ -146,47 +146,43 @@ public class EngineView extends JFrame implements Observer {
      * g.drawImage(tilehere, (x + i) * 16, (y + j) * 16, null); } } } }
      */
 
+    private void repaintPos(Graphics g, Position p) {
+        Tile tile = map.getTile(p);
+        if (tile != null) {
+            BufferedImage i = SpriteTools.pathToImg.get(tile.get_path());
+            g.drawImage(i, p.getX() * 16, p.getY() * 16, null);
+        }
+    }
+
     private void deleteEngineOBJ(Graphics g, EngineObj obj) {
         int x = (obj.get_x());
         int y = (obj.get_y());
         System.out.println("x: " + x + " y: " + y);
-        Position p = new Position(x, y);
-        Tile tile = map.getTile(p);
-        System.out.println(tile.get_path());
-        if (tile != null) {
-            BufferedImage i = SpriteTools.pathToImg.get(tile.get_path());
-
-            g.drawImage(i, x * 16, y * 16, null);
-            g.drawImage(i, (x + 1) * 16, y * 16, null);
-            g.drawImage(i, (x + 2) * 16, y * 16, null);
-            g.drawImage(i, (x - 1) * 16, y * 16, null);
-            g.drawImage(i, (x - 2) * 16, y * 16, null);
-
-            g.drawImage(i, x * 16, (y - 1) * 16, null);
-            g.drawImage(i, (x + 1) * 16, (y - 1) * 16, null);
-            g.drawImage(i, (x + 2) * 16, (y - 1) * 16, null);
-            g.drawImage(i, (x - 1) * 16, (y - 1) * 16, null);
-            g.drawImage(i, (x - 2) * 16, (y - 1) * 16, null);
-
-            g.drawImage(i, x * 16, (y - 2) * 16, null);
-            g.drawImage(i, (x + 1) * 16, (y - 2) * 16, null);
-            g.drawImage(i, (x + 2) * 16, (y - 2) * 16, null);
-            g.drawImage(i, (x - 1) * 16, (y - 2) * 16, null);
-            g.drawImage(i, (x - 2) * 16, (y - 2) * 16, null);
-
-            g.drawImage(i, x * 16, (y + 2) * 16, null);
-            g.drawImage(i, (x + 1) * 16, (y + 2) * 16, null);
-            g.drawImage(i, (x + 2) * 16, (y + 2) * 16, null);
-            g.drawImage(i, (x - 1) * 16, (y + 2) * 16, null);
-            g.drawImage(i, (x - 2) * 16, (y + 2) * 16, null);
-
-            g.drawImage(i, x * 16, (y + 1) * 16, null);
-            g.drawImage(i, (x + 1) * 16, (y + 1) * 16, null);
-            g.drawImage(i, (x + 2) * 16, (y + 1) * 16, null);
-            g.drawImage(i, (x - 1) * 16, (y + 1) * 16, null);
-            g.drawImage(i, (x - 2) * 16, (y + 1) * 16, null);
-
-        }
+        repaintPos(g, new Position(x, y));
+        repaintPos(g, new Position(x + 1, y));
+        repaintPos(g, new Position(x + 2, y));
+        repaintPos(g, new Position(x - 1, y));
+        repaintPos(g, new Position(x - 2, y));
+        repaintPos(g, new Position(x, y - 1));
+        repaintPos(g, new Position(x + 1, y - 1));
+        repaintPos(g, new Position(x + 2, y - 1));
+        repaintPos(g, new Position(x - 1, y - 1));
+        repaintPos(g, new Position(x - 2, y - 1));
+        repaintPos(g, new Position(x, y - 2));
+        repaintPos(g, new Position(x + 1, y - 2));
+        repaintPos(g, new Position(x + 2, y - 2));
+        repaintPos(g, new Position(x - 1, y - 2));
+        repaintPos(g, new Position(x - 2, y - 2));
+        repaintPos(g, new Position(x, y + 2));
+        repaintPos(g, new Position(x + 1, y + 2));
+        repaintPos(g, new Position(x + 2, y + 2));
+        repaintPos(g, new Position(x - 1, y + 2));
+        repaintPos(g, new Position(x - 2, y + 2));
+        repaintPos(g, new Position(x, y + 1));
+        repaintPos(g, new Position(x + 1, y + 1));
+        repaintPos(g, new Position(x + 2, y + 1));
+        repaintPos(g, new Position(x - 1, y + 1));
+        repaintPos(g, new Position(x - 2, y + 1));
     }
 
     public void paintComponent(Graphics g, EngineObj obj) {
