@@ -2,11 +2,9 @@ package InspectorPannel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 
-public class InspectorView extends JPanel  {
+public class InspectorView extends JPanel {
     JLabel namet;
     JLabel typet;
     JLabel post;
@@ -17,27 +15,7 @@ public class InspectorView extends JPanel  {
 
     public InspectorView(InspectorModel model) {
         this.model = model;
-        if (InspectorModel.obj != null) {
-            namet = new JLabel("Name: " + InspectorModel.obj.getName_());
-
-            if (!InspectorModel.obj.getIs_player())
-                typet = new JLabel("Type: NPC");
-            else
-                typet = new JLabel("Type: Player");
-            post = new JLabel("Position: " + InspectorModel.obj.getPosition_());
-            if (InspectorModel.obj.getDialog() != null)
-                old = new JLabel("Current dialog: " + InspectorModel.obj.getDialog());
-            else
-                old = new JLabel("Current dialog: ");
-        }
-        else
-        {
-            namet = new JLabel("Name: ");
-            typet = new JLabel("Type: ");
-            post = new JLabel("Position: ");
-            old = new JLabel("Current dialog: ");
-        }
-
+        setText();
 
         JLabel label = new JLabel("Set the dialog parameters:", SwingConstants.LEFT);
         dialog = new JTextField(30);
@@ -58,4 +36,14 @@ public class InspectorView extends JPanel  {
         setLayout(boxLayout);
 
     }
+
+    public void setText(){
+        namet = new JLabel(model.namet);
+        typet = new JLabel(model.typet);
+        post = new JLabel(model.post);
+        old = new JLabel(model.old);
+
+    }
+
+
 }
