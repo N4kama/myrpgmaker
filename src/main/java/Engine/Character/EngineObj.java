@@ -112,14 +112,22 @@ public class EngineObj {
         //    return false;
         if (canMove(dir, m)) {
             // set prev tile to walkable
-            Tile t = m.getTile(position_);
+            Tile t = null;
+            for (int i = 0; i < 2; i++) {
+                t = m.getTile(new Position(position_.getX() / 16 + i,
+                position_.getY() / 16));
             t.setHas_Obj(false);
+            }
             if(alive)
                 animate(dir);
             position_.move(dir);
             // set new tile to nonwalkable
-            t = m.getTile(position_);
+            for (int i = 0; i < 2; i++) {
+                t = m.getTile(new Position(position_.getX() / 16 + i,
+                position_.getY() / 16));
             t.setHas_Obj(true);
+            }
+            //t.setHas_Obj(true);
             //if (is_player)
             //    t.run_events();
             return true;

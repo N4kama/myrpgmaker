@@ -183,9 +183,9 @@ public class Map {
         if (obj == null) {
             obj = new EngineObj(x / 16, y / 16, path);
             BufferedImage img = SpriteTools.openObject(obj.getSprite_());
-            for (int i = 0; i < img.getWidth(); i++) {
-                for (int j = 0; j < img.getHeight(); j++) {
-                    Tile t = getTile(new Position(x / 16 + i ,x / 16 + j));
+            for (int i = 0; i < img.getWidth() / 16; i++) {
+                for (int j = 0; j < img.getHeight() / 16; j++) {
+                    Tile t = getTile(new Position(x / 16 - i ,y / 16 - j));
                     t.setHas_Obj(true);
                 }
             }
@@ -206,10 +206,8 @@ public class Map {
             obj.setEs(new EngineSprite(path));
             obj.add_event(e);
             for (int i = 0; i < 2; i++) {
-                for (int j = 0; j < 2; j++) {
-                    Tile t = getTile(new Position(x / 16 + i ,x / 16 + j));
+                    Tile t = getTile(new Position(x / 16 + i ,y / 16));
                     t.setHas_Obj(true);
-                }
             }
             engineObjs.add(obj);
             obj.setSprite_(path);
@@ -324,10 +322,8 @@ public class Map {
             is_player_set = true;
         }
         for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < 2; j++) {
-                Tile t = getTile(new Position(x / 16 + i ,x / 16 + j));
+                Tile t = getTile(new Position(x / 16 + i, y / 16));
                 t.setHas_Obj(true);
-            }
         }
         player.setSprite_(path);
         player.setEs(new EngineSprite(path));
