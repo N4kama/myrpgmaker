@@ -186,12 +186,7 @@ public class EngineView extends JFrame implements Observer {
     }
 
     public void paintComponent(Graphics g, EngineObj obj) {
-        if (obj.isAlive()) {
-            g.drawImage(obj.getEs().getCurAnim().getSprite(), 16 * (obj.get_x()), 16 * (obj.get_y()), null);
-            return;
-        }
-        BufferedImage img = SpriteTools.openObject(obj.getSprite_());
-        g.drawImage(img, 16 * (obj.get_x()), 16 * (obj.get_y()), null);
+        map_view.drayObjects(this.getGraphics());
     }
 
     @Override
