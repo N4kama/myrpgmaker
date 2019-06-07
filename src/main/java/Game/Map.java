@@ -143,7 +143,6 @@ public class Map {
         if (getGameObject(x, y, false) != null)
             return null;
         Tile tile = getGameTile(x / 16, y / 16);
-        tile.setIs_Walkable(SpriteTools.walkable);
         tile.set_path(path);
         return tile;
     }
@@ -184,13 +183,10 @@ public class Map {
     }
 
     public EngineObj setObject(int x, int y, String path) {
-        EngineObj obj = null;
-        if (canPlaceObj(x / 16, y / 16, path)) {
-            obj = new EngineObj(x / 16, y / 16, path);
-            BufferedImage img = SpriteTools.openObject(obj.getSprite_());
-            engineObjs.add(obj);
-            obj.setSprite_(path);
-        }
+        EngineObj obj = new EngineObj(x / 16, y / 16, path);
+        BufferedImage img = SpriteTools.openObject(obj.getSprite_());
+        engineObjs.add(obj);
+        obj.setSprite_(path);
         return obj;
     }
 
