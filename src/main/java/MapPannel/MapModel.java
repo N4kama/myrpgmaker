@@ -7,11 +7,14 @@ import Game.Tile;
 import Utils.SpriteTools;
 import Utils.WorldTools;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
 public class MapModel extends Observable implements Observer {
+    protected BufferedImage unwalkable = SpriteTools.openTile(System.getProperty("user.dir") + "/resources/misc/not_walkable.png");
+
     @Override
     public void update(Observable o, Object arg) {
         if (arg.getClass() == String.class && ((String)arg).equals("toggleGrid")) {

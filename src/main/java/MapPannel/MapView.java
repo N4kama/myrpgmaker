@@ -60,6 +60,9 @@ public class MapView extends JPanel implements Observer {
                 String path = mapModel.map.getPathTile(i, j);
                 BufferedImage img = SpriteTools.openTile(path);
                 g.drawImage(img, y, x, null);
+                Tile tile = mapModel.map.getGameTile(i, j);
+                if (!tile.isIs_Walkable_())
+                    g.drawImage(mapModel.unwalkable, tile.get_x() * 16, tile.get_y() * 16, null);
                 x += 16;
             }
             x = 0;
@@ -122,13 +125,17 @@ public class MapView extends JPanel implements Observer {
                     g.drawImage(SpriteTools.pathToImg.get(tile.get_path()), tile.get_x() * 16, tile.get_y() * 16, null);
             }
         }
-        drawGrid(g);
+        if (SpriteTools.grid_display)
+            drawGrid(g);
     }
 
     public void paintComponent(Graphics g, Tile tile) {
         BufferedImage img = SpriteTools.openTile(tile.get_path());
         g.drawImage(img, tile.get_x() * 16, tile.get_y() * 16, null);
-        drawGrid(g);
+        if (!tile.isIs_Walkable_())
+            g.drawImage(mapModel.unwalkable, tile.get_x() * 16, tile.get_y() * 16, null);
+        if (SpriteTools.grid_display)
+            drawGrid(g);
     }
 
     public void paintComponent(Graphics g, EngineObj obj) {
