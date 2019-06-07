@@ -122,11 +122,13 @@ public class MapView extends JPanel implements Observer {
                     g.drawImage(SpriteTools.pathToImg.get(tile.get_path()), tile.get_x() * 16, tile.get_y() * 16, null);
             }
         }
+        drawGrid(g);
     }
 
     public void paintComponent(Graphics g, Tile tile) {
         BufferedImage img = SpriteTools.openTile(tile.get_path());
         g.drawImage(img, tile.get_x() * 16, tile.get_y() * 16, null);
+        drawGrid(g);
     }
 
     public void paintComponent(Graphics g, EngineObj obj) {
