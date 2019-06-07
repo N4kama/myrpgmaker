@@ -75,6 +75,7 @@ public class EditorController extends Observable {
 
     private ActionListener not_walkableButtonAction() {
         return ActionEvent -> {
+            SpriteTools.mousePointerState = SpriteTools.MousePointerState.SET_WALKABLE_OR_NOT;
             SpriteTools.walkable = false;
             view.not_walkableButton.setOpaque(false);
             view.walkableButton.setOpaque(true);
@@ -83,6 +84,7 @@ public class EditorController extends Observable {
 
     private ActionListener walkableAction() {
         return ActionEvent -> {
+            SpriteTools.mousePointerState = SpriteTools.MousePointerState.SET_WALKABLE_OR_NOT;
             SpriteTools.walkable = true;
             view.walkableButton.setOpaque(false);
             view.not_walkableButton.setOpaque(true);
