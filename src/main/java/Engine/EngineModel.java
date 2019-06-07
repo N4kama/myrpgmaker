@@ -28,13 +28,13 @@ public class EngineModel extends Observable {
     public void stopTalking() {
         gameWorld_.player_.stopTalk();
         setChanged();
-        notifyObservers(gameWorld_.player_);
+        notifyObservers("stopTalk");
     }
 
     public void talkto() {
         gameWorld_.player_.talkto(gameWorld_.getCurMap());
         setChanged();
-        notifyObservers(gameWorld_.player_);
+        notifyObservers("startTalk");
     }
 
     public void moveNPC(EngineObj obj) {
