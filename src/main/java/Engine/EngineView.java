@@ -154,6 +154,7 @@ public class EngineView extends JFrame implements Observer {
         repaintPos(g, new Position(x + 2, y + 1));
         repaintPos(g, new Position(x - 1, y + 1));
         repaintPos(g, new Position(x - 2, y + 1));
+        textPanel.repaint();
     }
 
     public void paintComponent(Graphics g, EngineObj obj) {
