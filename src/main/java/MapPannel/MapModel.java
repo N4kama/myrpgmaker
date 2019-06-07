@@ -98,7 +98,7 @@ public class MapModel extends Observable implements Observer {
 
     public void moveSpite(int x, int y) {
         if (!is_moving) {
-            EngineObj obj = map.getGameObject(x / 16, y / 16);
+            EngineObj obj = map.getGameObject(x / 16, y / 16, true);
             if (obj != null) {
                 moved_object = obj;
                 objectMoved = ObjectMoved.ENGINEOBJ;
