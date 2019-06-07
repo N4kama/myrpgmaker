@@ -2,6 +2,7 @@ package Engine;
 
 import Engine.Character.Animation;
 import Engine.Character.EngineObj;
+import Game.Tile;
 import MapPannel.MapModel;
 import MapPannel.MapView;
 import Utils.SpriteTools;
@@ -40,4 +41,24 @@ public class EngineMapView extends MapView {
         }
     }
 
+    @Override
+    public void drawTiles(Graphics g) {
+        int x = 0, y = 0;
+        for (int i = 0; i < mapModel.getWidth(); i++) {
+            for (int j = 0; j < mapModel.getHeight(); j++) {
+                String path = mapModel.map.getPathTile(i, j);
+                BufferedImage img = SpriteTools.openTile(path);
+                g.drawImage(img, y, x, null);
+                x += 16;
+            }
+            x = 0;
+            y += 16;
+        }
+    }
+
+    @Override
+    public void paintComponent(Graphics g, Tile tile) {
+        BufferedImage img = SpriteTools.openTile(tile.get_path());
+        g.drawImage(img, tile.get_x() * 16, tile.get_y() * 16, null);
+    }
 }
