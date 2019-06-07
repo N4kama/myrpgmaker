@@ -48,8 +48,12 @@ public class MapView extends JPanel implements Observer {
 
     public void drayObjects(Graphics g) {
         for (EngineObj obj : mapModel.getObjects()) {
-            BufferedImage img = SpriteTools.openObject(obj.getSprite_());
-            g.drawImage(img, obj.get_x() * 16, obj.get_y() * 16 - 8, null);
+            if (!obj.getAlive()) {
+                BufferedImage img = SpriteTools.openObject(obj.getSprite_());
+                g.drawImage(img, 16 * (obj.get_x()), 16 * (obj.get_y()), null);
+            } else {
+                g.drawImage(obj.getEs().getCurAnim().getSprite(), 16 * (obj.get_x()), 16 * (obj.get_y()) - 8, null);
+            }
         }
     }
 
@@ -140,8 +144,10 @@ public class MapView extends JPanel implements Observer {
 
     public void paintComponent(Graphics g, EngineObj obj) {
         BufferedImage img = SpriteTools.openObject(obj.getSprite_());
-        if (obj.isAlive())
-            img = img.getSubimage(16, 0, 16, 24);
-        g.drawImage(img, obj.get_x() * 16, obj.get_y() * 16, null);
+        if (!obj.isAlive()) {
+            g.drawImage(img, 16 * (obj.get_x()), 16 * (obj.get_y()), null);
+        } else {
+            g.drawImage(obj.getEs().getCurAnim().getSprite(), 16 * (obj.get_x()), 16 * (obj.get_y()) - 8, null);
+        }
     }
 }

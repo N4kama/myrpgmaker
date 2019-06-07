@@ -214,19 +214,16 @@ public class Map {
     }
 
     public EngineObj setNpc(int x, int y, String path) {
-        EngineObj objj = getGameObject(x / 16, y / 16);
-        if (objj == null) {
-            final EngineObj obj = new EngineObj("npc", path, true, false);
-            obj.setPosition_(new Position(x / 16, y / 16));
-            obj.setEs(new EngineSprite(path));
-            //Tile t = getTile(new Position(x / 16, y / 16));
-            //t.setHas_Obj(true);
-            engineObjs.add(obj);
-            obj.setSprite_(path);
-            return obj;
+        EngineObj obj = getGameObject(x / 16, y / 16);
+        if (obj == null) {
+            obj = new EngineObj("npc", path, true, false);
         }
-        objj.setSprite_(path);
-        return objj;
+        obj.setPosition_(new Position(x / 16, y / 16));
+        obj.setEs(new EngineSprite(path));
+        engineObjs.add(obj);
+        obj.setSprite_(path);
+        obj.setSprite_(path);
+        return obj;
     }
 
     public ArrayList<EngineObj> getGameObjects() {
