@@ -67,6 +67,8 @@ public class MapController {
             case DELETE:
                 model.deleteSprite(e.getX(), e.getY());
                 break;
+            case SET_WALKABLE_OR_NOT:
+                model.setWalkable(e.getX(), e.getY());
         }
     }
 }

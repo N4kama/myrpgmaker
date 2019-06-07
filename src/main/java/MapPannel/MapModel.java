@@ -23,6 +23,13 @@ public class MapModel extends Observable implements Observer {
         }
     }
 
+    public void setWalkable(int x, int y) {
+        Tile tile = map.getGameTile(x / 16, y / 16);
+        tile.setIs_Walkable(SpriteTools.walkable);
+        setChanged();
+        notifyObservers(tile);
+    }
+
     public enum ObjectMoved {
         ENGINEOBJ,
         TILE,
