@@ -110,8 +110,8 @@ public class MapView extends JPanel implements Observer {
         BufferedImage img = SpriteTools.pathToImg.get(obj.getSprite_());
         int x_min = obj.get_x();
         int x_max = obj.get_x() + img.getWidth() / 16 - 1;
-        int y_min = obj.get_x();
-        int y_max = obj.get_x() + img.getHeight() / 16 - 1;
+        int y_min = obj.get_y();
+        int y_max = obj.get_y() + img.getHeight() / 16 - 1;
         for (int x = x_min; x <= x_max; x++) {
             for (int y = y_min; y <= y_max; y++) {
                 Tile tile = mapModel.map.getGameTile(x, y);

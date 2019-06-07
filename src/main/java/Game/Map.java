@@ -179,8 +179,8 @@ public class Map {
     }
 
     public EngineObj setObject(int x, int y, String path) {
-        EngineObj obj = getGameObject(x / 16, y / 16);
-        if (obj == null) {
+        EngineObj obj = null;
+        if (canPlaceObj(x / 16, y /16, path)) {
             obj = new EngineObj(x / 16, y / 16, path);
             BufferedImage img = SpriteTools.openObject(obj.getSprite_());
             for (int i = 0; i < img.getWidth() / 16; i++) {
@@ -193,9 +193,27 @@ public class Map {
             //GameEvents e = new TeleportEvent(obj, 10,10, this);
             //obj.add_event(e);
             engineObjs.add(obj);
+            obj.setSprite_(path);
         }
-        obj.setSprite_(path);
         return obj;
+    }
+
+    private boolean canPlaceObj(int x, int y, String path) {
+        BufferedImage img = SpriteTools.pathToImg.get(path);
+        if (img == null)
+            return false;
+        int x_len = img.getWidth() / 16;
+        int y_len = img.getHeight() / 16;
+        ArrayList<EngineObj> arr = engineObjs.stream()
+                .filter(obj -> isThereObjBetween(obj, x, y, x_len, y_len))
+                .collect(Collectors.toCollection(ArrayList::new));
+        return !(arr.size() > 0);
+    }
+
+    private boolean isThereObjBetween(EngineObj obj, int x, int y, int x_len, int y_len) {
+        boolean res = (x <= obj.get_x()) && (obj.get_x() <= x + x_len);
+        res |= (y <= obj.get_y()) && (obj.get_y() <= y + y_len);
+        return res;
     }
 
     public EngineObj setNpc(int x, int y, String path) {
