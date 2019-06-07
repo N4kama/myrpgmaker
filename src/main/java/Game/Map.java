@@ -140,7 +140,7 @@ public class Map {
     }
 
     public Tile setTile(int x, int y, String path) {
-        if (getGameObject(x, y) != null)
+        if (getGameObject(x, y, false) != null)
             return null;
         Tile tile = getGameTile(x / 16, y / 16);
         tile.setIs_Walkable(SpriteTools.walkable);
@@ -159,17 +159,24 @@ public class Map {
         return res;
     }
 
-    public EngineObj getGameObject(int x, int y) {
+    public EngineObj getGameObject(int x, int y, boolean is_npc) {
         ArrayList<EngineObj> arr = engineObjs.stream().filter(obj -> is_there_obj_at_coords(obj, x, y))
                 .collect(Collectors.toCollection(ArrayList::new));
         if (arr.size() > 0) {
-            return arr.get(0);
+            if (is_npc)
+                for (EngineObj e : arr) {
+                    if (e.isAlive()) {
+                        return e;
+                    }
+                }
+            else
+                return arr.get(0);
         }
         return null;
     }
 
     public EngineObj deleteGameObject(int x, int y) {
-        EngineObj obj = getGameObject(x / 16, y / 16);
+        EngineObj obj = getGameObject(x / 16, y / 16, false);
         if (obj == null)
             return null;
         engineObjs.remove(obj);
@@ -178,7 +185,7 @@ public class Map {
 
     public EngineObj setObject(int x, int y, String path) {
         EngineObj obj = null;
-        if (canPlaceObj(x / 16, y /16, path)) {
+        if (canPlaceObj(x / 16, y / 16, path)) {
             obj = new EngineObj(x / 16, y / 16, path);
             BufferedImage img = SpriteTools.openObject(obj.getSprite_());
             engineObjs.add(obj);
@@ -193,8 +200,7 @@ public class Map {
             return false;
         int x_len = img.getWidth() / 16;
         int y_len = img.getHeight() / 16;
-        ArrayList<EngineObj> arr = engineObjs.stream()
-                .filter(obj -> isThereObjBetween(obj, x, y, x_len, y_len))
+        ArrayList<EngineObj> arr = engineObjs.stream().filter(obj -> isThereObjBetween(obj, x, y, x_len, y_len))
                 .collect(Collectors.toCollection(ArrayList::new));
         return !(arr.size() > 0);
     }
@@ -214,7 +220,7 @@ public class Map {
     }
 
     public EngineObj setNpc(int x, int y, String path) {
-        EngineObj obj = null;//getGameObject(x / 16, y / 16);
+        EngineObj obj = getGameObject(x / 16, y / 16, true);
         if (obj == null) {
             obj = new EngineObj("npc", path, true, false);
         }
@@ -330,8 +336,8 @@ public class Map {
             engineObjs.add(player);
             is_player_set = true;
         }
-        //Tile t = getTile(new Position(x / 16, y / 16));
-        //t.setHas_Obj(true);
+        // Tile t = getTile(new Position(x / 16, y / 16));
+        // t.setHas_Obj(true);
 
         player.setSprite_(path);
         player.setEs(new EngineSprite(path));
