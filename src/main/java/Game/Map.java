@@ -225,6 +225,8 @@ public class Map {
             obj = new EngineObj("npc", path, true, false);
         }
         obj.setPosition_(new Position(x / 16, y / 16));
+        Tile t = getTile(obj.getPosition_());
+            t.setHas_Obj(true);
         obj.setEs(new EngineSprite(path));
         engineObjs.add(obj);
         obj.setSprite_(path);
@@ -336,8 +338,8 @@ public class Map {
             engineObjs.add(player);
             is_player_set = true;
         }
-        // Tile t = getTile(new Position(x / 16, y / 16));
-        // t.setHas_Obj(true);
+        Tile t = getTile(player.getPosition_());
+            t.setHas_Obj(true);
 
         player.setSprite_(path);
         player.setEs(new EngineSprite(path));
