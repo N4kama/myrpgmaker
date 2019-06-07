@@ -211,9 +211,13 @@ public class Map {
     }
 
     private boolean isThereObjBetween(EngineObj obj, int x, int y, int x_len, int y_len) {
-        boolean res = (x <= obj.get_x()) && (obj.get_x() <= x + x_len);
-        res |= (y <= obj.get_y()) && (obj.get_y() <= y + y_len);
-        return res;
+        for (int i = x; i < x + x_len; i++) {
+            for (int j = y; j < y + y_len; j++) {
+                if (obj.get_x() == i && obj.get_y() == j)
+                    return true;
+            }
+        }
+        return false;
     }
 
     public EngineObj setNpc(int x, int y, String path) {
