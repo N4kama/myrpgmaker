@@ -23,12 +23,13 @@ public class TeleportEvent implements GameEvents {
 
     @Override
     public boolean run() {
+        System.out.println(c.get_x() +":"+c.get_y());
         for (EngineObj e : m.getCurMap().getEngineObjs()) {
-            if (e.getPosition_().equals(c.getPosition_())) {
+            if (e.isAlive() && e.getPosition_().equals(c.getPosition_())) {
                 if (m.getCurMap().getTile(p).getIs_Walkable()) {
-                    c.setTeleportedPos(c.getPosition_());
-                    c.setTeleported(true);
-                    c.setPosition_(p);
+                    e.setTeleportedPos(e.getPosition_());
+                    e.setTeleported(true);
+                    e.setPosition_(p);
                     return true;
                 }
                 return false;
