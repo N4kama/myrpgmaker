@@ -1,10 +1,13 @@
 package Engine.Event;
 
+import java.awt.image.BufferedImage;
+
 import Engine.Direction;
 import Engine.Position;
 import Engine.Character.EngineObj;
 import Game.Map;
 import Game.World;
+import Utils.SpriteTools;
 
 public class TeleportEvent implements GameEvents {
 
@@ -12,6 +15,9 @@ public class TeleportEvent implements GameEvents {
         this.c = c;
         this.p = new Position(x, y);
         this.m = m;
+        BufferedImage img = SpriteTools.openObject(c.getSprite_());
+        this.w = img.getWidth() / 16;
+        this.h = img.getHeight() / 16;
     }
 
     /**
@@ -23,9 +29,9 @@ public class TeleportEvent implements GameEvents {
 
     @Override
     public boolean run() {
-        System.out.println(c.get_x() +":"+c.get_y());
+        System.out.println(c.get_x() + ":" + c.get_y());
         for (EngineObj e : m.getCurMap().getEngineObjs()) {
-            if (e.isAlive() && e.getPosition_().equals(c.getPosition_())) {
+            if (e.isAlive() && e.getPosition_().is_in(c.getPosition_(), w, h)) {
                 if (m.getCurMap().getTile(p).getIs_Walkable()) {
                     e.setTeleportedPos(e.getPosition_());
                     e.setTeleported(true);
@@ -41,4 +47,6 @@ public class TeleportEvent implements GameEvents {
     private EngineObj c;
     private Position p;
     private World m;
+    private int h;
+    private int w;
 }
