@@ -20,7 +20,7 @@ public class EngineObj {
     private Position teleportedPos;
     private EngineSprite es;
     private boolean stop = false;
-    private EngineObj talkTo;
+    public EngineObj talkTo;
 
     public EngineObj(int x, int y, String sprite_path) {
         this.position_ = new Position(x, y);
