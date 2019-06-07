@@ -26,6 +26,9 @@ public class EngineView extends JFrame implements Observer {
     JButton continueButton;
     JPanel gamePanel;
     JPanel menuPanel;
+    JPanel textPanel;
+    private JPanel savePanel;
+    private JLabel label;
 
     BufferedImage gameImage;
 
@@ -76,6 +79,11 @@ public class EngineView extends JFrame implements Observer {
         MapModel mapModel = new MapModel(model_.getGameWorld().getCurMap(), EditorModel.singleton);
         map_view = new EngineMapView(mapModel);
         gamePanel = (JPanel) map_view;
+        textPanel = new JPanel();
+        label = new JLabel("...");
+        textPanel.add(label);
+        textPanel.setVisible(true);
+        add(textPanel, "North");
 
         setBackground(Color.black);
         add(gamePanel);
@@ -156,26 +164,60 @@ public class EngineView extends JFrame implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         if (arg != null) {
-            EngineObj obj = (EngineObj) arg;
-            if (obj == null) {
-                return;
-            }
-            if (obj.isAlive() && !inMenu) {
-                obj.getEs().getCurAnim().update();
-                revalidate();
-                deletePos(this.getGraphics(), new Position(obj.get_x(), obj.get_y()));
-                paintComponent(this.getGraphics(), obj);
-                if (obj.getTeleported()) {
-                    obj.setTeleported(false);
-                    deletePos(this.getGraphics(), obj.getTeleportedPos());
+            if (arg instanceof String) {
+                String str = (String) arg;
+                if (str.equals("startTalk")) {
+                    displayDialog();
                 }
-            }
-            return;
-        } else {
-            System.out.println("diplay pause menu");
-            displayPauseMenu();
+                else if (str.equals("stopTalk")) {
+                    closeDialog();
+                }
+
+            } else {
+                    EngineObj obj = (EngineObj) arg;
+                    if (obj == null) {
+                        return;
+                    }
+                    if (obj.isAlive() && !inMenu) {
+                        obj.getEs().getCurAnim().update();
+                        revalidate();
+                        deletePos(this.getGraphics(), new Position(obj.get_x(), obj.get_y()));
+                        paintComponent(this.getGraphics(), obj);
+                        if (obj.getTeleported()) {
+                            obj.setTeleported(false);
+                            deletePos(this.getGraphics(), obj.getTeleportedPos());
+                        }
+                    }
+                    return;
+                }
+            } else{
+                System.out.println("diplay pause menu");
+                displayPauseMenu();
         }
     }
+
+    public void displayDialog() {
+        String msg = null;
+        try {
+            msg = model_.getGameWorld().player_.talkTo.getDialog();
+        } catch (NullPointerException e) {
+            msg = "I have nothing to tell you";
+        }
+        if (msg == null)
+            label.setText("NPC: " + "I have nothing to tell you");
+        else
+            label.setText("NPC: " + msg);
+
+        textPanel.revalidate();
+        textPanel.repaint();
+    }
+
+    public void closeDialog() {
+        label.setText("...");
+        gamePanel.revalidate();
+        gamePanel.repaint();
+    }
+
 
     public void displayPauseMenu() {
         inMenu = true;
