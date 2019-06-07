@@ -6,6 +6,7 @@ import Utils.SpriteTools;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -33,13 +34,14 @@ public class MapView extends JPanel implements Observer {
     }
 
     private void drawGrid(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g;
         Color savedColor = g.getColor();
-        g.setColor(new Color(0, 0, 0, 200));
+        g2.setColor(new Color(0, 0, 0, 200));
         for (int x = 0; x < mapModel.getHeight() * 16; x += 16) {
-            g.drawLine(0, x, mapModel.getWidth() * 16, x);
+            g2.draw(new Line2D.Float(x, 0, x, mapModel.getHeight() * 16));
         }
         for (int x = 0; x < mapModel.getWidth() * 16; x += 16) {
-            g.drawLine(x, 0, x, mapModel.getHeight() * 16);
+            g2.draw(new Line2D.Float(0, x, mapModel.getWidth() * 16, x));
         }
         g.setColor(savedColor);
     }

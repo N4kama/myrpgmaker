@@ -1,5 +1,6 @@
 package Utils;
 
+import Editor.EditorModel;
 import Engine.Character.EngineObj;
 import Game.World;
 import InspectorPannel.InspectorModel;

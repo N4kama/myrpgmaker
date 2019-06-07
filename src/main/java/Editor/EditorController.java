@@ -100,7 +100,6 @@ public class EditorController extends Observable {
             String h = JOptionPane.showInputDialog("enter map height");
             height = Integer.parseInt(h);
             model.add_map(width, height, default_tile_path);
-            //refresh view
         };
     }
 
@@ -185,8 +184,7 @@ public class EditorController extends Observable {
                 try {
                     BufferedImage img = ImageIO.read(file);
                     if ((img.getHeight() / 16 == 1 && img.getWidth() / 16 == 1 && destPath.equals("resources/backgroundTile/")) ||
-                            (img.getHeight() % 16 == 0 && img.getWidth() % 16 == 0 && (destPath.equals("resources/foregroundObject/")) || (destPath.equals("resources/npc/"))))
-                    {
+                            (img.getHeight() % 16 == 0 && img.getWidth() % 16 == 0 && (destPath.equals("resources/foregroundObject/")) || (destPath.equals("resources/npc/")))) {
                         Files.copy(filePath, (new File(destPath + file.getName()).toPath()),
                                 StandardCopyOption.REPLACE_EXISTING);
                         setChanged();
