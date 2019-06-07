@@ -13,6 +13,7 @@ public class SpriteTools {
         MOVE,
         SELECT,
         DELETE,
+        SET_WALKABLE_OR_NOT,
     }
 
     public static HashMap<BufferedImage, String> imgToPath = new HashMap<>();
