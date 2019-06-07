@@ -45,9 +45,6 @@ public class Position {
     public Position tempPos(Direction dir) {
         Position p = new Position(getX(), getY());
         p.move(dir);
-        if (dir == Direction.RIGHT)
-            p.move(dir);
-        // 4 times for better animation
         return p;
     }
 

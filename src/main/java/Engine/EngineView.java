@@ -86,20 +86,19 @@ public class EngineView extends JFrame implements Observer {
 
         createPauseMenu();
 
-        for (EngineObj obj: model_.getGameWorld().getCurMap().getEngineObjs()) {
-
-            Thread myThread = new Thread(() -> {
-                while(true) {
+        Thread myThread = new Thread(() -> {
+            while (true) {
+                for (EngineObj obj : model_.getGameWorld().getCurMap().getEngineObjs()) {
                     model_.moveNPC(obj);
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException ex) {
-                        ex.printStackTrace();
-                    }
                 }
-            });
-            myThread.start();
-        }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+        myThread.start();
     }
 
     private void createPauseMenu() {
@@ -121,7 +120,7 @@ public class EngineView extends JFrame implements Observer {
     private void deletePos(Graphics g, Position p) {
         int x = (p.getX());
         int y = (p.getY());
-        //System.out.println("x: " + x + " y: " + y);
+        // System.out.println("x: " + x + " y: " + y);
         repaintPos(g, new Position(x, y));
         repaintPos(g, new Position(x + 1, y));
         repaintPos(g, new Position(x + 2, y));
@@ -156,11 +155,9 @@ public class EngineView extends JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        if(arg != null)
-        {
+        if (arg != null) {
             EngineObj obj = (EngineObj) arg;
-            if(obj == null)
-            {
+            if (obj == null) {
                 return;
             }
             if (obj.isAlive() && !inMenu) {
@@ -168,15 +165,13 @@ public class EngineView extends JFrame implements Observer {
                 revalidate();
                 deletePos(this.getGraphics(), new Position(obj.get_x(), obj.get_y()));
                 paintComponent(this.getGraphics(), obj);
-                if(obj.getTeleported())
-                {
+                if (obj.getTeleported()) {
                     obj.setTeleported(false);
                     deletePos(this.getGraphics(), obj.getTeleportedPos());
                 }
             }
             return;
-        }
-        else {
+        } else {
             System.out.println("diplay pause menu");
             displayPauseMenu();
         }

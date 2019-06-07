@@ -18,27 +18,8 @@ public class EngineObj {
     private List<GameEvents> msgs;
     private boolean teleported;
     private Position teleportedPos;
+    private Position teleportePos;
     private EngineSprite es;
-
-    public void setTeleported(boolean b)
-    {
-        teleported = b;
-    }
-
-    public boolean getTeleported()
-    {
-        return teleported;
-    }
-
-    public void setTeleportedPos(Position b)
-    {
-        teleportedPos = b;
-    }
-
-    public Position getTeleportedPos()
-    {
-        return teleportedPos;
-    }
 
     public EngineObj(int x, int y, String sprite_path) {
         this.position_ = new Position(x, y);
@@ -58,24 +39,7 @@ public class EngineObj {
         this.is_player = is_player;
         this.position_ = new Position(0, 0);
         events = new ArrayList<>();
- 
-    }
 
-    public Boolean getIs_player() {
-        return is_player;
-    }
-    public String getDialog() {
-        return dialog_;
-    }
-    public void setDialog(String d) {dialog_ = d;}
-
-    public void set_map(Map m)
-    {
-        position_ = m.getSpawn();
-    }
-
-    public void add_event(GameEvents e) {
-        events.add(e);
     }
 
     public boolean run_events() {
@@ -86,20 +50,19 @@ public class EngineObj {
         return res;
     }
 
-    public void animate(Direction d)
-    {
+    public void animate(Direction d) {
         Animation cur = es.getCurAnim();
         switch (d) {
-            case DOWN:
+        case DOWN:
             es.setCurAnim(es.getWalkDown());
             break;
-            case UP:
+        case UP:
             es.setCurAnim(es.getWalkUp());
             break;
-            case LEFT:
+        case LEFT:
             es.setCurAnim(es.getWalkLeft());
             break;
-            case RIGHT:
+        case RIGHT:
             es.setCurAnim(es.getWalkRight());
             break;
         }
@@ -107,52 +70,29 @@ public class EngineObj {
     }
 
     public boolean move(Direction dir, Map m) {
-        // if not in correct dir, just rotate
-        //if (rotate(dir))
-        //    return false;
+        if (rotate(dir))
+            return false;
         if (canMove(dir, m)) {
-            // set prev tile to walkable
-            Tile t = null;
-            for (int i = 0; i < 2; i++) {
-                t = m.getTile(new Position(position_.getX() / 16 + i,
-                position_.getY() / 16 + 1));
+            Tile t = m.getTile(position_);
             t.setHas_Obj(false);
-            }
-            if(alive)
+            if (alive)
                 animate(dir);
             position_.move(dir);
-            // set new tile to nonwalkable
-            for (int i = 0; i < 2; i++) {
-                t = m.getTile(new Position(position_.getX() / 16 + i,
-                position_.getY() / 16 + 1));
+            t = m.getTile(position_);
             t.setHas_Obj(true);
-            }
-            //t.setHas_Obj(true);
-            //if (is_player)
-            //    t.run_events();
             return true;
         }
         if (is_player) {
             Tile t = m.getTile(position_.tempPos(dir));
             if (t != null)
                 t.run_events();
-            /*for(EngineObj eo : m.getEngineObjs())
-            {
-                for (GameEvents g : eo.events)
-                {
-                    g.run();
-                }
-            }*/
         }
         return false;
     }
 
     private boolean canMove(Direction dir, Map m) {
         Tile t = m.getTile(position_.tempPos(dir));
-        if (t == null)
-        {
-            //GameEvents g = new TeleportEvent(this, 10, 10, m);
-            //g.run();
+        if (t == null) {
             return false;
         }
         return t.getIs_Walkable();
@@ -167,8 +107,33 @@ public class EngineObj {
         return true;
     }
 
-    public Boolean getAlive()
-    {
+    // GETTER SETTER
+
+    public void setTeleported(boolean b) {
+        teleported = b;
+    }
+
+    public boolean getTeleported() {
+        return teleported;
+    }
+
+    public void setTeleportedPos(Position b) {
+        teleportedPos = b;
+    }
+
+    public Position getTeleportedPos() {
+        return teleportedPos;
+    }
+
+    public void setTeleportePos(Position b) {
+        teleportePos = b;
+    }
+
+    public Position getTeleportePos() {
+        return teleportePos;
+    }
+
+    public Boolean getAlive() {
         return alive;
     }
 
@@ -187,11 +152,31 @@ public class EngineObj {
     private Direction cur_dir_;
     private Integer anim_state_;
 
-    //dialog
+    // dialog
     private String dialog_;
 
     public void setIs_player(Boolean is_player) {
         this.is_player = is_player;
+    }
+
+    public Boolean getIs_player() {
+        return is_player;
+    }
+
+    public String getDialog() {
+        return dialog_;
+    }
+
+    public void setDialog(String d) {
+        dialog_ = d;
+    }
+
+    public void set_map(Map m) {
+        position_ = m.getSpawn();
+    }
+
+    public void add_event(GameEvents e) {
+        events.add(e);
     }
 
     /**
@@ -279,15 +264,12 @@ public class EngineObj {
         return position_.getY();
     }
 
-
-
     /**
      * @param position_ the position_ to set
      */
     public void setPosition_(Position position_) {
         this.position_ = position_;
     }
-
 
     /**
      * @return Integer return the anim_state_
@@ -302,7 +284,6 @@ public class EngineObj {
     public void setAnim_state_(Integer anim_state_) {
         this.anim_state_ = anim_state_;
     }
-
 
     /**
      * @return Boolean return the is_player
@@ -352,7 +333,6 @@ public class EngineObj {
     public void setAlive(Boolean alive) {
         this.alive = alive;
     }
-
 
     /**
      * @return String return the dialog_

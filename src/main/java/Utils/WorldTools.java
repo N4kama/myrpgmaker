@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class WorldTools {
     public static EngineObj player; //static reference to unique player object through a unique world
-    public static InspectorModel inspectorModel = new InspectorModel(null); //used almost like a singleton for MapModel reference
+    public static InspectorModel inspectorModel = new InspectorModel(null, null); //used almost like a singleton for MapModel reference
 
     public static void saveWorld(String path, World world) throws IOException {
         Gson gson = new Gson();

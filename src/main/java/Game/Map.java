@@ -183,15 +183,6 @@ public class Map {
         if (canPlaceObj(x / 16, y /16, path)) {
             obj = new EngineObj(x / 16, y / 16, path);
             BufferedImage img = SpriteTools.openObject(obj.getSprite_());
-            /*for (int i = 0; i < img.getWidth() / 16; i++) {
-                for (int j = 0; j < img.getHeight() / 16; j++) {
-                    Tile t = getTile(new Position(x / 16 + i ,y / 16 + j - 1));
-                    if(t != null)
-                        t.setHas_Obj(true);
-                }
-            }*/
-            //GameEvents e = new TeleportEvent(obj, 10,10, this);
-            //obj.add_event(e);
             engineObjs.add(obj);
             obj.setSprite_(path);
         }
@@ -229,9 +220,7 @@ public class Map {
         if (objj == null) {
             final EngineObj obj = new EngineObj("npc", path, true, false);
             obj.setPosition_(new Position(x /16, y /16));
-            GameEvents e = new MoveEvent(obj, null, this);
             obj.setEs(new EngineSprite(path));
-            obj.add_event(e);
             for (int i = 0; i < 2; i++) {
                     Tile t = getTile(new Position(x / 16 + i ,y / 16));
                     t.setHas_Obj(true);

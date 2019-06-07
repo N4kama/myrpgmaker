@@ -4,10 +4,11 @@ import Engine.Direction;
 import Engine.Position;
 import Engine.Character.EngineObj;
 import Game.Map;
+import Game.World;
 
 public class TeleportEvent implements GameEvents {
 
-    public TeleportEvent(EngineObj c, int x, int y, Map m)
+    public TeleportEvent(EngineObj c, int x, int y, World m)
     {
         this.c = c;
         this.p = new Position(x, y);
@@ -15,7 +16,7 @@ public class TeleportEvent implements GameEvents {
     }
     @Override
     public boolean run() {
-        if(m.getTile(p).getIs_Walkable())
+        if(m.getCurMap().getTile(p).getIs_Walkable())
             {
                 c.setTeleportedPos(c.getPosition_());
                 c.setTeleported(true);
@@ -27,5 +28,5 @@ public class TeleportEvent implements GameEvents {
 
     private EngineObj c;
     private Position p;
-    private Map m;
+    private World m;
 }

@@ -37,7 +37,9 @@ public class InspectorController {
                         Integer.parseInt((view.get_tely.getText())));
             }
             if (InspectorModel.obj != null)
-                InspectorModel.obj.setTeleportedPos(data);
+            {
+                InspectorModel.obj.setTeleportePos(data);
+            }
 
         };
     }
