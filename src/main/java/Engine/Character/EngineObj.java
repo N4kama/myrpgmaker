@@ -20,6 +20,7 @@ public class EngineObj {
     private Position teleportedPos;
     private Position teleportePos;
     private EngineSprite es;
+    private boolean stop = false;
 
     public EngineObj(int x, int y, String sprite_path) {
         this.position_ = new Position(x, y);
@@ -79,6 +80,8 @@ public class EngineObj {
     public boolean move(Direction dir, Map m) {
         if (rotate(dir))
             return false;
+        if (stop)
+            return false;
         if (canMove(dir, m)) {
             Tile t = m.getTile(position_);
             t.setHas_Obj(false);
@@ -97,7 +100,13 @@ public class EngineObj {
         return false;
     }
 
+    public boolean stopTalk() {
+        stop = false;
+        return true;
+    }
+
     public boolean talkto(Map m) {
+        stop = true;
         Direction dir = getDir();
         for (EngineObj e : m.getEngineObjs()) {
             if (e.position_.equals(position_.tempPos(dir))) {
