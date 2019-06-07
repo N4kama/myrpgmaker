@@ -16,6 +16,7 @@ public class InspectorController {
     public void set_controls() {
         view.calbtn.addActionListener(get_new_dialog());
         view.telbtn.addActionListener(get_new_teleport());
+        view.moveList.addActionListener(get_new_move());
     }
 
     private ActionListener get_new_dialog() {
@@ -38,6 +39,13 @@ public class InspectorController {
             if (InspectorModel.obj != null)
                 InspectorModel.obj.setTeleportedPos(data);
 
+        };
+    }
+
+    private ActionListener get_new_move() {
+        return actionEvent -> {
+            String data = view.moveList.getSelectedItem().toString();
+            System.out.println(data);
         };
     }
 }
