@@ -12,6 +12,7 @@ public class Tile {
     private Boolean has_Obj = true;
     private String tile_img_;
     private List<GameEvents> events;
+    private boolean behindObject = false;
 
     public Tile(int x, int y, String img)
     {
@@ -152,4 +153,11 @@ public class Tile {
         this.events = events;
     }
 
+    public boolean isBehindObject() {
+        return behindObject;
+    }
+
+    public void setBehindObject(boolean behindObject) {
+        this.behindObject = behindObject;
+    }
 }

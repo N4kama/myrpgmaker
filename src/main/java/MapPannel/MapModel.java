@@ -24,7 +24,10 @@ public class MapModel extends Observable implements Observer {
     }
 
     public void setWalkable(int x, int y) {
+        EngineObj obj = map.getGameObject(x / 16, y / 16, false);
         Tile tile = map.getGameTile(x / 16, y / 16);
+        if (obj != null)
+            tile.setBehindObject(true);
         tile.setIs_Walkable(SpriteTools.walkable);
         setChanged();
         notifyObservers(tile);

@@ -137,7 +137,8 @@ public class MapView extends JPanel implements Observer {
 
     public void paintComponent(Graphics g, Tile tile) {
         BufferedImage img = SpriteTools.openTile(tile.get_path());
-        g.drawImage(img, tile.get_x() * 16, tile.get_y() * 16, null);
+        if (!tile.isBehindObject())
+            g.drawImage(img, tile.get_x() * 16, tile.get_y() * 16, null);
         if (!tile.isIs_Walkable_())
             g.drawImage(mapModel.unwalkable, tile.get_x() * 16, tile.get_y() * 16, null);
         if (SpriteTools.grid_display)
