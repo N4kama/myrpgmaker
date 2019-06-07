@@ -201,10 +201,10 @@ public class EngineView extends JFrame implements Observer {
         try {
             msg = model_.getGameWorld().player_.talkTo.getDialog();
         } catch (NullPointerException e) {
-            msg = "I have nothing to tell you";
+            label.setText("...");
         }
         if (msg == null)
-            label.setText("NPC: " + "I have nothing to tell you");
+            label.setText("...");
         else
             label.setText("NPC: " + msg);
 
