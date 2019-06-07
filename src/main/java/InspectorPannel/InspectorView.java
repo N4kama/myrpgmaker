@@ -18,6 +18,8 @@ public class InspectorView extends JPanel  implements Observer {
     JTextField get_telx;
     JTextField get_tely;
     JTextField dialog;
+
+    JComboBox moveList;
     JButton telbtn = new JButton("Save new teleport position !");
 
     JButton calbtn = new JButton("Save new dialog !");
@@ -31,13 +33,26 @@ public class InspectorView extends JPanel  implements Observer {
         old = new JLabel(model.old);
         teleport = new JLabel(model.teleport);
 
+        /* Teleport setter */
         JLabel tel_t = new JLabel("Set the teleport parameters:");
         get_telx = new JTextField(3);
         get_tely = new JTextField(3);
+        get_telx.setMaximumSize(get_telx.getPreferredSize());
+        get_tely.setMaximumSize(get_tely.getPreferredSize());
 
+        /* Dialog setter */
         JLabel label = new JLabel("Set the dialog parameters:", SwingConstants.LEFT);
         dialog = new JTextField(30);
 
+        /* Move setter */
+        JLabel move_t = new JLabel("Set the move parameters:");
+        String[] moveStrings = { "Up", "Down", "Left", "Right", "Random", "Null" };
+        moveList = new JComboBox(moveStrings);
+        moveList.setSelectedIndex(5);
+        moveList.setPrototypeDisplayValue("Random");
+        moveList.setMaximumSize( moveList.getPreferredSize() );
+
+        /* Display in the frame */
         add(namet);
         add(Box.createRigidArea(new Dimension(1, 5)));
         add(typet);
@@ -56,8 +71,12 @@ public class InspectorView extends JPanel  implements Observer {
         add(Box.createRigidArea(new Dimension(1, 5)));
         add(dialog);
         add(calbtn);
-        BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
+        add(move_t);
+        add(moveList);
+
+        BoxLayout boxLayout = new BoxLayout(this, BoxLayout.PAGE_AXIS);
         setLayout(boxLayout);
+
         model.addObserver(this);
     }
 
