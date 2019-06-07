@@ -74,11 +74,19 @@ public class EditorController extends Observable {
     }
 
     private ActionListener not_walkableButtonAction() {
-        return ActionEvent -> SpriteTools.walkable = false;
+        return ActionEvent -> {
+            SpriteTools.walkable = false;
+            view.not_walkableButton.setOpaque(false);
+            view.walkableButton.setOpaque(true);
+        };
     }
 
     private ActionListener walkableAction() {
-        return ActionEvent -> SpriteTools.walkable = true;
+        return ActionEvent -> {
+            SpriteTools.walkable = true;
+            view.walkableButton.setOpaque(false);
+            view.not_walkableButton.setOpaque(true);
+        };
     }
 
     private ActionListener addMap_action() {
