@@ -21,6 +21,7 @@ public class EngineObj {
     private Position teleportePos;
     private EngineSprite es;
     private boolean stop = false;
+    private EngineObj talkTo;
 
     public EngineObj(int x, int y, String sprite_path) {
         this.position_ = new Position(x, y);
@@ -100,9 +101,11 @@ public class EngineObj {
         return false;
     }
 
-    public boolean stopTalk() {
+    public void stopTalk() {
+        if (talkTo != null)
+            talkTo.stop = false;
         stop = false;
-        return true;
+        talkTo = null;
     }
 
     public boolean talkto(Map m) {
@@ -111,6 +114,9 @@ public class EngineObj {
         for (EngineObj e : m.getEngineObjs()) {
             if (e.position_.equals(position_.tempPos(dir))) {
                 //e.setTalking(true);
+                e.stop = true;
+                stop = true;
+                talkTo = e;
                 System.out.println(e.dialog_);
                 //e.setTalking(true);
                 return true;
