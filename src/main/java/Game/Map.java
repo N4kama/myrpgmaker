@@ -198,7 +198,7 @@ public class Map {
         return obj;
     }
 
-    private boolean canPlaceObj(int x, int y, String path) {
+    public boolean canPlaceObj(int x, int y, String path) {
         BufferedImage img = SpriteTools.pathToImg.get(path);
         if (img == null)
             return false;
@@ -208,6 +208,10 @@ public class Map {
                 .filter(obj -> isThereObjBetween(obj, x, y, x_len, y_len))
                 .collect(Collectors.toCollection(ArrayList::new));
         return !(arr.size() > 0);
+    }
+
+    public boolean canPlaceObj(int x, int y, EngineObj obj) {
+        return canPlaceObj(x, y, obj.getSprite_());
     }
 
     private boolean isThereObjBetween(EngineObj obj, int x, int y, int x_len, int y_len) {

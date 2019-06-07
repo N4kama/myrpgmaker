@@ -95,7 +95,7 @@ public class MapModel extends Observable implements Observer {
 
     public void moveSpite(int x, int y) {
         if (!is_moving) {
-            EngineObj obj = map.getGameObject(x, y);
+            EngineObj obj = map.getGameObject(x / 16, y / 16);
             if (obj != null) {
                 moved_object = obj;
                 objectMoved = ObjectMoved.ENGINEOBJ;
@@ -114,17 +114,22 @@ public class MapModel extends Observable implements Observer {
                 is_moving = true;
                 setChanged();
                 notifyObservers(moved_tile);
-                System.out.println("This will be moved " + tile.get_path());
             }
         } else {
             is_moving = false;
-            System.out.println("it has been moved");
             if (objectMoved == ObjectMoved.TILE) {
                 Tile tile = map.getGameTile(x / 16, y / 16);
                 if (tile != null) {
                     tile.set_path(saved_moved_tilePath);
                     setChanged();
                     notifyObservers(tile);
+                }
+            }
+            else if (objectMoved == ObjectMoved.ENGINEOBJ) {
+                if (map.canPlaceObj(x / 16, y / 16, moved_object)) {
+                    moved_object.setPosition_(new Position(x / 16, y / 16));
+                    setChanged();
+                    notifyObservers(moved_object);
                 }
             }
         }

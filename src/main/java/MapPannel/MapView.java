@@ -132,5 +132,4 @@ public class MapView extends JPanel implements Observer {
             img = img.getSubimage(TILE_SIZE, 0, TILE_SIZE, TILE_SIZE);
         g.drawImage(img, obj.get_x() * 16, obj.get_y() * 16, null);
     }
-
 }
