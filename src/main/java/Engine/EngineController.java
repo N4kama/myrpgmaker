@@ -49,11 +49,13 @@ public class EngineController {
         return new KeyListener() {
             @Override
             public void keyTyped(KeyEvent keyEvent) {
-
             }
-
+            
             @Override
             public void keyPressed(KeyEvent ke) {
+                if (ke.getKeyCode() == KeyEvent.VK_A) {
+                    model_.talkto();
+                }
                 if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {
                     model_.move(Direction.RIGHT);
                 } else if (ke.getKeyCode() == KeyEvent.VK_LEFT) {

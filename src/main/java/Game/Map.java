@@ -219,10 +219,8 @@ public class Map {
             final EngineObj obj = new EngineObj("npc", path, true, false);
             obj.setPosition_(new Position(x / 16, y / 16));
             obj.setEs(new EngineSprite(path));
-            for (int i = 0; i < 2; i++) {
-                Tile t = getTile(new Position(x / 16 + i, y / 16));
-                t.setHas_Obj(true);
-            }
+            Tile t = getTile(new Position(x / 16, y / 16));
+            t.setHas_Obj(true);
             engineObjs.add(obj);
             obj.setSprite_(path);
             return obj;

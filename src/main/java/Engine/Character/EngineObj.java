@@ -90,6 +90,19 @@ public class EngineObj {
         return false;
     }
 
+    public boolean talkto( Map m) {
+        Direction dir = getDir();
+        for(EngineObj e : m.getEngineObjs())
+        {
+            if(e.position_.equals(position_.tempPos(dir)))
+            {
+                System.out.println(e.dialog_);
+                return true;
+            }
+        }
+        return false;
+    }
+
     private boolean canMove(Direction dir, Map m) {
         Tile t = m.getTile(position_.tempPos(dir));
         if (t == null) {

@@ -2,23 +2,23 @@ package InspectorPannel;
 
 import Engine.Character.EngineObj;
 import Game.Map;
+import Game.World;
 
 import javax.swing.*;
 import java.util.Observable;
 import java.util.Observer;
 
 public class InspectorModel extends Observable  implements Observer {
-    public static EngineObj obj;
-    public static Map m;
+    public EngineObj obj;
+    public World w;
     String namet;
     String typet;
     String post;
     String old;
     String teleport;
     JTextField dialog;
-    public InspectorModel(EngineObj obj, Map m) {
-        this.obj = obj;
-        this.m = m;
+    public InspectorModel(World w) {
+        this.w = w;
         setInspector();
     }
 
