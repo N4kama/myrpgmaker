@@ -18,7 +18,6 @@ public class EngineObj {
     private List<GameEvents> msgs;
     private boolean teleported;
     private Position teleportedPos;
-    private Position teleportePos;
     private EngineSprite es;
     private boolean stop = false;
     private EngineObj talkTo;
@@ -158,14 +157,6 @@ public class EngineObj {
 
     public Position getTeleportedPos() {
         return teleportedPos;
-    }
-
-    public void setTeleportePos(Position b) {
-        teleportePos = b;
-    }
-
-    public Position getTeleportePos() {
-        return teleportePos;
     }
 
     public Boolean getAlive() {

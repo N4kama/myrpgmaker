@@ -1,6 +1,8 @@
 package InspectorPannel;
 
 import Engine.Character.EngineObj;
+import Engine.Event.GameEvents;
+import Engine.Event.TeleportEvent;
 import Game.Map;
 import Game.World;
 
@@ -35,8 +37,17 @@ public class InspectorModel extends Observable  implements Observer {
                 old = "Current dialog: " + obj.getDialog();
             else
                 old = "Current dialog: ";
-            if (obj.getTeleportePos() != null)
-                teleport = "Current teleport position:" + obj.getTeleportePos().getX() + "  " + obj.getTeleportePos().getY();
+            
+            TeleportEvent te = null;
+            for(GameEvents g : obj.getEvents())
+            {
+                if (g instanceof TeleportEvent)
+                {
+                    te = (TeleportEvent) g;
+                }
+            }
+            if (te != null)
+                teleport = "Current teleport position:" + te.getP().getX() + "  " + te.getP().getY();
             else
                 teleport = "Current teleport position: NULL";
         }

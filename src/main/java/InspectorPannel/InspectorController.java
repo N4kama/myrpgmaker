@@ -3,6 +3,7 @@ package InspectorPannel;
 import Engine.Direction;
 import Engine.Position;
 import Engine.Event.MoveEvent;
+import Engine.Event.TeleportEvent;
 
 import java.awt.event.ActionListener;
 
@@ -42,7 +43,7 @@ public class InspectorController {
                         Integer.parseInt((view.get_tely.getText())));
             }
             if (model.obj != null) {
-                model.obj.setTeleportePos(data);
+                model.obj.add_event(new TeleportEvent(model.obj, data.getX(), data.getY(), EditorModel.singleton.gameWorld));
             }
 
         };
