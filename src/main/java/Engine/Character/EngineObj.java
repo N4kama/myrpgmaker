@@ -108,7 +108,6 @@ public class EngineObj {
     }
 
     public boolean talkto(Map m) {
-        stop = true;
         Direction dir = getDir();
         for (EngineObj e : m.getEngineObjs()) {
             if (e.position_.equals(position_.tempPos(dir))) {
