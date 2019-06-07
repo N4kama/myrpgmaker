@@ -56,6 +56,9 @@ public class EngineController {
                 if (ke.getKeyCode() == KeyEvent.VK_A) {
                     model_.talkto();
                 }
+                if (ke.getKeyCode() == KeyEvent.VK_Q) {
+                    model_.stopTalking();
+                }
                 if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {
                     model_.move(Direction.RIGHT);
                 } else if (ke.getKeyCode() == KeyEvent.VK_LEFT) {
