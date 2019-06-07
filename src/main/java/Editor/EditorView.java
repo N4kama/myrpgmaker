@@ -312,7 +312,7 @@ public class EditorView extends JFrame implements Observer {
             JScrollPane mapPane = new JScrollPane(mapView);
             mapPane.setPreferredSize(new Dimension(200, 200));
 
-            mapTab.addTab("Map " + (model.gameWorld.gameWorld_.size() - 1), mapPane);
+            mapTab.addTab("Map " + (model.gameWorld.gameWorld_.size()), mapPane);
         }
     }
 
