@@ -35,7 +35,7 @@ public class EngineMapView extends MapView {
                 BufferedImage img = SpriteTools.openObject(obj.getSprite_());
                 g.drawImage(img, 16 * (obj.get_x()), 16 * (obj.get_y()), null);
             } else {
-                g.drawImage(obj.getEs().getCurAnim().getSprite(), 16 * (obj.get_x()), 16 * (obj.get_y()), null);
+                g.drawImage(obj.getEs().getCurAnim().getSprite(), 16 * (obj.get_x()), 16 * (obj.get_y()) - 8, null);
             }
         }
     }

@@ -47,7 +47,7 @@ public class MapView extends JPanel implements Observer {
     public void drayObjects(Graphics g) {
         for (EngineObj obj : mapModel.getObjects()) {
             BufferedImage img = SpriteTools.openObject(obj.getSprite_());
-            g.drawImage(img, obj.get_y() * 16, obj.get_x() * 16, null);
+            g.drawImage(img, obj.get_x() * 16, obj.get_y() * 16 - 8, null);
         }
     }
 

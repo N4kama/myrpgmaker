@@ -86,7 +86,6 @@ public class Map {
         this.gameTiles_ = tiles;
     }
 
-
     public Position getSpawn() {
         return spawn_;
     }
@@ -161,8 +160,7 @@ public class Map {
     }
 
     public EngineObj getGameObject(int x, int y) {
-        ArrayList<EngineObj> arr = engineObjs.stream()
-                .filter(obj -> is_there_obj_at_coords(obj, x, y))
+        ArrayList<EngineObj> arr = engineObjs.stream().filter(obj -> is_there_obj_at_coords(obj, x, y))
                 .collect(Collectors.toCollection(ArrayList::new));
         if (arr.size() > 0) {
             return arr.get(0);
@@ -219,11 +217,11 @@ public class Map {
         EngineObj objj = getGameObject(x / 16, y / 16);
         if (objj == null) {
             final EngineObj obj = new EngineObj("npc", path, true, false);
-            obj.setPosition_(new Position(x /16, y /16));
+            obj.setPosition_(new Position(x / 16, y / 16));
             obj.setEs(new EngineSprite(path));
             for (int i = 0; i < 2; i++) {
-                    Tile t = getTile(new Position(x / 16 + i ,y / 16));
-                    t.setHas_Obj(true);
+                Tile t = getTile(new Position(x / 16 + i, y / 16));
+                t.setHas_Obj(true);
             }
             engineObjs.add(obj);
             obj.setSprite_(path);
@@ -337,10 +335,9 @@ public class Map {
             engineObjs.add(player);
             is_player_set = true;
         }
-        for (int i = 0; i < 2; i++) {
-                Tile t = getTile(new Position(x / 16 + i, y / 16));
-                t.setHas_Obj(true);
-        }
+        Tile t = getTile(new Position(x / 16, y / 16));
+        t.setHas_Obj(true);
+
         player.setSprite_(path);
         player.setEs(new EngineSprite(path));
         return player;
