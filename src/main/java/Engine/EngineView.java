@@ -79,11 +79,8 @@ public class EngineView extends JFrame implements Observer {
         MapModel mapModel = new MapModel(model_.getGameWorld().getCurMap(), EditorModel.singleton);
         map_view = new EngineMapView(mapModel);
         gamePanel = (JPanel) map_view;
-        textPanel = new JPanel();
-        label = new JLabel("...");
-        textPanel.add(label);
-        textPanel.setVisible(true);
-        add(textPanel, "North");
+        label = new JLabel("");
+        add(label, "North");
 
         setBackground(Color.black);
         add(gamePanel);
@@ -154,7 +151,6 @@ public class EngineView extends JFrame implements Observer {
         repaintPos(g, new Position(x + 2, y + 1));
         repaintPos(g, new Position(x - 1, y + 1));
         repaintPos(g, new Position(x - 2, y + 1));
-        textPanel.repaint();
     }
 
     public void paintComponent(Graphics g, EngineObj obj) {
@@ -202,23 +198,26 @@ public class EngineView extends JFrame implements Observer {
         try {
             msg = model_.getGameWorld().player_.talkTo.getDialog();
         } catch (NullPointerException e) {
-            label.setText("...");
+            label.setText("");
         }
         if (msg == null)
-            label.setText("...");
+            label.setText("");
         else
             label.setText("NPC: " + msg);
-
-        textPanel.revalidate();
-        textPanel.repaint();
+        label.revalidate();
+        label.repaint();
     }
 
     public void closeDialog() {
-        label.setText("...");
-        gamePanel.revalidate();
-        gamePanel.repaint();
+        eraseDialogBox(this.getGraphics());
     }
 
+    public void eraseDialogBox(Graphics g) {
+        int x = (this.getWidth() + (this.getWidth() % 16)) / 16;
+        for (int i = 0; i < x; i++) {
+            repaintPos(g, new Position(i, 0));
+        }
+    }
 
     public void displayPauseMenu() {
         inMenu = true;
