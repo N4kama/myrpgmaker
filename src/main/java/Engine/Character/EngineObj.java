@@ -42,7 +42,14 @@ public class EngineObj {
 
     }
 
+    private boolean talking;
+
+    //public setTalking(boolean bool)
+
+
     public boolean run_events() {
+        if (talking)
+            return false;
         boolean res = true;
         for (GameEvents e : events) {
             res &= e.run();
@@ -90,13 +97,13 @@ public class EngineObj {
         return false;
     }
 
-    public boolean talkto( Map m) {
+    public boolean talkto(Map m) {
         Direction dir = getDir();
-        for(EngineObj e : m.getEngineObjs())
-        {
-            if(e.position_.equals(position_.tempPos(dir)))
-            {
+        for (EngineObj e : m.getEngineObjs()) {
+            if (e.position_.equals(position_.tempPos(dir))) {
+                //e.setTalking(true);
                 System.out.println(e.dialog_);
+                //e.setTalking(true);
                 return true;
             }
         }

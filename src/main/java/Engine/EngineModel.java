@@ -19,21 +19,22 @@ public class EngineModel extends Observable {
     }
 
     public void move(Direction d) {
-        
+
         gameWorld_.player_.move(d, gameWorld_.getCurMap());
         setChanged();
         notifyObservers(gameWorld_.player_);
     }
 
     public void talkto() {
-        
+
         gameWorld_.player_.talkto(gameWorld_.getCurMap());
         setChanged();
         notifyObservers(gameWorld_.player_);
     }
 
     public void moveNPC(EngineObj obj) {
-        obj.run_events();
+        if (!obj.run_events())
+            return;
         setChanged();
         notifyObservers(obj);
     }
