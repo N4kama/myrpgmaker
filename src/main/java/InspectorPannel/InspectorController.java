@@ -6,6 +6,8 @@ import Engine.Event.MoveEvent;
 
 import java.awt.event.ActionListener;
 
+import Editor.EditorModel;
+
 public class InspectorController {
     private InspectorModel model;
     private InspectorView view;
@@ -49,29 +51,30 @@ public class InspectorController {
     private ActionListener get_new_move() {
         return actionEvent -> {
             String data = view.moveList.getSelectedItem().toString();
+            System.out.println(data);
             if (data == null)
                 return;
             Direction d = Direction.DOWN;
             switch (data) {
-            case "up":
+            case "Up":
                 d = Direction.UP;
                 break;
-            case "left":
+            case "Left":
                 d = Direction.LEFT;
                 break;
-            case "right":
+            case "Right":
                 d = Direction.RIGHT;
                 break;
-            case "down":
+            case "Down":
                 d = Direction.DOWN;
                 break;
-            case "random":
+            case "Random":
                 d = null;
                 break;
             default:
                 return;
             }
-            model.obj.add_event(new MoveEvent(model.obj, d, model.w));
+            model.obj.add_event(new MoveEvent(model.obj, d, EditorModel.singleton.gameWorld));
         };
     }
 }
