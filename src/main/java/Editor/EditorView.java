@@ -87,7 +87,8 @@ public class EditorView extends JFrame implements Observer {
         leftPane.setResizeWeight(0.7);
         JSplitPane panelsOrganization = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPane, mapTab);
         panelsOrganization.setResizeWeight(0.33);
-        frame.add(panelsOrganization); //only one JSplitPane should be added
+        JScrollPane panelOrg = new JScrollPane(panelsOrganization);
+        frame.add(panelOrg); //only one JSplitPane should be added
 
         frame.setVisible(true);
     }
