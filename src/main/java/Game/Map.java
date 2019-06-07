@@ -214,7 +214,7 @@ public class Map {
     }
 
     public EngineObj setNpc(int x, int y, String path) {
-        EngineObj obj = getGameObject(x / 16, y / 16);
+        EngineObj obj = null;//getGameObject(x / 16, y / 16);
         if (obj == null) {
             obj = new EngineObj("npc", path, true, false);
         }
