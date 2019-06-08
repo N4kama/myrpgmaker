@@ -104,6 +104,8 @@ public class EngineView extends JFrame implements Observer {
             }
         });
         myThread.start();
+        map_view.drawTiles(this.getGraphics());
+        map_view.drayObjects(this.getGraphics());
     }
 
     private void createPauseMenu() {
@@ -125,32 +127,16 @@ public class EngineView extends JFrame implements Observer {
     private void deletePos(Graphics g, Position p) {
         int x = (p.getX());
         int y = (p.getY());
-        // System.out.println("x: " + x + " y: " + y);
         repaintPos(g, new Position(x, y));
         repaintPos(g, new Position(x + 1, y));
-        repaintPos(g, new Position(x + 2, y));
         repaintPos(g, new Position(x - 1, y));
-        repaintPos(g, new Position(x - 2, y));
         repaintPos(g, new Position(x, y - 1));
         repaintPos(g, new Position(x + 1, y - 1));
-        repaintPos(g, new Position(x + 2, y - 1));
         repaintPos(g, new Position(x - 1, y - 1));
-        repaintPos(g, new Position(x - 2, y - 1));
         repaintPos(g, new Position(x, y - 2));
-        repaintPos(g, new Position(x + 1, y - 2));
-        repaintPos(g, new Position(x + 2, y - 2));
-        repaintPos(g, new Position(x - 1, y - 2));
-        repaintPos(g, new Position(x - 2, y - 2));
-        repaintPos(g, new Position(x, y + 2));
-        repaintPos(g, new Position(x + 1, y + 2));
-        repaintPos(g, new Position(x + 2, y + 2));
-        repaintPos(g, new Position(x - 1, y + 2));
-        repaintPos(g, new Position(x - 2, y + 2));
         repaintPos(g, new Position(x, y + 1));
         repaintPos(g, new Position(x + 1, y + 1));
-        repaintPos(g, new Position(x + 2, y + 1));
         repaintPos(g, new Position(x - 1, y + 1));
-        repaintPos(g, new Position(x - 2, y + 1));
     }
 
     public void paintComponent(Graphics g, EngineObj obj) {
@@ -165,36 +151,34 @@ public class EngineView extends JFrame implements Observer {
                 String str = (String) arg;
                 if (str.equals("startTalk")) {
                     displayDialog();
-                }
-                else if (str.equals("stopTalk")) {
+                } else if (str.equals("stopTalk")) {
                     closeDialog();
                 }
 
             } else {
-                    EngineObj obj = (EngineObj) arg;
-                    if (obj == null) {
-                        return;
-                    }
-                    if (obj.isIs_player() && !inMenu && obj.getChangedMap())
-                    {
-                        repaint();
-                        //paindre nouvelles map;
-                    }
-                    else if (obj.isAlive() && !inMenu) {
-                        obj.getEs().getCurAnim().update();
-                        revalidate();
-                        deletePos(this.getGraphics(), new Position(obj.get_x(), obj.get_y()));
-                        paintComponent(this.getGraphics(), obj);
-                        if (obj.getTeleported()) {
-                            obj.setTeleported(false);
-                            deletePos(this.getGraphics(), obj.getTeleportedPos());
-                        }
-                    }
+                EngineObj obj = (EngineObj) arg;
+                if (obj == null) {
                     return;
                 }
-            } else{
-                System.out.println("diplay pause menu");
-                displayPauseMenu();
+                if (obj.isIs_player() && !inMenu && obj.getChangedMap()) {
+                    map_view.drawTiles(this.getGraphics());
+                    map_view.drayObjects(this.getGraphics());
+                    // paindre nouvelles map;
+                } else if (obj.isAlive() && !inMenu) {
+                    obj.getEs().getCurAnim().update();
+                    revalidate();
+                    deletePos(this.getGraphics(), new Position(obj.get_x(), obj.get_y()));
+                    paintComponent(this.getGraphics(), obj);
+                    if (obj.getTeleported()) {
+                        obj.setTeleported(false);
+                        deletePos(this.getGraphics(), obj.getTeleportedPos());
+                    }
+                }
+                return;
+            }
+        } else {
+            System.out.println("diplay pause menu");
+            displayPauseMenu();
         }
     }
 

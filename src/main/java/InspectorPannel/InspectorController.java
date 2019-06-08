@@ -28,6 +28,7 @@ public class InspectorController {
     private ActionListener get_new_dialog() {
         return actionEvent -> {
             String data = view.dialog.getText();
+            view.get_name.setText("hehe");
             if (model.obj != null)
                 model.obj.setDialog(data);
         };

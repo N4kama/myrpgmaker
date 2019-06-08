@@ -102,12 +102,14 @@ public class EditorController extends Observable {
             //popup asking for width  and height
             String w = JOptionPane.showInputDialog("enter map width");
             width = Integer.parseInt(w);
+            width = width < 0 ? 1 : width;
             String h = JOptionPane.showInputDialog("enter map height");
             height = Integer.parseInt(h);
+            height = height < 0 ? 1 : height;
             String x = JOptionPane.showInputDialog("spawn x");
-            width = Integer.parseInt(w);
+            x_ = Integer.parseInt(x) % width;
             String y = JOptionPane.showInputDialog("spawn y");
-            height = Integer.parseInt(h);
+            y_ = Integer.parseInt(y) % height;
             model.add_map(width, height, new Position(x_, y_), default_tile_path);
         };
     }

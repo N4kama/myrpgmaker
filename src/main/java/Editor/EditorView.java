@@ -56,31 +56,31 @@ public class EditorView extends JFrame implements Observer {
     public EditorView(EditorModel model) {
         this.model = model;
         this.model.addObserver(this);
-        //Creating Frame
+        // Creating Frame
         frame = new JFrame("My RPG Maker");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 600);
 
-        //Creating Menu bar
+        // Creating Menu bar
         JMenuBar menuBar = create_menu_bar();
-        //Creating Tool bar
+        // Creating Tool bar
         JToolBar toolBar = create_tool_bar();
-        //creating Sprite pannel
+        // creating Sprite pannel
         JTabbedPane spriteTab = create_spriteTab();
-        //creating inspector pannel
+        // creating inspector pannel
         JTabbedPane inspectorTab = create_inspectorTab();
-        //creating file explorer pannel
+        // creating file explorer pannel
         JTabbedPane fileExplorerTab = create_fileExplorer();
-        //creating Map pannel
+        // creating Map pannel
         JTabbedPane mapTab = create_mapTab();
 
-        //Adding every component to the frame
-        //Menu
+        // Adding every component to the frame
+        // Menu
         frame.setJMenuBar(menuBar);
-        //toolbar
+        // toolbar
         frame.add(toolBar, BorderLayout.NORTH);
 
-        //Placing the different scrollPane in order into the main frame
+        // Placing the different scrollPane in order into the main frame
         JSplitPane sprite_inspector = new JSplitPane(JSplitPane.VERTICAL_SPLIT, spriteTab, inspectorTab);
         sprite_inspector.setResizeWeight(0.35);
         JSplitPane leftPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, sprite_inspector, fileExplorerTab);
@@ -88,7 +88,7 @@ public class EditorView extends JFrame implements Observer {
         JSplitPane panelsOrganization = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPane, mapTab);
         panelsOrganization.setResizeWeight(0.33);
         JScrollPane panelOrg = new JScrollPane(panelsOrganization);
-        frame.add(panelOrg); //only one JSplitPane should be added
+        frame.add(panelOrg); // only one JSplitPane should be added
 
         frame.setVisible(true);
     }
@@ -98,7 +98,7 @@ public class EditorView extends JFrame implements Observer {
         InspectorView inspectorView = new InspectorView(inspectorModel);
         InspectorController inspectorController = new InspectorController(inspectorModel, inspectorView);
 
-        //JScrollPane inspectPane = new JScrollPane(inspectorView);
+        // JScrollPane inspectPane = new JScrollPane(inspectorView);
         inspectorView.setPreferredSize(new Dimension(200, 80));
 
         JTabbedPane inspectTab = new JTabbedPane();
@@ -108,25 +108,24 @@ public class EditorView extends JFrame implements Observer {
     }
 
     private JTabbedPane create_mapTab() {
-        //Creating world at program launch
+        // Creating world at program launch
         model.setWorld(new World("Asuma", System.getProperty("user.dir") + "resources/player/hero.png"));
         String default_tile_path = System.getProperty("user.dir") + "/resources/backgroundTile/grass.png";
-        //model.gameWorld.addMap(new Map("Shikamaru", 100, 100, default_tile_path));
+        // model.gameWorld.addMap(new Map("Shikamaru", 100, 100, default_tile_path));
 
-        //Init MVC
+        // Init MVC
         MapModel mapModel = new MapModel(model.gameWorld.getMap(0), model);
         MapView mapView = new MapView(mapModel);
         MapController mapController = new MapController(mapModel, mapView);
         mapController.start();
 
-        //Linking to Pane
-        //JScrollPane mapPane = new JScrollPane(mapView);
-        //mapPane.setPreferredSize(new Dimension(200, 200));
+        // Linking to Pane
+        // JScrollPane mapPane = new JScrollPane(mapView);
+        // mapPane.setPreferredSize(new Dimension(200, 200));
 
-        //Joining all the panes into a Tab (bar)
+        // Joining all the panes into a Tab (bar)
         mapTab = new JTabbedPane();
-        //mapTab.addTab("Map 1", mapPane);
-
+        // mapTab.addTab("Map 1", mapPane);
 
         return mapTab;
     }
@@ -134,10 +133,10 @@ public class EditorView extends JFrame implements Observer {
     private JTabbedPane create_fileExplorer() {
 
         FileExplorerView fileExplorerView = new FileExplorerView(new DefaultMutableTreeNode("Worlds"));
-        //file explorer
+        // file explorer
         JScrollPane fileExplorerPane = new JScrollPane(fileExplorerView);
 
-        //adding tabs
+        // adding tabs
         JTabbedPane fileExplorerTab = new JTabbedPane();
         fileExplorerTab.addTab("World Selector", fileExplorerPane);
 
@@ -145,11 +144,15 @@ public class EditorView extends JFrame implements Observer {
     }
 
     private JTabbedPane create_spriteTab() {
-        //Init MVC
-        SpriteModel backgroundSpriteModel = new SpriteModel(System.getProperty("user.dir") + "/resources/backgroundTile/", true, false, false);
-        SpriteModel foregroundSpriteModel = new SpriteModel(System.getProperty("user.dir") + "/resources/foregroundObject/", false, false, false);
-        SpriteModel NPCSpriteModel = new SpriteModel(System.getProperty("user.dir") + "/resources/npc/", false, true, false);
-        SpriteModel PlayerSpriteModel = new SpriteModel(System.getProperty("user.dir") + "/resources/player/", false, false, true);
+        // Init MVC
+        SpriteModel backgroundSpriteModel = new SpriteModel(
+                System.getProperty("user.dir") + "/resources/backgroundTile/", true, false, false);
+        SpriteModel foregroundSpriteModel = new SpriteModel(
+                System.getProperty("user.dir") + "/resources/foregroundObject/", false, false, false);
+        SpriteModel NPCSpriteModel = new SpriteModel(System.getProperty("user.dir") + "/resources/npc/", false, true,
+                false);
+        SpriteModel PlayerSpriteModel = new SpriteModel(System.getProperty("user.dir") + "/resources/player/", false,
+                false, true);
         SpriteView backgroundSpriteView = new SpriteView(backgroundSpriteModel);
         SpriteView foregroundSpriteView = new SpriteView(foregroundSpriteModel);
         SpriteView NPCSpriteView = new SpriteView(NPCSpriteModel);
@@ -163,17 +166,17 @@ public class EditorView extends JFrame implements Observer {
         NPCSpriteController.start();
         PlayerSpriteController.start();
 
-        //Linking to Pane
+        // Linking to Pane
         JScrollPane backgroundSpritePane = new JScrollPane(backgroundSpriteView);
         JScrollPane foregroundSpritePane = new JScrollPane(foregroundSpriteView);
         JScrollPane NPCSpritePane = new JScrollPane(NPCSpriteView);
         JScrollPane PlayerSpritePane = new JScrollPane(PlayerSpriteView);
-        backgroundSpritePane.setPreferredSize(new Dimension(200,200));
-        foregroundSpritePane.setPreferredSize(new Dimension(200,200));
-        NPCSpritePane.setPreferredSize(new Dimension(200,200));
-        PlayerSpritePane.setPreferredSize(new Dimension(200,200));
+        backgroundSpritePane.setPreferredSize(new Dimension(200, 200));
+        foregroundSpritePane.setPreferredSize(new Dimension(200, 200));
+        NPCSpritePane.setPreferredSize(new Dimension(200, 200));
+        PlayerSpritePane.setPreferredSize(new Dimension(200, 200));
 
-        //Adding tabs all together
+        // Adding tabs all together
         JTabbedPane spriteTab = new JTabbedPane();
         spriteTab.addTab("Background sprites", backgroundSpritePane);
         spriteTab.addTab("Foreground sprites", foregroundSpritePane);
@@ -229,8 +232,8 @@ public class EditorView extends JFrame implements Observer {
     }
 
     private ImageIcon get_icon(String file) {
-        return new ImageIcon(new ImageIcon(System.getProperty("user.dir") + "/resources/icons/" + file)
-                .getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+        return new ImageIcon(new ImageIcon(System.getProperty("user.dir") + "/resources/icons/" + file).getImage()
+                .getScaledInstance(20, 20, Image.SCALE_SMOOTH));
     }
 
     private JMenuBar create_menu_bar() {
@@ -244,52 +247,52 @@ public class EditorView extends JFrame implements Observer {
         menuBar.add(world);
         menuBar.add(sprite);
 
-        //Creating Menu Items
-        //NEW//
+        // Creating Menu Items
+        // NEW//
         file_new = new JMenuItem("new");
         file_new.setMnemonic(KeyEvent.VK_M);
         file_new.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, Event.CTRL_MASK, true));
         file_new.setEnabled(true);
         file.add(file_new);
-        //OPEN//
+        // OPEN//
         file_open = new JMenuItem("open");
         file_open.setMnemonic(KeyEvent.VK_M);
         file_open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, Event.CTRL_MASK, true));
         file_open.setEnabled(true);
         file.add(file_open);
-        //SAVE//
+        // SAVE//
         file_save = new JMenuItem("save");
         file_save.setMnemonic(KeyEvent.VK_M);
         file_save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, Event.CTRL_MASK, true));
         file_save.setEnabled(true);
         file.add(file_save);
-        //EXIT//
+        // EXIT//
         file_exit = new JMenuItem("exit");
         file_exit.setMnemonic(KeyEvent.VK_M);
         file_exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, Event.CTRL_MASK, true));
         file_exit.setEnabled(true);
         file.add(file_exit);
-        //UNDO//
+        // UNDO//
         edit_undo = new JMenuItem("undo");
         edit_undo.setMnemonic(KeyEvent.VK_M);
         edit_undo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, Event.CTRL_MASK, true));
         edit_undo.setEnabled(true);
         edit.add(edit_undo);
-        //REDO//
+        // REDO//
         edit_redo = new JMenuItem("redo");
         edit_redo.setMnemonic(KeyEvent.VK_M);
         edit_redo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, Event.CTRL_MASK, true));
         edit_redo.setEnabled(true);
         edit.add(edit_redo);
-        //ADD_TILE//
+        // ADD_TILE//
         add_tile = new JMenuItem("add tile");
         add_tile.setEnabled(true);
         sprite.add(add_tile);
-        //ADD_OBJECT//
+        // ADD_OBJECT//
         add_object = new JMenuItem("add object");
         add_object.setEnabled(true);
         sprite.add(add_object);
-        //ADD_NPC//
+        // ADD_NPC//
         add_npc = new JMenuItem("add npc model");
         add_npc.setEnabled(true);
         sprite.add(add_npc);
@@ -304,13 +307,13 @@ public class EditorView extends JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        if (arg.getClass() ==  Map.class) {
-            MapModel mapModel = new MapModel((Map)arg, model);
+        if (arg.getClass() == Map.class) {
+            MapModel mapModel = new MapModel((Map) arg, model);
             MapView mapView = new MapView(mapModel);
             MapController mapController = new MapController(mapModel, mapView);
             mapController.start();
 
-            //Linking to Pane
+            // Linking to Pane
             JScrollPane mapPane = new JScrollPane(mapView);
             mapPane.setPreferredSize(new Dimension(200, 200));
 
@@ -318,7 +321,7 @@ public class EditorView extends JFrame implements Observer {
         }
     }
 
-    //Saved here to init all observers
+    // Saved here to init all observers
     JTabbedPane mapTab;
 
     SpriteController backgroundSpriteController;

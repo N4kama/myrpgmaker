@@ -20,14 +20,13 @@ public class MapView extends JPanel implements Observer {
         this.mapModel = mapModel;
         this.mapModel.addObserver(this);
         setBackground(Color.black);
-        setPreferredSize(new Dimension(/*mapModel.getWidth() **/ 16 + 100, /*mapModel.getHeight() **/ 16 + 100));
+        setPreferredSize(new Dimension(100,100));
 
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if(mapModel.map == null)
-            return;
+
         drawTiles(g);
         if (SpriteTools.grid_display)
             drawGrid(g);
@@ -62,7 +61,8 @@ public class MapView extends JPanel implements Observer {
         int x = 0, y = 0;
         for (int i = 0; i < mapModel.getWidth(); i++) {
             for (int j = 0; j < mapModel.getHeight(); j++) {
-                BufferedImage img = SpriteTools.openTile(mapModel.map.getPathTile(i, j));
+                String path = mapModel.map.getPathTile(i, j);
+                BufferedImage img = SpriteTools.openTile(path);
                 g.drawImage(img, y, x, null);
                 Tile tile = mapModel.map.getGameTile(i, j);
                 if (!tile.isIs_Walkable_())

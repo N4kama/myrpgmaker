@@ -28,11 +28,11 @@ public class SpriteTools {
     }
 
     public static BufferedImage openTile(String path) {
-        try {
-            return pathToImg.get(path);
-        } catch (Exception e1) {
+        BufferedImage img = pathToImg.get(path);
+        if(img == null) 
+        {
             try {
-                BufferedImage img = ImageIO.read(new File(path));
+                img = ImageIO.read(new File(path));
                 registerSprite(img, path);
                 if (img.getWidth() != 16 || img.getHeight() != 16) {
                     System.out.println("Wrong file format : " + path);
@@ -44,15 +44,15 @@ public class SpriteTools {
                 return null;
             }
         }
+      return img;
     }
 
     public static BufferedImage openObject(String path) {
-        try {
-            return pathToImg.get(path);
-        } catch (Exception e1) {
-            // TODO: handle exception
+        BufferedImage img = pathToImg.get(path);
+        if(img == null) 
+        {
             try {
-                BufferedImage img = ImageIO.read(new File(path));
+                img = ImageIO.read(new File(path));
                 registerSprite(img, path);
                 return img;
             } catch (IOException e) {
@@ -60,6 +60,7 @@ public class SpriteTools {
                 return null;
             }
         }
+      return img;
     }
 
     public static void setSpriteMove(BufferedImage img, ArrayList<BufferedImage> arr, String move) {

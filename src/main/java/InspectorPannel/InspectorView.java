@@ -15,6 +15,7 @@ public class InspectorView extends JPanel  implements Observer {
     JLabel old;
     JLabel teleport;
 
+    JTextField get_name;
     JTextField get_telx;
     JTextField get_tely;
     JTextField dialog;
@@ -32,6 +33,9 @@ public class InspectorView extends JPanel  implements Observer {
         post = new JLabel(model.post);
         old = new JLabel(model.old);
         teleport = new JLabel(model.teleport);
+
+        get_name = new JTextField(3);
+
 
         /* Teleport setter */
         JLabel tel_t = new JLabel("Set the teleport parameters:");
@@ -54,6 +58,7 @@ public class InspectorView extends JPanel  implements Observer {
 
         /* Display in the frame */
         add(namet);
+        add(get_name);
         add(Box.createRigidArea(new Dimension(1, 5)));
         add(typet);
         add(Box.createRigidArea(new Dimension(1, 5)));
