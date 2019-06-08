@@ -14,6 +14,8 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+import Editor.EditorModel;
+
 public class Map {
     private ArrayList<Tile> gameTiles_;
     private ArrayList<EngineObj> engineObjs;
@@ -291,22 +293,14 @@ public class Map {
         this.height_ = height_;
     }
 
-
     public EngineObj setPlayer(int x, int y, String path) {
         EngineObj player = WorldTools.player;
-        player.setIs_player(true);
-        if (player == null) {
-            System.err.println("Error, player should exist");
-            return null;
-        }
-        if (!is_player_set) {
-            player.setPosition_(new Position(x / 16, y / 16));
-            engineObjs.add(player);
-            is_player_set = true;
-        }
         Tile t = getTile(player.getPosition_());
+        t.setHas_Obj(false);
+        player.setPosition_(new Position(x / 16, y / 16));
+        engineObjs.add(player);
+        t = getTile(player.getPosition_());
         t.setHas_Obj(true);
-
         player.setSprite_(path);
         player.setEs(new EngineSprite(path));
         return player;

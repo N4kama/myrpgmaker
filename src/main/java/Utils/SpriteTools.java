@@ -32,7 +32,7 @@ public class SpriteTools {
             return pathToImg.get(path);
         } catch (Exception e1) {
             try {
-                BufferedImage img = SpriteTools.openTile(path);// ImageIO.read(new File(path));
+                BufferedImage img = ImageIO.read(new File(path));
                 registerSprite(img, path);
                 if (img.getWidth() != 16 || img.getHeight() != 16) {
                     System.out.println("Wrong file format : " + path);
@@ -52,7 +52,7 @@ public class SpriteTools {
         } catch (Exception e1) {
             // TODO: handle exception
             try {
-                BufferedImage img = SpriteTools.openObject;// ImageIO.read(new File(path));
+                BufferedImage img = ImageIO.read(new File(path));
                 registerSprite(img, path);
                 return img;
             } catch (IOException e) {
