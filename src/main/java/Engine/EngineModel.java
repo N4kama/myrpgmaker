@@ -8,10 +8,15 @@ import java.util.Observable;
 
 public class EngineModel extends Observable {
     private World gameWorld_;
+    private boolean stopMov = false;
 
     public EngineModel(World w) {
         this.gameWorld_ = w;
 
+    }
+
+    public void setStopMov(boolean stopMov) {
+        this.stopMov = stopMov;
     }
 
     public World getGameWorld() {
@@ -19,7 +24,8 @@ public class EngineModel extends Observable {
     }
 
     public void move(Direction d) {
-
+        if (stopMov)
+            return;
         gameWorld_.player_.move(d, gameWorld_.getCurMap());
         setChanged();
         notifyObservers(gameWorld_.player_);
@@ -38,7 +44,7 @@ public class EngineModel extends Observable {
     }
 
     public void moveNPC(EngineObj obj) {
-        if (!obj.run_events())
+        if (stopMov || !obj.run_events())
             return;
         setChanged();
         notifyObservers(obj);
