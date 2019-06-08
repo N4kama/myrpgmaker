@@ -10,9 +10,9 @@ public class EditorEvent {
         this.map = map;
         this.x = x;
         this.y = y;
-        old_path = map.getGameTile(x, y).get_path();
-        old_path_img = map.getGameTile(x, y).get_path();//getTile_img_();
-        was_walkable =  map.getGameTile(x, y).isIs_Walkable_();
+        old_path = map.getGameTile(x / 16, y / 16).get_path();
+        old_path_img = map.getGameTile(x / 16, y / 16).get_path();//getTile_img_();
+        was_walkable =  map.getGameTile(x / 16, y / 16).isIs_Walkable_();
         object = null;
     }
 
