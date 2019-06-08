@@ -11,6 +11,8 @@ import Utils.WorldTools;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -92,19 +94,28 @@ public class EngineView extends JFrame implements Observer {
 
         createPauseMenu();
 
-        Thread myThread = new Thread(() -> {
-            while (true) {
+        // Thread myThread = new Thread(() -> {
+        // while (true) {
+        // for (EngineObj obj : model_.getGameWorld().getCurMap().getEngineObjs()) {
+        // model_.moveNPC(obj);
+        // }
+        // try {
+        // Thread.sleep(1000);
+        // } catch (InterruptedException ex) {
+        // ex.printStackTrace();
+        // }
+        // }
+        // });
+        // myThread.start();
+        Timer timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
                 for (EngineObj obj : model_.getGameWorld().getCurMap().getEngineObjs()) {
                     model_.moveNPC(obj);
                 }
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
             }
         });
-        myThread.start();
+        timer.start();
         map_view.drawTiles(this.getGraphics());
         map_view.drayObjects(this.getGraphics());
     }

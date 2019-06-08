@@ -59,7 +59,7 @@ public class World {
     }
 
     public int nextMap() {
-        return id_cur_map + 1;
+        return (id_cur_map + 1) % gameWorld_.size();
     }
 
     public Map getMap(int index) {

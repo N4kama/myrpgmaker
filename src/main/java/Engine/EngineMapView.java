@@ -39,6 +39,7 @@ public class EngineMapView extends MapView {
                 g.drawImage(obj.getEs().getCurAnim().getSprite(), 16 * (obj.get_x()), 16 * (obj.get_y()) - 8, null);
             }
         }
+        return;
     }
 
     @Override
@@ -54,6 +55,7 @@ public class EngineMapView extends MapView {
             x = 0;
             y += 16;
         }
+        return;
     }
 
     @Override
