@@ -60,9 +60,9 @@ public class World {
     public int addMap(Map m) {
         this.gameWorld_.add(gameWorld_.size(), m);
         if (gameWorld_.size() == 1) {
-            changeMap(0);
+            id_cur_map = 0;
             
-            player_.set_map(m);
+            //player_.set_map(m);
             /*player_.setPosition_(m.getSpawn());
             m.getEngineObjs().add(player_);
             Tile t = m.getTile(player_.getPosition_());

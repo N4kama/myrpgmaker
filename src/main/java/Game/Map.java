@@ -304,8 +304,8 @@ public class Map {
 
     public EngineObj setPlayer(int x, int y, String path) {
         EngineObj player = WorldTools.player;
-        if(placed)
-        return player;
+        if (placed || getTile(new Position(x / 16, y / 16)) ==  null)
+            return player;
         placed = true;
         Tile t = getTile(player.getPosition_());
         t.setHas_Obj(false);
@@ -315,6 +315,7 @@ public class Map {
         t.setHas_Obj(true);
         player.setSprite_(path);
         player.setEs(new EngineSprite(path));
+        setSpawn(player.getPosition_());
         return player;
     }
 }
