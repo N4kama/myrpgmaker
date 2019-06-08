@@ -41,6 +41,8 @@ public class MapModel extends Observable implements Observer {
         if (new_selection) {
             x_rect = x;
             y_rect = y;
+            setChanged();
+            notifyObservers("clearSelection");
         } else {
             selection_rect = new Rectangle(x_rect, y_rect, x - x_rect, y - y_rect);
             setChanged();
