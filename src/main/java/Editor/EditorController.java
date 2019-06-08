@@ -157,7 +157,7 @@ public class EditorController extends Observable {
     private ActionListener redo_action() {
         return actionEvent -> {
             // redo
-            DoTools.redo();
+            //DoTools.redo();
 
         };
     }
@@ -165,7 +165,7 @@ public class EditorController extends Observable {
     private ActionListener undo_action() {
         return actionEvent -> {
             // undo
-            DoTools.undo();
+            //DoTools.undo();
         };
     }
 

@@ -150,6 +150,14 @@ public class Map {
         return res;
     }
 
+    public EngineObj getGameObject(int x, int y) {
+        ArrayList<EngineObj> arr = engineObjs.stream().filter(obj -> is_there_obj_at_coords(obj, x, y))
+                .collect(Collectors.toCollection(ArrayList::new));
+        if (arr.size() > 0)
+            return arr.get(0);
+        return null;
+    }
+
     public EngineObj getGameObject(int x, int y, boolean is_npc) {
         ArrayList<EngineObj> arr = engineObjs.stream().filter(obj -> is_there_obj_at_coords(obj, x, y))
                 .collect(Collectors.toCollection(ArrayList::new));
