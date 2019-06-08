@@ -16,6 +16,11 @@ public class EditorEvent {
         object = null;
     }
 
+    public enum EventType {
+        ADD_TILE,
+        ADD_OBJECT,
+        DEL_OBJECT
+    }
 
     public EventType action;
     Map map;
