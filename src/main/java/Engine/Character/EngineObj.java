@@ -192,7 +192,7 @@ public class EngineObj {
     private Integer anim_state_;
 
     // dialog
-    private String dialog_;
+    private String dialog_ = "I have nothing to tell you !";
 
     public void setIs_player(Boolean is_player) {
         this.is_player = is_player;
