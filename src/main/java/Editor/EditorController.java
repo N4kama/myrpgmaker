@@ -134,15 +134,17 @@ public class EditorController extends Observable {
 
     private ActionListener play_action() {
         return actionEvent -> {
-            if (model.gameWorld.player_ == null) {
-                model.editorError("playerErr");
-                return;
-            }
-
             try {
                 model.gameWorld.getCurMap();
             } catch (NullPointerException e) {
                 model.editorError("mapErr");
+                return;
+            }
+
+            try {
+                model.gameWorld.getCurMap().getSpawn();
+            } catch (NullPointerException e) {
+                model.editorError("playerErr");
                 return;
             }
 
