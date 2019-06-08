@@ -4,6 +4,8 @@ import Engine.Character.EngineObj;
 import Engine.Position;
 import Game.Map;
 import Game.Tile;
+import Utils.DoTools;
+import Utils.EditorEvent;
 import Utils.SpriteTools;
 import Utils.WorldTools;
 
@@ -14,14 +16,14 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class MapModel extends Observable implements Observer {
-    protected Rectangle selection_rect;
+    protected Rectangle selection;
     protected int x_rect;
     protected int y_rect;
     protected BufferedImage unwalkable = SpriteTools.openTile(System.getProperty("user.dir") + "/resources/misc/not_walkable.png");
 
     @Override
     public void update(Observable o, Object arg) {
-        if (arg.getClass() == String.class && ((String) arg).equals("toggleGrid")) {
+        if (arg.getClass() == String.class && ((String)arg).equals("toggleGrid")) {
             setChanged();
             notifyObservers("toggleGrid");
         }
@@ -37,17 +39,9 @@ public class MapModel extends Observable implements Observer {
         notifyObservers(tile);
     }
 
-    public void selectTiles(int x, int y, boolean new_selection) {
-        if (new_selection) {
-            x_rect = x;
-            y_rect = y;
-            setChanged();
-            notifyObservers("clearSelection");
-        } else {
-            selection_rect = new Rectangle(x_rect, y_rect, x - x_rect, y - y_rect);
-            setChanged();
-            notifyObservers(selection_rect);
-        }
+    public void selectTiles(int x, int y) {
+        x_rect = x / 16;
+        y_rect = y / 16;
     }
 
     public enum ObjectMoved {
@@ -83,15 +77,22 @@ public class MapModel extends Observable implements Observer {
             return;
         if (SpriteTools.is_background) {
             res = map.setTile(x, y, SpriteTools.selectedSprite);
+            DoTools.addUndoEvent(new EditorEvent(EditorEvent.EventType.ADD_TILE, map, x, y));
+
         } else {
             if (SpriteTools.playerModelSelected) {
                 res = map.setPlayer(x, y, SpriteTools.selectedSprite);
-                if (res != null)
+                if (res != null) {
                     map.setSpawn_(new Position(x, y));
-            } else if (SpriteTools.npcModelSelected)
+                    DoTools.addUndoEvent(new EditorEvent(EditorEvent.EventType.ADD_OBJECT, map, x, y));
+                }
+            } else if (SpriteTools.npcModelSelected) {
                 res = map.setNpc(x, y, SpriteTools.selectedSprite);
-            else
+                DoTools.addUndoEvent(new EditorEvent(EditorEvent.EventType.ADD_OBJECT, map, x, y));
+            } else {
                 res = map.setObject(x, y, SpriteTools.selectedSprite);
+                DoTools.addUndoEvent(new EditorEvent(EditorEvent.EventType.ADD_OBJECT, map, x, y));
+            }
         }
         if (res != null) {
             setChanged();
@@ -115,8 +116,13 @@ public class MapModel extends Observable implements Observer {
     public void deleteSprite(int x, int y) {
         Object res;
         res = map.deleteGameObject(x, y);
-        if (res == null)
+        if (res != null)
+            DoTools.addUndoEvent(new EditorEvent(EditorEvent.EventType.DEL_OBJECT, map, x, y));
+        else {
             res = map.deleteTile(x / 16, y / 16);
+            DoTools.addUndoEvent(new EditorEvent(EditorEvent.EventType.DEL_OBJECT, map, x, y));
+        }
+
         if (res != null) {
             setChanged();
             notifyObservers(res);
@@ -125,7 +131,7 @@ public class MapModel extends Observable implements Observer {
 
     public void moveSpite(int x, int y) {
         if (!is_moving) {
-            EngineObj obj = map.getGameObject(x / 16, y / 16);
+            EngineObj obj = map.getGameObject(x / 16, y / 16, true);
             if (obj != null) {
                 moved_object = obj;
                 objectMoved = ObjectMoved.ENGINEOBJ;
@@ -154,7 +160,8 @@ public class MapModel extends Observable implements Observer {
                     setChanged();
                     notifyObservers(tile);
                 }
-            } else if (objectMoved == ObjectMoved.ENGINEOBJ) {
+            }
+            else if (objectMoved == ObjectMoved.ENGINEOBJ) {
                 if (map.canPlaceObj(x / 16, y / 16, moved_object)) {
                     moved_object.setPosition_(new Position(x / 16, y / 16));
                     setChanged();
