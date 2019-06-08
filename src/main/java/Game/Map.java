@@ -86,7 +86,7 @@ public class Map {
     }
 
     public Position getSpawn() {
-        return spawn_;
+        return new Position(spawn_.getX(), spawn_.getY());
     }
 
     public void setSpawn(Position spawn) {
@@ -294,14 +294,14 @@ public class Map {
 
     public EngineObj setPlayer(int x, int y, String path) {
         EngineObj player = WorldTools.player;
-        Tile t = getTile(player.getPosition_());
+        /*Tile t = getTile(player.getPosition_());
         t.setHas_Obj(false);
         player.setPosition_(new Position(x / 16, y / 16));
         engineObjs.add(player);
         t = getTile(player.getPosition_());
         t.setHas_Obj(true);
         player.setSprite_(path);
-        player.setEs(new EngineSprite(path));
+        player.setEs(new EngineSprite(path));*/
         return player;
     }
 }

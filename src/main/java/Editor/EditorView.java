@@ -321,6 +321,8 @@ public class EditorView extends JFrame implements Observer {
         }
     }
 
+    
+
     // Saved here to init all observers
     JTabbedPane mapTab;
 

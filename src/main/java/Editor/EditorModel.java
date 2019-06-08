@@ -29,6 +29,12 @@ public class EditorModel extends Observable {
         notifyObservers(map);
     }
 
+    public void load_map(Map m)
+    {
+        setChanged();
+        notifyObservers(m);
+    }
+
     public void add_map(int width, int height, Position p, String default_tile_path) {
         Map map = new Map(width, height, p, default_tile_path);
         int id = gameWorld.addMap(map);
