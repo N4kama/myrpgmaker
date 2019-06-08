@@ -61,13 +61,14 @@ public class World {
         this.gameWorld_.add(gameWorld_.size(), m);
         if (gameWorld_.size() == 1) {
             changeMap(0);
+            
             player_.set_map(m);
-            player_.setPosition_(m.getSpawn());
+            /*player_.setPosition_(m.getSpawn());
             m.getEngineObjs().add(player_);
             Tile t = m.getTile(player_.getPosition_());
             t.setHas_Obj(true);
             player_.setSprite_(default_player_path);
-            player_.setEs(new EngineSprite(default_player_path));
+            player_.setEs(new EngineSprite(default_player_path));*/
         }
         return gameWorld_.size() - 1;
     }

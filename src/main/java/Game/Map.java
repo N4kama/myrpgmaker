@@ -23,6 +23,7 @@ public class Map {
     private Integer width_;
     private Integer height_;
     private String default_tile;
+    private boolean placed;
 
     public Map(int width, int height, String tile_model) {
         gameTiles_ = new ArrayList<>();
@@ -303,14 +304,17 @@ public class Map {
 
     public EngineObj setPlayer(int x, int y, String path) {
         EngineObj player = WorldTools.player;
-        /*Tile t = getTile(player.getPosition_());
+        if(placed)
+        return player;
+        placed = true;
+        Tile t = getTile(player.getPosition_());
         t.setHas_Obj(false);
         player.setPosition_(new Position(x / 16, y / 16));
         engineObjs.add(player);
         t = getTile(player.getPosition_());
         t.setHas_Obj(true);
         player.setSprite_(path);
-        player.setEs(new EngineSprite(path));*/
+        player.setEs(new EngineSprite(path));
         return player;
     }
 }
