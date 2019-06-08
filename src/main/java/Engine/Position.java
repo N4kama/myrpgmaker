@@ -43,9 +43,9 @@ public class Position {
     }
 
     public boolean is_in(Position c, int w, int h) {
-        return c.getX() < x_ 
+        return c.getX() <= x_ 
         && c.getX() + w > x_ 
-        && c.getY() < y_
+        && c.getY() <= y_
          && c.getY() + h > y_;
     }
 

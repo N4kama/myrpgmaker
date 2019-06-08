@@ -4,10 +4,12 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
+import Editor.EditorModel;
 import Engine.Direction;
 import Engine.Position;
 import Game.Map;
 import Game.Tile;
+import Engine.Event.ChangeMapEvent;
 import Engine.Event.GameEvents;
 import Engine.Event.MoveEvent;
 import Engine.Event.TeleportEvent;
@@ -20,7 +22,8 @@ public class EngineObj {
     private Position teleportedPos;
     private EngineSprite es;
     private boolean stop = false;
-    public EngineObj talkTo;
+    private boolean changedMap = false;
+    private EngineObj talkTo;
 
     public EngineObj(int x, int y, String sprite_path) {
         this.position_ = new Position(x, y);
@@ -43,14 +46,7 @@ public class EngineObj {
 
     }
 
-    private boolean talking;
-
-    //public setTalking(boolean bool)
-
-
     public boolean run_events() {
-        if (talking)
-            return false;
         boolean res = true;
         for (GameEvents e : events) {
             res &= e.run();
@@ -111,12 +107,10 @@ public class EngineObj {
         Direction dir = getDir();
         for (EngineObj e : m.getEngineObjs()) {
             if (e.position_.equals(position_.tempPos(dir))) {
-                //e.setTalking(true);
                 e.stop = true;
                 stop = true;
                 talkTo = e;
                 System.out.println(e.dialog_);
-                //e.setTalking(true);
                 return true;
             }
         }
@@ -126,6 +120,7 @@ public class EngineObj {
     private boolean canMove(Direction dir, Map m) {
         Tile t = m.getTile(position_.tempPos(dir));
         if (t == null) {
+            add_event(new ChangeMapEvent(this, 1, EditorModel.singleton.gameWorld));
             return false;
         }
         return t.getIs_Walkable();
@@ -141,6 +136,25 @@ public class EngineObj {
     }
 
     // GETTER SETTER
+
+     /**
+     * @return the talkTo
+     */
+    public EngineObj getTalkTo() {
+        return talkTo;
+    }
+
+    public boolean getChangedMap()
+    {
+        return changedMap;
+    }
+
+    /**
+     * @param changedMap the changedMap to set
+     */
+    public void setChangedMap(boolean changedMap) {
+        this.changedMap = changedMap;
+    }
 
     public void setTeleported(boolean b) {
         teleported = b;

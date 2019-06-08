@@ -117,7 +117,7 @@ public class EngineView extends JFrame implements Observer {
     private void repaintPos(Graphics g, Position p) {
         Tile tile = map.getTile(p);
         if (tile != null) {
-            BufferedImage i = SpriteTools.pathToImg.get(tile.get_path());
+            BufferedImage i = SpriteTools.openTile(tile.get_path());
             g.drawImage(i, p.getX() * 16, p.getY() * 16, null);
         }
     }
@@ -175,7 +175,12 @@ public class EngineView extends JFrame implements Observer {
                     if (obj == null) {
                         return;
                     }
-                    if (obj.isAlive() && !inMenu) {
+                    if (obj.isIs_player() && !inMenu && obj.getChangedMap())
+                    {
+                        repaint();
+                        //paindre nouvelles map;
+                    }
+                    else if (obj.isAlive() && !inMenu) {
                         obj.getEs().getCurAnim().update();
                         revalidate();
                         deletePos(this.getGraphics(), new Position(obj.get_x(), obj.get_y()));
@@ -196,7 +201,7 @@ public class EngineView extends JFrame implements Observer {
     public void displayDialog() {
         String msg = null;
         try {
-            msg = model_.getGameWorld().player_.talkTo.getDialog();
+            msg = model_.getGameWorld().player_.getTalkTo().getDialog();
         } catch (NullPointerException e) {
             label.setText("");
         }
