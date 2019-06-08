@@ -87,9 +87,9 @@ public class EngineView extends JFrame implements Observer {
         add(label, "North");
 
         setBackground(Color.black);
-        add(gamePanel);
         gamePanel.repaint();
         gamePanel.setVisible(true);
+        add(gamePanel);
         setFocusable(true);
         requestFocusInWindow();
 

@@ -147,9 +147,6 @@ public class EditorController extends Observable {
                 model.editorError("playerErr");
                 return;
             }
-
-            view.frame.setVisible(false);
-            view.frame.dispose();
             //EngineObj charact = new EngineObj(0, 0, "path to char");
 
             //model.gameWorld.setPlayer(charact);
