@@ -27,6 +27,7 @@ public class ChangeMapEvent implements GameEvents {
         EngineObj e = m.player_;
         if (e.isIs_player() && e.getPosition_().is_in(c.getPosition_(), w, h)) {
             e.setChangedMap(true);
+            e.setPosition_(p.getSpawn());
             return true;
         }
         return false;
