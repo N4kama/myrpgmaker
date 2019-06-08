@@ -1,5 +1,6 @@
 package Game;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import Engine.Character.EngineObj;
@@ -8,6 +9,26 @@ import Utils.WorldTools;
 
 public class World {
     public ArrayList<Map> gameWorld_;
+    public ArrayList<String> tilesSprite;
+
+    public ArrayList<String> getTilesSprite() {
+        return tilesSprite;
+    }
+
+    public int getTileId(String t) {
+        if (tilesSprite.contains(t)) {
+            return tilesSprite.indexOf(t);
+        }
+        tilesSprite.add(t);
+        return tilesSprite.size() - 1;
+    }
+
+    public String getTileImg(int i) {
+        if (i > tilesSprite.size())
+            return null;
+        return tilesSprite.get(i);
+    }
+
     private Integer id_cur_map;
 
     private String name_;
@@ -17,6 +38,7 @@ public class World {
     public World(String s, String player_sprite_path) {
         this.gameWorld_ = new ArrayList<>();
         this.name_ = s;
+        tilesSprite = new ArrayList<>();
 
         // init player basics
         player_ = new EngineObj("player", player_sprite_path, true, true);

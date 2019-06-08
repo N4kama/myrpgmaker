@@ -116,6 +116,13 @@ public class WorldTools {
     public static void reload_world(World w) {
         for (Map m : w.gameWorld_) {
             EditorModel.singleton.load_map(m);
+            for(EngineObj o : m.getEngineObjs())
+            {
+                if(o.isAlive())
+                {
+                    o.reloadSprites();
+                }
+            }
         }
     }
 }

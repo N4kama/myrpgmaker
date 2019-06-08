@@ -3,6 +3,7 @@ package Game;
 import java.util.ArrayList;
 import java.util.List;
 
+import Editor.EditorModel;
 import Engine.Position;
 import Engine.Event.GameEvents;
 
@@ -10,14 +11,14 @@ public class Tile {
     private Position pos_;
     private Boolean is_Walkable_ = true;
     private Boolean has_Obj = true;
-    private String tile_img_;
+    private int tile_img_;
     private List<GameEvents> events;
     private boolean behindObject = false;
 
     public Tile(int x, int y, String img)
     {
         pos_ = new Position(x, y);
-        tile_img_ = img;
+        tile_img_ = EditorModel.singleton.gameWorld.getTileId(img);
         events = new ArrayList<>();
         has_Obj = false;
         is_Walkable_ = true;
@@ -59,11 +60,11 @@ public class Tile {
     }
 
     public String get_path() {
-        return tile_img_;
+        return EditorModel.singleton.gameWorld.getTileImg(tile_img_);
     }
 
     public void set_path(String path) {
-        tile_img_ = path;
+        tile_img_ = EditorModel.singleton.gameWorld.getTileId(path);
     }
 
     public Boolean getIs_Walkable() {
@@ -75,11 +76,12 @@ public class Tile {
     }
 
     public String getForeGround_img() {
-        return tile_img_;
+        return get_path();
     }
 
-    public void setForeGround_img(String foreGround_img_) {
-        this.tile_img_ = foreGround_img_;
+    public void setForeGround_img(String path) {
+        this.tile_img_ = EditorModel.singleton.gameWorld.getTileId(path);
+
     }
 
 
@@ -123,20 +125,6 @@ public class Tile {
      */
     public void setHas_Obj(Boolean has_Obj) {
         this.has_Obj = has_Obj;
-    }
-
-    /**
-     * @return String return the tile_img_
-     */
-    public String getTile_img_() {
-        return tile_img_;
-    }
-
-    /**
-     * @param tile_img_ the tile_img_ to set
-     */
-    public void setTile_img_(String tile_img_) {
-        this.tile_img_ = tile_img_;
     }
 
     /**

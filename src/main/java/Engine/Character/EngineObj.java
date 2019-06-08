@@ -19,7 +19,7 @@ public class EngineObj {
     private List<GameEvents> events;
     private boolean teleported;
     private Position teleportedPos;
-    private EngineSprite es;
+    private transient EngineSprite es;
     private boolean stop = false;
     private boolean changedMap = false;
     private transient EngineObj talkTo;
@@ -43,6 +43,11 @@ public class EngineObj {
         this.position_ = new Position(0, 0);
         events = new ArrayList<>();
 
+    }
+
+    public void reloadSprites()
+    {
+        setEs(new EngineSprite(sprite_));
     }
 
     public boolean run_events() {
