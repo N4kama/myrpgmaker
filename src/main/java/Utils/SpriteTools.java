@@ -9,11 +9,7 @@ import java.util.HashMap;
 
 public class SpriteTools {
     public enum MousePointerState {
-        PLACE,
-        MOVE,
-        SELECT,
-        DELETE,
-        SET_WALKABLE_OR_NOT,
+        PLACE, MOVE, SELECT, DELETE, SET_WALKABLE_OR_NOT,
     }
 
     public static HashMap<BufferedImage, String> imgToPath = new HashMap<>();
@@ -31,28 +27,38 @@ public class SpriteTools {
         pathToImg.put(path, img);
     }
 
-
     public static BufferedImage openTile(String path) {
         try {
-            BufferedImage img = ImageIO.read(new File(path));
-            if (img.getWidth() != 16 || img.getHeight() != 16) {
-                System.out.println("Wrong file format : " + path);
+            return pathToImg.get(path);
+        } catch (Exception e1) {
+            try {
+                BufferedImage img = ImageIO.read(new File(path));
+                registerSprite(img, path);
+                if (img.getWidth() != 16 || img.getHeight() != 16) {
+                    System.out.println("Wrong file format : " + path);
+                    return null;
+                }
+                return img;
+            } catch (IOException e) {
+                e.printStackTrace();
                 return null;
             }
-            return img;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
         }
     }
 
     public static BufferedImage openObject(String path) {
         try {
-            BufferedImage img = ImageIO.read(new File(path));
-            return img;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            return pathToImg.get(path);
+        } catch (Exception e1) {
+            // TODO: handle exception
+            try {
+                BufferedImage img = ImageIO.read(new File(path));
+                registerSprite(img, path);
+                return img;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
         }
     }
 
@@ -60,16 +66,13 @@ public class SpriteTools {
         if (move.equals("left")) {
             arr.add(img.getSubimage(0 * 16, 1 * 24, 16, 24));
             arr.add(img.getSubimage(2 * 16, 1 * 24, 16, 24));
-        }
-        else if (move.equals("right")) {
+        } else if (move.equals("right")) {
             arr.add(img.getSubimage(0 * 16, 2 * 24, 16, 24));
             arr.add(img.getSubimage(2 * 16, 2 * 24, 16, 24));
-        }
-        else if (move.equals("up")) {
+        } else if (move.equals("up")) {
             arr.add(img.getSubimage(0 * 16, 3 * 24, 16, 24));
             arr.add(img.getSubimage(2 * 16, 3 * 24, 16, 24));
-        }
-        else if (move.equals("down")) {
+        } else if (move.equals("down")) {
             arr.add(img.getSubimage(0 * 16, 0 * 24, 16, 24));
             arr.add(img.getSubimage(2 * 16, 0 * 24, 16, 24));
         }
