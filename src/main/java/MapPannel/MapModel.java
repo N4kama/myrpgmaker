@@ -14,7 +14,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class MapModel extends Observable implements Observer {
-    protected Rectangle selection;
+    protected Rectangle selection_rect;
     protected int x_rect;
     protected int y_rect;
     protected BufferedImage unwalkable = SpriteTools.openTile(System.getProperty("user.dir") + "/resources/misc/not_walkable.png");
@@ -37,9 +37,16 @@ public class MapModel extends Observable implements Observer {
         notifyObservers(tile);
     }
 
-    public void selectTiles(int x, int y) {
-        x_rect = x / 16;
-        y_rect = y / 16;
+    public void selectTiles(int x, int y, boolean new_selection) {
+        if (new_selection) {
+            x_rect = x / 16;
+            y_rect = y / 16;
+        }
+        else {
+            selection_rect = new Rectangle(x_rect, y_rect, x - x_rect, y - y_rect);
+            setChanged();
+            notifyObservers(selection_rect);
+        }
     }
 
     public enum ObjectMoved {

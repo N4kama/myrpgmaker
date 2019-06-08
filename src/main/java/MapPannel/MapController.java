@@ -76,7 +76,7 @@ public class MapController {
                 model.moveSpite(e.getX(), e.getY());
                 break;
             case SELECT:
-                model.selectTiles(e.getX(), e.getY());
+                model.selectTiles(e.getX(), e.getY(), true);
                 break;
             case DELETE:
                 model.deleteSprite(e.getX(), e.getY());
@@ -89,7 +89,7 @@ public class MapController {
     public void executeReleasedAction(MouseEvent e) {
         switch (SpriteTools.mousePointerState) {
             case SELECT:
-                model.selectTiles(e.getX(), e.getY());
+                model.selectTiles(e.getX(), e.getY(), false);
         }
     }
 }
