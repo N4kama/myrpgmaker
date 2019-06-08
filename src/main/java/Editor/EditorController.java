@@ -107,11 +107,7 @@ public class EditorController extends Observable {
             String h = JOptionPane.showInputDialog("enter map height");
             height = Integer.parseInt(h);
             height = height < 0 ? 1 : height;
-            String x = JOptionPane.showInputDialog("spawn x");
-            x_ = Integer.parseInt(x) % width;
-            String y = JOptionPane.showInputDialog("spawn y");
-            y_ = Integer.parseInt(y) % height;
-            model.add_map(width, height, new Position(x_, y_), default_tile_path);
+            model.add_map(width, height, default_tile_path);
         };
     }
 
