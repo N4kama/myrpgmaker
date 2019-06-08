@@ -121,7 +121,21 @@ public class MapModel extends Observable implements Observer {
         return null;
     }
 
+    public void deleteSprite(int x, int y) {
+        Object res;
+        res = map.deleteGameObject(x, y);
+        if (res != null)
+            DoTools.addUndoEvent(new EditorEvent(EditorEvent.EventType.DEL_OBJECT, map, x, y));
+        else {
+            res = map.deleteTile(x / 16, y / 16);
+            DoTools.addUndoEvent(new EditorEvent(EditorEvent.EventType.DEL_OBJECT, map, x, y));
+        }
 
+        if (res != null) {
+            setChanged();
+            notifyObservers(res);
+        }
+    }
 
     public void moveSpite(int x, int y) {
         if (!is_moving) {
