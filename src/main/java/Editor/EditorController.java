@@ -237,7 +237,7 @@ public class EditorController extends Observable {
 
     private ActionListener open_action() {
         return actionEvent -> {
-            JFileChooser fc = new JFileChooser();
+            JFileChooser fc = new JFileChooser("tests/worlds");
             fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
             fc.setDialogTitle("Choose a world to load");
             int returnValue = fc.showOpenDialog(view);
