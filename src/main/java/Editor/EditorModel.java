@@ -48,4 +48,9 @@ public class EditorModel extends Observable {
         setChanged();
         notifyObservers("toggleGrid");
     }
+
+    public void editorError(String str) {
+        setChanged();
+        notifyObservers(str);
+    }
 }
