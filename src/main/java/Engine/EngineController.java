@@ -41,6 +41,7 @@ public class EngineController {
 
     private ActionListener continue_action() {
         return actionEvent -> {
+            this.model_.setStopMov(false);
             this.view_.displayGame();
         };
     }
@@ -68,6 +69,7 @@ public class EngineController {
                 } else if (ke.getKeyCode() == KeyEvent.VK_DOWN) {
                     model_.move(Direction.DOWN);
                 } else if (ke.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    model_.setStopMov(true);
                     model_.pause();
                 }
             }
