@@ -14,7 +14,7 @@ public class DoTools {
             System.out.println("On est bien ici undo");
             addRedoEvent(new EditorEvent(EditorEvent.EventType.ADD_TILE, event.map, event.x, event.y));
             event.map.setTile(event.x, event.y, event.old_path);
-            event.map.getGameTile(event.x, event.y).setTile_img_(event.old_path_img);
+            //event.map.getGameTile(event.x, event.y).setTile_img_(event.old_path_img);
             event.map.getGameTile(event.x, event.y).setIs_Walkable(event.was_walkable);
         }
         else if (event.action == EditorEvent.EventType.ADD_OBJECT) {
@@ -40,7 +40,7 @@ public class DoTools {
             System.out.println("On est bien ici redo");
             addUndoEvent(new EditorEvent(EditorEvent.EventType.ADD_TILE, event.map, event.x, event.y));
             event.map.setTile(event.x, event.y, event.old_path);
-            event.map.getGameTile(event.x, event.y).setTile_img_(event.old_path_img);
+            //event.map.getGameTile(event.x, event.y).setTile_img_(event.old_path_img);
             event.map.getGameTile(event.x, event.y).setIs_Walkable(event.was_walkable);
         }
         else if (event.action.equals(EditorEvent.EventType.ADD_OBJECT) ) {
