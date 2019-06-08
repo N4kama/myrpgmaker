@@ -1,5 +1,6 @@
 package MapPannel;
 
+import Engine.Position;
 import Engine.Character.EngineObj;
 import Game.Tile;
 import Utils.SpriteTools;
@@ -77,30 +78,31 @@ public class MapView extends JPanel implements Observer {
     public void update(Observable o, Object arg) {
         if (arg.getClass() == Tile.class) {
             switch (SpriteTools.mousePointerState) {
-                case MOVE:
-                    if (mapModel.is_moving)
-                        paintComponent(this.getGraphics(), (Tile) arg);
-                    else
-                        paintComponent(this.getGraphics(), (Tile) arg);
-                    break;
-                case SET_WALKABLE_OR_NOT:
+            case MOVE:
+                if (mapModel.is_moving)
                     paintComponent(this.getGraphics(), (Tile) arg);
-                default:
+                else
                     paintComponent(this.getGraphics(), (Tile) arg);
+                break;
+            case SET_WALKABLE_OR_NOT:
+                paintComponent(this.getGraphics(), (Tile) arg);
+            default:
+                paintComponent(this.getGraphics(), (Tile) arg);
             }
         } else if (arg.getClass() == EngineObj.class) {
             switch (SpriteTools.mousePointerState) {
-                case DELETE:
+            case DELETE:
+                deleteEngineOBJ(this.getGraphics(), (EngineObj) arg);
+                break;
+            case MOVE:
+                if (mapModel.is_moving)
                     deleteEngineOBJ(this.getGraphics(), (EngineObj) arg);
-                    break;
-                case MOVE:
-                    if (mapModel.is_moving)
-                        deleteEngineOBJ(this.getGraphics(), (EngineObj) arg);
-                    else
-                        paintComponent(this.getGraphics(), (EngineObj) arg);
-                    break;
-                default:
+                else
                     paintComponent(this.getGraphics(), (EngineObj) arg);
+                break;
+            default:
+                deletePlayer(this.getGraphics(), (EngineObj) arg);
+                paintComponent(this.getGraphics(), (EngineObj) arg);
             }
         } else if (arg.getClass() == String.class && arg.equals("toggleGrid")) {
             if (SpriteTools.grid_display)
@@ -140,6 +142,24 @@ public class MapView extends JPanel implements Observer {
         for (int x = x_min; x <= x_max; x++) {
             for (int y = y_min; y <= y_max; y++) {
                 Tile tile = mapModel.map.getGameTile(x, y);
+                if (tile != null)
+                    g.drawImage(SpriteTools.pathToImg.get(tile.get_path()), tile.get_x() * 16, tile.get_y() * 16, null);
+            }
+        }
+        if (SpriteTools.grid_display)
+            drawGrid(g);
+    }
+
+
+    private void deletePlayer(Graphics g, EngineObj obj) {
+        BufferedImage img = SpriteTools.pathToImg.get(obj.getSprite_());
+        int x_min = obj.getTeleportedPos().getX();
+        int x_max = x_min + img.getWidth() / 16 - 1;
+        int y_min = obj.getTeleportedPos().getY();
+        int y_max = y_min + img.getHeight() / 16 - 1;
+        for (int x = x_min; x <= x_max; x++) {
+            for (int y = y_min; y <= y_max; y++) {
+                Tile tile = mapModel.map.getTile(new Position(x, y));
                 if (tile != null)
                     g.drawImage(SpriteTools.pathToImg.get(tile.get_path()), tile.get_x() * 16, tile.get_y() * 16, null);
             }

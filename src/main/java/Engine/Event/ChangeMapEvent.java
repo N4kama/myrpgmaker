@@ -12,10 +12,10 @@ import Utils.SpriteTools;
 
 public class ChangeMapEvent implements GameEvents {
 
-    public ChangeMapEvent(EngineObj c, int id_map, World m) {
+    public ChangeMapEvent(EngineObj c, int id_map, Position np, World m) {
         this.c = c;
         this.p = m.getMap(id_map);
-        m.changeMap(id_map);
+        this.np = np;
         this.m = m;
         BufferedImage img = SpriteTools.openObject(c.getSprite_());
         this.w = img.getWidth() / 16;
@@ -27,10 +27,12 @@ public class ChangeMapEvent implements GameEvents {
         System.out.println(c.get_x() + ":" + c.get_y());
         EngineObj e = m.player_;
         if (e.isIs_player() && e.getPosition_().is_in(c.getPosition_(), w, h)) {
-            e.setChangedMap(true);
             Tile t = m.getCurMap().getTile(e.getPosition_());
             t.setHas_Obj(false);
-            e.setPosition_(p.getSpawn());
+            e.setChangedMap(true);
+            e.setCur_map(p);
+            m.changeMap(m.getGameWorld().indexOf(p));
+            e.setPosition_(new Position(np.getX() % p.getWidth(), np.getY() %p.getHeight()));
             t = p.getTile(e.getPosition_());
             t.setHas_Obj(true);
             return true;
@@ -40,6 +42,7 @@ public class ChangeMapEvent implements GameEvents {
 
     private EngineObj c;
     private Map p;
+    private Position np;
     private World m;
     private int h;
     private int w;

@@ -78,7 +78,6 @@ public class World {
     }
 
     public void changeMap(int n) {
-        this.getMap(n).getEngineObjs().add(player_);
         id_cur_map = n;
     }
 

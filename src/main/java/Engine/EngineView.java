@@ -179,6 +179,7 @@ public class EngineView extends JFrame implements Observer {
                     map_view.mapModel.map = EditorModel.singleton.gameWorld.getCurMap();
                     map_view.drawTiles(this.getGraphics());
                     map_view.drayObjects(this.getGraphics());
+                    obj.setChangedMap(false);
                     // paindre nouvelles map;
                 } else if (obj.isAlive() && !inMenu) {
                     obj.getEs().getCurAnim().update();
@@ -193,7 +194,7 @@ public class EngineView extends JFrame implements Observer {
                 return;
             }
         } else {
-            System.out.println("diplay pause menu");
+            System.out.println("display pause menu");
             displayPauseMenu();
         }
     }

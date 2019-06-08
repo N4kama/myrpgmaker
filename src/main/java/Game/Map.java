@@ -23,7 +23,6 @@ public class Map {
     private Integer width_;
     private Integer height_;
     private String default_tile;
-    private boolean placed;
 
     public Map(int width, int height, String tile_model) {
         gameTiles_ = new ArrayList<>();
@@ -304,18 +303,18 @@ public class Map {
 
     public EngineObj setPlayer(int x, int y, String path) {
         EngineObj player = WorldTools.player;
-        if (placed || getTile(new Position(x / 16, y / 16)) ==  null)
+        if (getTile(new Position(x / 16, y / 16)) == null)
             return player;
-        placed = true;
         Tile t = getTile(player.getPosition_());
         t.setHas_Obj(false);
+        player.setCur_map(this);
+        EditorModel.singleton.gameWorld.changeMap(EditorModel.singleton.gameWorld.getGameWorld().indexOf(this));
+        player.setTeleportedPos(new Position(player.get_x(), player.get_y()));
         player.setPosition_(new Position(x / 16, y / 16));
-        engineObjs.add(player);
         t = getTile(player.getPosition_());
         t.setHas_Obj(true);
         player.setSprite_(path);
         player.setEs(new EngineSprite(path));
-        setSpawn(player.getPosition_());
         return player;
     }
 }

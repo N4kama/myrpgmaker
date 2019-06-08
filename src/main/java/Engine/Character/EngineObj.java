@@ -15,6 +15,8 @@ import Engine.Event.MoveEvent;
 import Engine.Event.TeleportEvent;
 
 public class EngineObj {
+    private transient Map cur_map;
+
     private Boolean is_player = false;
     private List<GameEvents> events;
     private boolean teleported;
@@ -33,6 +35,19 @@ public class EngineObj {
         name_ = "NPC";
     }
 
+    public Map getCur_map() {
+        return cur_map;
+    }
+
+    public void setCur_map(Map cur_map_) {
+        if(cur_map !=  null)
+        {
+            this.cur_map.getEngineObjs().remove(this);
+        }
+        cur_map_.addEngineObj(this);
+        this.cur_map = cur_map_;
+    }
+
     public EngineObj(String name, String sprite, Boolean alive, Boolean is_player) {
         name_ = name;
         sprite_ = sprite;
@@ -45,8 +60,7 @@ public class EngineObj {
 
     }
 
-    public void reloadSprites()
-    {
+    public void reloadSprites() {
         setEs(new EngineSprite(sprite_));
     }
 
@@ -124,7 +138,8 @@ public class EngineObj {
     private boolean canMove(Direction dir, Map m) {
         Tile t = m.getTile(position_.tempPos(dir));
         if (t == null) {
-            ChangeMapEvent e = (new ChangeMapEvent(this, EditorModel.singleton.gameWorld.nextMap(), EditorModel.singleton.gameWorld));
+            ChangeMapEvent e = (new ChangeMapEvent(this, EditorModel.singleton.gameWorld.nextMap(), new Position(0, 0),
+                    EditorModel.singleton.gameWorld));
             e.run();
             return false;
         }
@@ -142,15 +157,14 @@ public class EngineObj {
 
     // GETTER SETTER
 
-     /**
+    /**
      * @return the talkTo
      */
     public EngineObj getTalkTo() {
         return talkTo;
     }
 
-    public boolean getChangedMap()
-    {
+    public boolean getChangedMap() {
         return changedMap;
     }
 
