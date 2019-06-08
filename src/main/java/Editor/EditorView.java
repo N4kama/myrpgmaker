@@ -323,6 +323,7 @@ public class EditorView extends JFrame implements Observer {
         errFrame.setVisible(true);
     }
 
+
     @Override
     public void update(Observable o, Object arg) {
         if (arg.getClass() == Map.class) {
@@ -334,8 +335,7 @@ public class EditorView extends JFrame implements Observer {
             // Linking to Pane
             JScrollPane mapPane = new JScrollPane(mapView);
             mapPane.setPreferredSize(new Dimension(200, 200));
-
-            mapTab.addTab("Map " + (model.gameWorld.gameWorld_.size()), mapPane);
+            mapTab.addTab("Map " + (mapTab.getTabCount()), mapPane);
         }
         else if (arg.getClass() == String.class) {
             if (((String) arg).equals("playerErr")) {

@@ -25,6 +25,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Base64;
 
 import javax.imageio.ImageIO;
@@ -34,12 +35,12 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
-
 public class WorldTools {
     public static EngineObj player; // static reference to unique player object through a unique world
     private static World w_;
     public static InspectorModel inspectorModel = new InspectorModel(null); // used almost like a singleton for MapModel
                                                                             // reference
+
     public static void saveWorld(String path, World world) throws IOException {
 
         Gson gson = new Gson();
@@ -68,17 +69,25 @@ public class WorldTools {
                 e.printStackTrace();
             }
         }
-        w_ = w;
         return w;
     }
 
     public static void reload_world(World w) {
         for (Map m : w.gameWorld_) {
             EditorModel.singleton.load_map(m);
-            for(EngineObj o : m.getEngineObjs())
-            {
-                if(o.isAlive())
+            for (int i = 0; i < m.getEngineObjs().size(); i++) {
+                EngineObj o = m.getEngineObjs().get(i);
+                if(o == null)
                 {
+                    m.setEngineObjs(new ArrayList<>());
+                }
+                if (o.isIs_player()) {
+                    player = o;
+                    w.getCurMap().setPlayer(player.get_x() * 16, player.get_y() * 16, player.getSprite_());
+                    player.reloadSprites();
+                    w.setPlayer(player);// = player;
+                }
+                else if (o.isAlive()) {
                     o.reloadSprites();
                 }
             }

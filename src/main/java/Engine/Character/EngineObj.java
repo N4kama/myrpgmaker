@@ -17,7 +17,7 @@ import Engine.Event.TeleportEvent;
 public class EngineObj {
     private transient Map cur_map;
 
-    private Boolean is_player = false;
+    private Boolean is_player;
     private List<GameEvents> events;
     private boolean teleported;
     private Position teleportedPos;
@@ -73,6 +73,10 @@ public class EngineObj {
     }
 
     public void animate(Direction d) {
+        if(es == null)
+        {
+            reloadSprites();
+        }
         Animation cur = es.getCurAnim();
         switch (d) {
         case DOWN:

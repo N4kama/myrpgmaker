@@ -60,4 +60,18 @@ public class EngineModel extends Observable {
         notifyObservers(null);
     }
 
+    /**
+     * @param gameWorld_ the gameWorld_ to set
+     */
+    public void setGameWorld_(World gameWorld_) {
+        this.gameWorld_ = gameWorld_;
+    }
+
+    /**
+     * @return boolean return the stopMov
+     */
+    public boolean isStopMov() {
+        return stopMov;
+    }
+
 }
