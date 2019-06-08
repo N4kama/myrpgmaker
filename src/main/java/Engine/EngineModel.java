@@ -44,10 +44,14 @@ public class EngineModel extends Observable {
     }
 
     public void moveNPC(EngineObj obj) {
+        Position p = obj.getPosition_().tempPos(null);
         if (stopMov || !obj.run_events())
             return;
-        setChanged();
-        notifyObservers(obj);
+        if(!obj.getPosition_().equals(p))
+        {
+            setChanged();
+            notifyObservers(obj);
+        }
     }
 
     public void stand() {

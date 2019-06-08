@@ -91,7 +91,7 @@ public class MapModel extends Observable implements Observer {
             if (SpriteTools.playerModelSelected) {
                 res = map.setPlayer(x, y, SpriteTools.selectedSprite);
                 if (res != null) {
-                    map.setSpawn_(new Position(x, y));
+                    map.setSpawn_(new Position(x / 16, y / 16));
                     DoTools.addUndoEvent(new EditorEvent(EditorEvent.EventType.ADD_OBJECT, map, x, y));
                 }
             } else if (SpriteTools.npcModelSelected) {

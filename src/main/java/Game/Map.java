@@ -120,6 +120,8 @@ public class Map {
 
     public String getPathTile(int i, int j) {
         Tile tile = getGameTile(i, j);
+        if (tile == null)
+            return null;
         return tile.get_path();
     }
 
@@ -228,7 +230,15 @@ public class Map {
     }
 
     public Tile getGameTile(int i, int j) {
-        return gameTiles_.get(j * width_ + i);
+        Tile t = null;
+        try {
+            t = gameTiles_.get(j * width_ + i);
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            return null;
+        }
+        return t;
     }
 
     /**

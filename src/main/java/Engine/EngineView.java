@@ -76,10 +76,11 @@ public class EngineView extends JFrame implements Observer {
         setResizable(true);
         setContentPane(savePanel);
         setTitle(this.model_.getGameWorld().getName());
-        setSize(600, 600);
+        setSize(450, 250);
 
         MapModel mapModel = new MapModel(model_.getGameWorld().getCurMap(), EditorModel.singleton);
-        gamePanel = new EngineMapView(mapModel);
+        map_view = new EngineMapView(mapModel, this);
+        gamePanel = (JPanel) map_view;
         label = new JLabel("");
         label.setVisible(true);
 
@@ -92,19 +93,6 @@ public class EngineView extends JFrame implements Observer {
 
         createPauseMenu();
 
-        // Thread myThread = new Thread(() -> {
-        // while (true) {
-        // for (EngineObj obj : model_.getGameWorld().getCurMap().getEngineObjs()) {
-        // model_.moveNPC(obj);
-        // }
-        // try {
-        // Thread.sleep(1000);
-        // } catch (InterruptedException ex) {
-        // ex.printStackTrace();
-        // }
-        // }
-        // });
-        // myThread.start();
         Timer timer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -131,14 +119,25 @@ public class EngineView extends JFrame implements Observer {
     private void repaintPos(Graphics g, Position p) {
         Tile tile = map.getTile(p);
         if (tile != null) {
+            
+        int px = WorldTools.player.get_x();
+        int py = WorldTools.player.get_y();
             BufferedImage i = SpriteTools.openTile(tile.get_path());
-            g.drawImage(i, p.getX() * 16, p.getY() * 16, null);
+            g.drawImage(i, this.getWidth() / 2 + (p.getX() -px) * 16,this.getHeight() / 2 + (p.getY()-py) * 16, null);
         }
     }
 
     private void deletePos(Graphics g, Position p) {
         int x = (p.getX());
         int y = (p.getY());
+        
+        super.paint(this.getGraphics());
+        this.getGraphics().setColor(Color.BLACK);
+        map_view.setBackground(Color.BLACK);
+        this.getGraphics().fillRect(0, 0, 0, 0);
+        map_view.drawTiles(this.getGraphics());
+        map_view.drayObjects(g);
+/*
         repaintPos(g, new Position(x, y));
         repaintPos(g, new Position(x + 1, y));
         repaintPos(g, new Position(x - 1, y));
@@ -148,7 +147,7 @@ public class EngineView extends JFrame implements Observer {
         repaintPos(g, new Position(x, y - 2));
         repaintPos(g, new Position(x, y + 1));
         repaintPos(g, new Position(x + 1, y + 1));
-        repaintPos(g, new Position(x - 1, y + 1));
+        repaintPos(g, new Position(x - 1, y + 1));*/
     }
 
     public void paintComponent(Graphics g, EngineObj obj) {

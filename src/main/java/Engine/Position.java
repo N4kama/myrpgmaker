@@ -43,15 +43,13 @@ public class Position {
     }
 
     public boolean is_in(Position c, int w, int h) {
-        return c.getX() <= x_ 
-        && c.getX() + w > x_ 
-        && c.getY() <= y_
-         && c.getY() + h > y_;
+        return c.getX() <= x_ && c.getX() + w > x_ && c.getY() <= y_ && c.getY() + h > y_;
     }
 
     public Position tempPos(Direction dir) {
         Position p = new Position(getX(), getY());
-        p.move(dir);
+        if (dir != null)
+            p.move(dir);
         return p;
     }
 
