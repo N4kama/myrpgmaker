@@ -2,7 +2,6 @@ package FileExplorerPannel;
 
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,8 +24,7 @@ public class FileExplorerView extends JTree implements Observer {
                 e.getPath().getLastPathComponent();
         try {
             String path = "resources/maps/" + file.toString();
-            //model.gameWorld =
-            loadWorld (path);
+            loadWorld(path);
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         }
