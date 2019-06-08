@@ -219,7 +219,7 @@ public class EditorController extends Observable {
 
     private ActionListener save_action() {
         return actionEvent -> {
-            JFileChooser fc = new JFileChooser();
+            JFileChooser fc = new JFileChooser("tests/worlds");
             fc.setDialogTitle("Choose a directory to save your world");
             int returnVal = fc.showSaveDialog(view);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
