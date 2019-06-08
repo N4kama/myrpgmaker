@@ -17,7 +17,6 @@ import Utils.WorldTools;
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.Observable;
 import java.util.Observer;
@@ -53,7 +52,20 @@ public class EditorView extends JFrame implements Observer {
     JButton not_walkableButton;
     JButton playButton;
 
+    JFrame errFrame;
+    JPanel errPanel;
+    JLabel errLabel;
+
+
+
     public EditorView(EditorModel model) {
+        errFrame = new JFrame("Error !");
+        errLabel = new JLabel("");
+        errFrame.setLayout(new GridBagLayout());
+        errFrame.setSize(400, 200);
+        errFrame.setLocationRelativeTo(null);
+        errFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
         this.model = model;
         this.model.addObserver(this);
         // Creating Frame
@@ -305,6 +317,12 @@ public class EditorView extends JFrame implements Observer {
         return menuBar;
     }
 
+    public void showErrorFrame(String str) {
+        errLabel.setText(str);
+        errFrame.add(errLabel);
+        errFrame.setVisible(true);
+    }
+
     @Override
     public void update(Observable o, Object arg) {
         if (arg.getClass() == Map.class) {
@@ -318,6 +336,14 @@ public class EditorView extends JFrame implements Observer {
             mapPane.setPreferredSize(new Dimension(200, 200));
 
             mapTab.addTab("Map " + (model.gameWorld.gameWorld_.size()), mapPane);
+        }
+        else if (arg.getClass() == String.class) {
+            if (((String) arg).equals("playerErr")) {
+                showErrorFrame("You have to set the player Spawn !");
+            }
+            else if (((String) arg).equals("mapErr")) {
+                showErrorFrame("You have to create at least one Map !");
+            }
         }
     }
 
