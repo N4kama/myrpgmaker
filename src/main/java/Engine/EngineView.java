@@ -176,6 +176,11 @@ public class EngineView extends JFrame implements Observer {
                     return;
                 }
                 if (obj.isIs_player() && !inMenu && obj.getChangedMap()) {
+                    this.map = EditorModel.singleton.gameWorld.getCurMap();
+                    super.paint(this.getGraphics());
+                    this.getGraphics().setColor(Color.BLACK);
+                    map_view.setBackground(Color.BLACK);
+                    this.getGraphics().fillRect(0, 0, 0, 0);
                     map_view.mapModel.map = EditorModel.singleton.gameWorld.getCurMap();
                     map_view.drawTiles(this.getGraphics());
                     map_view.drayObjects(this.getGraphics());

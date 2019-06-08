@@ -28,10 +28,10 @@ public class ChangeMapEvent implements GameEvents {
         EngineObj e = m.player_;
         if (e.isIs_player() && e.getPosition_().is_in(c.getPosition_(), w, h)) {
             Tile t = m.getCurMap().getTile(e.getPosition_());
+            m.changeMap(m.getGameWorld().indexOf(p));
             t.setHas_Obj(false);
             e.setChangedMap(true);
             e.setCur_map(p);
-            m.changeMap(m.getGameWorld().indexOf(p));
             e.setPosition_(new Position(np.getX() % p.getWidth(), np.getY() %p.getHeight()));
             t = p.getTile(e.getPosition_());
             t.setHas_Obj(true);

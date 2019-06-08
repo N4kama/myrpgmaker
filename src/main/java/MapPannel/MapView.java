@@ -100,8 +100,11 @@ public class MapView extends JPanel implements Observer {
                 else
                     paintComponent(this.getGraphics(), (EngineObj) arg);
                 break;
-            default:
-                deletePlayer(this.getGraphics(), (EngineObj) arg);
+            default: {
+                EngineObj e = (EngineObj) arg;
+                if (e.isIs_player()) {
+                    deletePlayer(this.getGraphics(), (EngineObj) arg);
+                }
                 paintComponent(this.getGraphics(), (EngineObj) arg);
             }
         } else if (arg.getClass() == String.class && arg.equals("toggleGrid")) {
@@ -149,7 +152,6 @@ public class MapView extends JPanel implements Observer {
         if (SpriteTools.grid_display)
             drawGrid(g);
     }
-
 
     private void deletePlayer(Graphics g, EngineObj obj) {
         BufferedImage img = SpriteTools.pathToImg.get(obj.getSprite_());
