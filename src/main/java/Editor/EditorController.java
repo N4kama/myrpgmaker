@@ -6,6 +6,7 @@ import Engine.EngineModel;
 import Engine.EngineView;
 import Engine.Position;
 import Game.Map;
+import Utils.DoTools;
 import Utils.SpriteTools;
 
 import javax.imageio.ImageIO;
@@ -156,12 +157,15 @@ public class EditorController extends Observable {
     private ActionListener redo_action() {
         return actionEvent -> {
             // redo
+            DoTools.redo();
+
         };
     }
 
     private ActionListener undo_action() {
         return actionEvent -> {
             // undo
+            DoTools.undo();
         };
     }
 
@@ -240,7 +244,8 @@ public class EditorController extends Observable {
                 try {
                     model.gameWorld = loadWorld(filePath);
                     model.setWorld(model.gameWorld);
-                    //view.update();
+                    model.amine();
+                    view.mapTab.updateUI();
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
