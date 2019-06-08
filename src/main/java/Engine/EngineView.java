@@ -6,6 +6,7 @@ import Game.Map;
 import Game.Tile;
 import MapPannel.MapModel;
 import Utils.SpriteTools;
+import Utils.WorldTools;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -161,6 +162,7 @@ public class EngineView extends JFrame implements Observer {
                     return;
                 }
                 if (obj.isIs_player() && !inMenu && obj.getChangedMap()) {
+                    map_view.mapModel.map = EditorModel.singleton.gameWorld.getCurMap();
                     map_view.drawTiles(this.getGraphics());
                     map_view.drayObjects(this.getGraphics());
                     // paindre nouvelles map;

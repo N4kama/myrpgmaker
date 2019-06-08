@@ -23,7 +23,6 @@ public class Map {
     private Integer width_;
     private Integer height_;
     private String default_tile;
-    private boolean is_player_set = false;
 
     public Map(int width, int height, String tile_model) {
         gameTiles_ = new ArrayList<>();

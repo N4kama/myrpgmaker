@@ -39,6 +39,13 @@ public class World {
         this.gameWorld_.add(gameWorld_.size(), m);
         if (gameWorld_.size() == 1) {
             changeMap(0);
+            player_.set_map(m);
+            player_.setPosition_(m.getSpawn());
+            m.getEngineObjs().add(player_);
+            Tile t = m.getTile(player_.getPosition_());
+            t.setHas_Obj(true);
+            player_.setSprite_(default_player_path);
+            player_.setEs(new EngineSprite(default_player_path));
         }
         return gameWorld_.size() - 1;
     }
@@ -48,15 +55,11 @@ public class World {
     }
 
     public void changeMap(int n) {
-        Map m = gameWorld_.get(n);
-        player_.set_map(m);
-        player_.setPosition_(m.getSpawn());
-        m.getEngineObjs().add(player_);
-        Tile t = m.getTile(player_.getPosition_());
-        t.setHas_Obj(true);
-        player_.setSprite_(default_player_path);
-        player_.setEs(new EngineSprite(default_player_path));
         id_cur_map = n;
+    }
+
+    public int nextMap() {
+        return id_cur_map + 1;
     }
 
     public Map getMap(int index) {

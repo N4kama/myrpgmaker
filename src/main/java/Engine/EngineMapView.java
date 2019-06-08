@@ -61,4 +61,6 @@ public class EngineMapView extends MapView {
         BufferedImage img = SpriteTools.openTile(tile.get_path());
         g.drawImage(img, tile.get_x() * 16, tile.get_y() * 16, null);
     }
+
+    
 }

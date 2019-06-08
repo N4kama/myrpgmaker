@@ -17,13 +17,12 @@ import Engine.Event.TeleportEvent;
 public class EngineObj {
     private Boolean is_player = false;
     private List<GameEvents> events;
-    private List<GameEvents> msgs;
     private boolean teleported;
     private Position teleportedPos;
     private EngineSprite es;
     private boolean stop = false;
     private boolean changedMap = false;
-    private EngineObj talkTo;
+    private transient EngineObj talkTo;
 
     public EngineObj(int x, int y, String sprite_path) {
         this.position_ = new Position(x, y);
@@ -120,7 +119,8 @@ public class EngineObj {
     private boolean canMove(Direction dir, Map m) {
         Tile t = m.getTile(position_.tempPos(dir));
         if (t == null) {
-            add_event(new ChangeMapEvent(this, 1, EditorModel.singleton.gameWorld));
+            ChangeMapEvent e = (new ChangeMapEvent(this, EditorModel.singleton.gameWorld.nextMap(), EditorModel.singleton.gameWorld));
+            e.run();
             return false;
         }
         return t.getIs_Walkable();
