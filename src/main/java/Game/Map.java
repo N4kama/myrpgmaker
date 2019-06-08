@@ -45,6 +45,7 @@ public class Map {
         width_ = width;
         height_ = height;
         spawn_ = spawn;
+        this.default_tile = tile_model;
 
         for (int h = 0; h < height; h++) {
             for (int w = 0; w < width; w++) {

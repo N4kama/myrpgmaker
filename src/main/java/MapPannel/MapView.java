@@ -20,8 +20,7 @@ public class MapView extends JPanel implements Observer {
         this.mapModel = mapModel;
         this.mapModel.addObserver(this);
         setBackground(Color.black);
-        setPreferredSize(new Dimension(100,100));
-
+        setPreferredSize(new Dimension(mapModel.getWidth() * 16 + 100, mapModel.getHeight() * 16 + 100));
     }
 
     public void paintComponent(Graphics g) {

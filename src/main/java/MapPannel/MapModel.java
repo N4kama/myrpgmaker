@@ -7,12 +7,16 @@ import Game.Tile;
 import Utils.SpriteTools;
 import Utils.WorldTools;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
 public class MapModel extends Observable implements Observer {
+    protected Rectangle selection;
+    protected int x_rect;
+    protected int y_rect;
     protected BufferedImage unwalkable = SpriteTools.openTile(System.getProperty("user.dir") + "/resources/misc/not_walkable.png");
 
     @Override
@@ -31,6 +35,11 @@ public class MapModel extends Observable implements Observer {
         tile.setIs_Walkable(SpriteTools.walkable);
         setChanged();
         notifyObservers(tile);
+    }
+
+    public void selectTiles(int x, int y) {
+        x_rect = x / 16;
+        y_rect = y / 16;
     }
 
     public enum ObjectMoved {

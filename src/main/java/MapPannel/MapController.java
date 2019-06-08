@@ -30,7 +30,8 @@ public class MapController {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-
+                Thread myThread = new Thread(() -> executeReleasedAction(e));
+                myThread.start();
             }
 
             @Override
@@ -62,13 +63,20 @@ public class MapController {
                 model.moveSpite(e.getX(), e.getY());
                 break;
             case SELECT:
-                System.out.println("SELECT MODE");
+                model.selectTiles(e.getX(), e.getY());
                 break;
             case DELETE:
                 model.deleteSprite(e.getX(), e.getY());
                 break;
             case SET_WALKABLE_OR_NOT:
                 model.setWalkable(e.getX(), e.getY());
+        }
+    }
+
+    public void executeReleasedAction(MouseEvent e) {
+        switch (SpriteTools.mousePointerState) {
+            case SELECT:
+                model.selectTiles(e.getX(), e.getY());
         }
     }
 }

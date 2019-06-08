@@ -114,10 +114,10 @@ public class EditorView extends JFrame implements Observer {
         // model.gameWorld.addMap(new Map("Shikamaru", 100, 100, default_tile_path));
 
         // Init MVC
-        MapModel mapModel = new MapModel(model.gameWorld.getMap(0), model);
-        MapView mapView = new MapView(mapModel);
-        MapController mapController = new MapController(mapModel, mapView);
-        mapController.start();
+        //MapModel mapModel = new MapModel(model.gameWorld.getMap(0), model);
+        //MapView mapView = new MapView(mapModel);
+        //MapController mapController = new MapController(mapModel, mapView);
+        //mapController.start();
 
         // Linking to Pane
         // JScrollPane mapPane = new JScrollPane(mapView);
