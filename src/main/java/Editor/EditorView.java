@@ -111,7 +111,7 @@ public class EditorView extends JFrame implements Observer {
         //Creating world at program launch
         model.setWorld(new World("Asuma", System.getProperty("user.dir") + "resources/player/hero.png"));
         String default_tile_path = System.getProperty("user.dir") + "/resources/backgroundTile/grass.png";
-        model.gameWorld.addMap(new Map("Shikamaru", 100, 100, default_tile_path));
+        //model.gameWorld.addMap(new Map("Shikamaru", 100, 100, default_tile_path));
 
         //Init MVC
         MapModel mapModel = new MapModel(model.gameWorld.getMap(0), model);
@@ -120,12 +120,13 @@ public class EditorView extends JFrame implements Observer {
         mapController.start();
 
         //Linking to Pane
-        JScrollPane mapPane = new JScrollPane(mapView);
-        mapPane.setPreferredSize(new Dimension(200, 200));
+        //JScrollPane mapPane = new JScrollPane(mapView);
+        //mapPane.setPreferredSize(new Dimension(200, 200));
 
         //Joining all the panes into a Tab (bar)
         mapTab = new JTabbedPane();
-        mapTab.addTab("Map 1", mapPane);
+        //mapTab.addTab("Map 1", mapPane);
+
 
         return mapTab;
     }

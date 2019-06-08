@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import Engine.Character.EngineObj;
 import Utils.WorldTools;
 
-
 public class World {
     public ArrayList<Map> gameWorld_;
     private Integer id_cur_map;
@@ -17,7 +16,7 @@ public class World {
         this.gameWorld_ = new ArrayList<>();
         this.name_ = s;
 
-        //init player basics
+        // init player basics
         player_ = new EngineObj("player", player_sprite_path, true, true);
         WorldTools.player = player_;
     }
@@ -36,28 +35,26 @@ public class World {
 
     public int addMap(Map m) {
         this.gameWorld_.add(gameWorld_.size(), m);
-        if(gameWorld_.size() == 1)
-        {
+        if (gameWorld_.size() == 1) {
             changeMap(0);
         }
         return gameWorld_.size() - 1;
     }
 
-    public Map getCurMap()
-    {
+    public Map getCurMap() {
         return gameWorld_.get(id_cur_map);
     }
 
-    public void changeMap(int n)
-    {
+    public void changeMap(int n) {
         Map m = gameWorld_.get(n);
         player_.set_map(m);
         id_cur_map = n;
     }
 
-
     public Map getMap(int index) {
-        return gameWorld_.get(index);
+        if (gameWorld_.size() > index)
+            return gameWorld_.get(index);
+        return null;
     }
 
     public void setName(String name) {

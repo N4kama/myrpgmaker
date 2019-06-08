@@ -20,7 +20,6 @@ public class Map {
     private Position spawn_;
     private Integer width_;
     private Integer height_;
-    private Position goal_;
     private String default_tile;
     private boolean is_player_set = false;
 
@@ -39,13 +38,12 @@ public class Map {
         }
     }
 
-    public Map(int width, int height, Position spawn, Position goal, String tile_model) {
+    public Map(int width, int height, Position spawn, String tile_model) {
         gameTiles_ = new ArrayList<>();
         engineObjs = new ArrayList<>();
         width_ = width;
         height_ = height;
         spawn_ = spawn;
-        goal_ = goal;
 
         for (int h = 0; h < height; h++) {
             for (int w = 0; w < width; w++) {
@@ -94,14 +92,6 @@ public class Map {
         this.spawn_ = spawn;
     }
 
-    public Position getGoal() {
-        return goal_;
-    }
-
-    public void setGoal(Position g) {
-        this.goal_ = g;
-    }
-
     public Integer getWidth() {
         return width_;
     }
@@ -148,7 +138,7 @@ public class Map {
     }
 
     public boolean is_there_obj_at_coords(EngineObj obj, int x, int y) {
-        BufferedImage img = SpriteTools.pathToImg.get(obj.getSprite_());
+        BufferedImage img = SpriteTools.openObject(obj.getSprite_());
         int Height = img.getHeight() / 16;
         int Width = img.getWidth() / 16;
         boolean res = (obj.get_x() <= x);
@@ -161,16 +151,9 @@ public class Map {
     public EngineObj getGameObject(int x, int y, boolean is_npc) {
         ArrayList<EngineObj> arr = engineObjs.stream().filter(obj -> is_there_obj_at_coords(obj, x, y))
                 .collect(Collectors.toCollection(ArrayList::new));
-        if (arr.size() > 0) {
-            if (is_npc)
-                for (EngineObj e : arr) {
-                    if (e.isAlive()) {
-                        return e;
-                    }
-                }
-            else
-                return arr.get(0);
-        }
+        if (arr.size() > 0)
+            return arr.get(0);
+
         return null;
     }
 
@@ -222,7 +205,7 @@ public class Map {
         }
         obj.setPosition_(new Position(x / 16, y / 16));
         Tile t = getTile(obj.getPosition_());
-            t.setHas_Obj(true);
+        t.setHas_Obj(true);
         obj.setEs(new EngineSprite(path));
         engineObjs.add(obj);
         obj.setSprite_(path);
@@ -308,19 +291,6 @@ public class Map {
         this.height_ = height_;
     }
 
-    /**
-     * @return Position return the goal_
-     */
-    public Position getGoal_() {
-        return goal_;
-    }
-
-    /**
-     * @param goal_ the goal_ to set
-     */
-    public void setGoal_(Position goal_) {
-        this.goal_ = goal_;
-    }
 
     public EngineObj setPlayer(int x, int y, String path) {
         EngineObj player = WorldTools.player;
@@ -335,7 +305,7 @@ public class Map {
             is_player_set = true;
         }
         Tile t = getTile(player.getPosition_());
-            t.setHas_Obj(true);
+        t.setHas_Obj(true);
 
         player.setSprite_(path);
         player.setEs(new EngineSprite(path));

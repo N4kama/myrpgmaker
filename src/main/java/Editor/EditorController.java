@@ -4,6 +4,7 @@ import Engine.Character.EngineObj;
 import Engine.EngineController;
 import Engine.EngineModel;
 import Engine.EngineView;
+import Engine.Position;
 import Game.Map;
 import Utils.SpriteTools;
 
@@ -95,13 +96,19 @@ public class EditorController extends Observable {
         return ActionEvent -> {
             int height = 100;
             int width = 100;
+            int x_ = 0;
+            int y_ = 0;
             String default_tile_path = System.getProperty("user.dir") + "/resources/backgroundTile/grass.png";
             //popup asking for width  and height
             String w = JOptionPane.showInputDialog("enter map width");
             width = Integer.parseInt(w);
             String h = JOptionPane.showInputDialog("enter map height");
             height = Integer.parseInt(h);
-            model.add_map(width, height, default_tile_path);
+            String x = JOptionPane.showInputDialog("spawn x");
+            width = Integer.parseInt(w);
+            String y = JOptionPane.showInputDialog("spawn y");
+            height = Integer.parseInt(h);
+            model.add_map(width, height, new Position(x_, y_), default_tile_path);
         };
     }
 

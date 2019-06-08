@@ -6,6 +6,8 @@ import Utils.SpriteTools;
 
 import java.util.Observable;
 
+import Engine.Position;
+
 public class EditorModel extends Observable {
     public static EditorModel singleton;
 
@@ -21,6 +23,14 @@ public class EditorModel extends Observable {
 
     public void add_map(int width, int height, String default_tile_path) {
         Map map = new Map(width, height, default_tile_path);
+        int id = gameWorld.addMap(map);
+        gameWorld.changeMap(id);
+        setChanged();
+        notifyObservers(map);
+    }
+
+    public void add_map(int width, int height, Position p, String default_tile_path) {
+        Map map = new Map(width, height, p, default_tile_path);
         int id = gameWorld.addMap(map);
         gameWorld.changeMap(id);
         setChanged();

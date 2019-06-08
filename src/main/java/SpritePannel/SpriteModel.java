@@ -29,7 +29,6 @@ public class SpriteModel extends Observable implements Observer {
 
     private void loadSprites(String path) {
         File directory = new File(path);
-        String check_ext = null;
         for (File file : directory.listFiles()) {
             if (!file.isDirectory()) {
                 try {
