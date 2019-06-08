@@ -138,11 +138,21 @@ public class EditorController extends Observable {
 
     private ActionListener play_action() {
         return actionEvent -> {
+            if (model.gameWorld.player_ == null) {
+                model.playerError();
+                return;
+            }
+
+            try {
+                model.gameWorld.getCurMap();
+            } catch (NullPointerException e) {
+                model.mapError();
+                return;
+            }
+
             view.frame.setVisible(false);
             view.frame.dispose();
             //EngineObj charact = new EngineObj(0, 0, "path to char");
-
-            Map map = model.gameWorld.getCurMap();
 
             //model.gameWorld.setPlayer(charact);
             EngineModel engineModel = new EngineModel(model.gameWorld);
