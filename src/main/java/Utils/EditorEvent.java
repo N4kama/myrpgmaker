@@ -11,7 +11,7 @@ public class EditorEvent {
         this.x = x;
         this.y = y;
         old_path = map.getGameTile(x, y).get_path();
-        old_path_img = map.getGameTile(x, y).getTile_img_();
+        old_path_img = map.getGameTile(x, y).get_path();//getTile_img_();
         was_walkable =  map.getGameTile(x, y).isIs_Walkable_();
         object = null;
     }
