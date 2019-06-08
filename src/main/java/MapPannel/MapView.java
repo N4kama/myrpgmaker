@@ -107,7 +107,7 @@ public class MapView extends JPanel implements Observer {
                 }
                 paintComponent(this.getGraphics(), (EngineObj) arg);
             }
-        } else if (arg.getClass() == String.class && arg.equals("toggleGrid")) {
+        }} else if (arg.getClass() == String.class && arg.equals("toggleGrid")) {
             if (SpriteTools.grid_display)
                 drawGrid(getGraphics());
             else {
