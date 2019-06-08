@@ -204,10 +204,11 @@ public class EngineView extends JFrame implements Observer {
         }
         if (msg == null)
             label.setText("");
-        else
+        else {
             label.setText("NPC: " + msg);
-        label.revalidate();
-        label.repaint();
+            label.revalidate();
+            label.repaint();
+        }
     }
 
     public void closeDialog() {
