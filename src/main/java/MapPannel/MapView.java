@@ -127,7 +127,8 @@ public class MapView extends JPanel implements Observer {
         Graphics2D g2 = (Graphics2D) g;
         Color savedColor = g2.getColor();
         g2.setColor(new Color(255, 255, 224, 100));
-        g2.fill(mapModel.selection_rect);
+        g2.fill(new Rectangle(mapModel.selection_rect.x * 16, mapModel.selection_rect.y * 16,
+                mapModel.selection_rect.width * 16, mapModel.selection_rect.height * 16));
         g2.setColor(savedColor);
     }
 

@@ -41,12 +41,12 @@ public class MapModel extends Observable implements Observer {
 
     public void selectTiles(int x, int y, boolean new_selection) {
         if (new_selection) {
-            x_rect = x;
-            y_rect = y;
+            x_rect = x / 16;
+            y_rect = y / 16;
             setChanged();
             notifyObservers("clearSelection");
         } else {
-            selection_rect = new Rectangle(x_rect, y_rect, x - x_rect, y - y_rect);
+            selection_rect = new Rectangle(x_rect, y_rect, x / 16 - x_rect + 1, y / 16 - y_rect + 1);
             setChanged();
             notifyObservers(selection_rect);
         }
