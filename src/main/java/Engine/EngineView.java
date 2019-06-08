@@ -22,12 +22,11 @@ import java.util.Observer;
 public class EngineView extends JFrame implements Observer {
     public boolean inMenu = true;
     public Map map;
-    public EngineMapView map_view;
     private EngineModel model_;
     JButton startButton;
     JButton exitButton;
     JButton continueButton;
-    JPanel gamePanel;
+    EngineMapView gamePanel;
     JPanel menuPanel;
     JPanel textPanel;
     private JPanel savePanel;
@@ -53,7 +52,7 @@ public class EngineView extends JFrame implements Observer {
 
         menuPanel = create_menuPanel(this.getSize());
 
-        gamePanel = (JPanel) getContentPane();
+        savePanel = (JPanel) getContentPane();
 
         startButton = new JButton("Start");
         exitButton = new JButton("Exit");
@@ -75,16 +74,14 @@ public class EngineView extends JFrame implements Observer {
         inMenu = false;
         remove(menuPanel);
         setResizable(true);
-        setContentPane(gamePanel);
+        setContentPane(savePanel);
         setTitle(this.model_.getGameWorld().getName());
         setSize(600, 600);
 
         MapModel mapModel = new MapModel(model_.getGameWorld().getCurMap(), EditorModel.singleton);
-        map_view = new EngineMapView(mapModel);
-        gamePanel = (JPanel) map_view;
+        gamePanel = new EngineMapView(mapModel);
         label = new JLabel("");
         label.setVisible(true);
-        add(label, "North");
 
         setBackground(Color.black);
         gamePanel.repaint();
@@ -117,8 +114,8 @@ public class EngineView extends JFrame implements Observer {
             }
         });
         timer.start();
-        map_view.drawTiles(this.getGraphics());
-        map_view.drayObjects(this.getGraphics());
+        gamePanel.drawTiles(this.getGraphics());
+        gamePanel.drayObjects(this.getGraphics());
     }
 
     private void createPauseMenu() {
@@ -155,8 +152,7 @@ public class EngineView extends JFrame implements Observer {
     }
 
     public void paintComponent(Graphics g, EngineObj obj) {
-        map_view.drayObjects(this.getGraphics());
-        remove(gamePanel);
+        gamePanel.drayObjects(this.getGraphics());
     }
 
     @Override
@@ -179,11 +175,11 @@ public class EngineView extends JFrame implements Observer {
                     this.map = EditorModel.singleton.gameWorld.getCurMap();
                     super.paint(this.getGraphics());
                     this.getGraphics().setColor(Color.BLACK);
-                    map_view.setBackground(Color.BLACK);
+                    gamePanel.setBackground(Color.BLACK);
                     this.getGraphics().fillRect(0, 0, 0, 0);
-                    map_view.mapModel.map = EditorModel.singleton.gameWorld.getCurMap();
-                    map_view.drawTiles(this.getGraphics());
-                    map_view.drayObjects(this.getGraphics());
+                    gamePanel.mapModel.map = EditorModel.singleton.gameWorld.getCurMap();
+                    gamePanel.drawTiles(this.getGraphics());
+                    gamePanel.drayObjects(this.getGraphics());
                     obj.setChangedMap(false);
                     // paindre nouvelles map;
                 } else if (obj.isAlive() && !inMenu) {
@@ -215,37 +211,42 @@ public class EngineView extends JFrame implements Observer {
             label.setText("");
         else {
             label.setText("NPC: " + msg);
-            label.revalidate();
-            label.repaint();
+            gamePanel.add(label, "North");
+            gamePanel.revalidate();
+            gamePanel.repaint();
         }
     }
 
     public void closeDialog() {
-        eraseDialogBox(this.getGraphics());
+        gamePanel.remove(label);
+        eraseDialogBox(gamePanel.getGraphics());
     }
 
     public void eraseDialogBox(Graphics g) {
         int x = (this.getWidth() + (this.getWidth() % 16)) / 16;
         for (int i = 0; i < x; i++) {
             repaintPos(g, new Position(i, 0));
+            repaintPos(g, new Position(i, 1));
         }
     }
 
     public void displayPauseMenu() {
         inMenu = true;
         label.setText("Game Paused");
+        remove(gamePanel);
+        add(label, "North");
         add(menuPanel);
-        revalidate();
-        repaint();
+        this.revalidate();
+        this.repaint();
     }
 
     public void displayGame() {
         inMenu = false;
-
         remove(menuPanel);
-        map_view.drawTiles(this.getGraphics());
-        map_view.drayObjects(this.getGraphics());
-        eraseDialogBox(this.getGraphics());
+        remove(label);
+        add(gamePanel);
+        this.revalidate();
+        this.repaint();
     }
 
     private JPanel create_menuPanel(Dimension d) {
