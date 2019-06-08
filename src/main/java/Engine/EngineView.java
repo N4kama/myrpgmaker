@@ -83,6 +83,7 @@ public class EngineView extends JFrame implements Observer {
         map_view = new EngineMapView(mapModel);
         gamePanel = (JPanel) map_view;
         label = new JLabel("");
+        label.setVisible(true);
         add(label, "North");
 
         setBackground(Color.black);
@@ -121,11 +122,13 @@ public class EngineView extends JFrame implements Observer {
     }
 
     private void createPauseMenu() {
-        menuPanel.removeAll();
+        menuPanel = new JPanel();
+        menuPanel.setLayout(new GridBagLayout());
         menuPanel.setBackground(Color.black);
         menuPanel.add(continueButton);
         menuPanel.add(exitButton);
-        menuPanel.setVisible(false);
+
+        menuPanel.setVisible(true);
     }
 
     private void repaintPos(Graphics g, Position p) {
@@ -224,18 +227,19 @@ public class EngineView extends JFrame implements Observer {
 
     public void displayPauseMenu() {
         inMenu = true;
-        gamePanel.setVisible(false);
-        remove(gamePanel);
-        menuPanel.setVisible(true);
-        setContentPane(menuPanel);
+        label.setText("Game Paused");
+        add(menuPanel);
+        revalidate();
+        repaint();
     }
 
     public void displayGame() {
         inMenu = false;
-        menuPanel.setVisible(false);
+
         remove(menuPanel);
-        gamePanel.setVisible(true);
-        setContentPane(gamePanel);
+        map_view.drawTiles(this.getGraphics());
+        map_view.drayObjects(this.getGraphics());
+        eraseDialogBox(this.getGraphics());
     }
 
     private JPanel create_menuPanel(Dimension d) {
