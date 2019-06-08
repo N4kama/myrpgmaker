@@ -21,7 +21,7 @@ public class MapModel extends Observable implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        if (arg.getClass() == String.class && ((String)arg).equals("toggleGrid")) {
+        if (arg.getClass() == String.class && ((String) arg).equals("toggleGrid")) {
             setChanged();
             notifyObservers("toggleGrid");
         }
@@ -39,10 +39,9 @@ public class MapModel extends Observable implements Observer {
 
     public void selectTiles(int x, int y, boolean new_selection) {
         if (new_selection) {
-            x_rect = x / 16;
-            y_rect = y / 16;
-        }
-        else {
+            x_rect = x;
+            y_rect = y;
+        } else {
             selection_rect = new Rectangle(x_rect, y_rect, x - x_rect, y - y_rect);
             setChanged();
             notifyObservers(selection_rect);
@@ -87,9 +86,9 @@ public class MapModel extends Observable implements Observer {
                 res = map.setPlayer(x, y, SpriteTools.selectedSprite);
                 if (res != null)
                     map.setSpawn_(new Position(x, y));
-            } else if(SpriteTools.npcModelSelected)
+            } else if (SpriteTools.npcModelSelected)
                 res = map.setNpc(x, y, SpriteTools.selectedSprite);
-                else
+            else
                 res = map.setObject(x, y, SpriteTools.selectedSprite);
         }
         if (res != null) {
@@ -153,8 +152,7 @@ public class MapModel extends Observable implements Observer {
                     setChanged();
                     notifyObservers(tile);
                 }
-            }
-            else if (objectMoved == ObjectMoved.ENGINEOBJ) {
+            } else if (objectMoved == ObjectMoved.ENGINEOBJ) {
                 if (map.canPlaceObj(x / 16, y / 16, moved_object)) {
                     moved_object.setPosition_(new Position(x / 16, y / 16));
                     setChanged();

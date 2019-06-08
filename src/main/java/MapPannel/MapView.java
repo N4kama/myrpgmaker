@@ -109,18 +109,19 @@ public class MapView extends JPanel implements Observer {
                 revalidate();
                 repaint();
             }
-        }
-        else if (arg.getClass() == Rectangle.class) {
+        } else if (arg.getClass() == Rectangle.class) {
+            revalidate();
+            repaint();
             drawSelection(this.getGraphics());
         }
     }
 
     private void drawSelection(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
-        Color savedColor = g.getColor();
+        Color savedColor = g2.getColor();
         g2.setColor(new Color(255, 255, 224, 100));
         g2.fill(mapModel.selection_rect);
-        g.setColor(savedColor);
+        g2.setColor(savedColor);
     }
 
     private void paintTile(Graphics g, int x, int y, String tile_path) {
