@@ -23,12 +23,19 @@ public class InspectorController {
         view.calbtn.addActionListener(get_new_dialog());
         view.telbtn.addActionListener(get_new_teleport());
         view.moveList.addActionListener(get_new_move());
+        view.namebtn.addActionListener(get_new_name());
     }
 
+    private ActionListener get_new_name() {
+        return actionEvent -> {
+            String data = view.dialog.getText();
+            if (model.obj != null)
+                model.obj.setName_(data);
+        };
+    }
     private ActionListener get_new_dialog() {
         return actionEvent -> {
             String data = view.dialog.getText();
-            view.get_name.setText("hehe");
             if (model.obj != null)
                 model.obj.setDialog(data);
         };
@@ -42,6 +49,7 @@ public class InspectorController {
             else {
                 data = new Position(Integer.parseInt((view.get_telx.getText())),
                         Integer.parseInt((view.get_tely.getText())));
+                int mapid = Integer.parseInt(view.get_mapid.getText());
             }
             if (model.obj != null) {
                 model.obj.add_event(new TeleportEvent(model.obj, data.getX(), data.getY(), EditorModel.singleton.gameWorld));
