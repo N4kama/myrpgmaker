@@ -82,15 +82,13 @@ public class MapView extends JPanel implements Observer {
             switch (SpriteTools.mousePointerState) {
                 case PLACE:
                 case DELETE:
+                case SET_WALKABLE_OR_NOT:
                     if (mapModel.selection_rect == null)
-                        paintComponent(this.getGraphics(), (Tile)arg);
+                        paintComponent(this.getGraphics(), (Tile) arg);
                     else {
                         revalidate();
                         repaint();
                     }
-                    break;
-                case SET_WALKABLE_OR_NOT:
-                    paintComponent(this.getGraphics(), (Tile) arg);
                     break;
                 default:
                     revalidate();
