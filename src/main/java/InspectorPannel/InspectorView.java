@@ -18,9 +18,12 @@ public class InspectorView extends JPanel  implements Observer {
     JTextField get_name;
     JTextField get_telx;
     JTextField get_tely;
+    JTextField get_mapid;
     JTextField dialog;
 
     JComboBox moveList;
+
+    JButton namebtn = new JButton("Save new name !");
     JButton telbtn = new JButton("Save new teleport position !");
 
     JButton calbtn = new JButton("Save new dialog !");
@@ -28,21 +31,25 @@ public class InspectorView extends JPanel  implements Observer {
 
     public InspectorView(InspectorModel model) {
         this.model = model;
-        namet = new JLabel(model.namet);
         typet = new JLabel(model.typet);
         post = new JLabel(model.post);
         old = new JLabel(model.old);
         teleport = new JLabel(model.teleport);
 
-        get_name = new JTextField(3);
 
+        /* Name setter */
+        namet = new JLabel(model.namet);
+        get_name = new JTextField(3);
+        get_name.setPreferredSize(get_name.getPreferredSize());
 
         /* Teleport setter */
         JLabel tel_t = new JLabel("Set the teleport parameters:");
         get_telx = new JTextField(3);
         get_tely = new JTextField(3);
+        get_mapid = new JTextField(3);
         get_telx.setMaximumSize(get_telx.getPreferredSize());
         get_tely.setMaximumSize(get_tely.getPreferredSize());
+        get_mapid.setMaximumSize(get_mapid.getPreferredSize());
 
         /* Dialog setter */
         JLabel label = new JLabel("Set the dialog parameters:", SwingConstants.LEFT);
@@ -59,6 +66,7 @@ public class InspectorView extends JPanel  implements Observer {
         /* Display in the frame */
         add(namet);
         add(get_name);
+        add(namebtn);
         add(Box.createRigidArea(new Dimension(1, 5)));
         add(typet);
         add(Box.createRigidArea(new Dimension(1, 5)));
@@ -71,6 +79,7 @@ public class InspectorView extends JPanel  implements Observer {
         add(tel_t);
         add(get_telx);
         add(get_tely);
+        add(get_mapid);
         add(telbtn);
         add(label);
         add(Box.createRigidArea(new Dimension(1, 5)));
