@@ -83,6 +83,7 @@ public class EngineView extends JFrame implements Observer {
         map_view = new EngineMapView(mapModel, this);
         gamePanel = map_view;
         label = new JLabel("");
+        label.setOpaque(true);
         label.setVisible(true);
 
         setBackground(Color.black);
@@ -219,7 +220,8 @@ public class EngineView extends JFrame implements Observer {
 
     public void closeDialog() {
         gamePanel.remove(label);
-        eraseDialogBox(gamePanel.getGraphics());
+        revalidate();
+        repaint();
     }
 
     public void eraseDialogBox(Graphics g) {
