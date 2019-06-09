@@ -25,8 +25,8 @@ My RPG Maker:
        [X] Wrld Selector to load
 
        [X] Copy les sprites dans nos ressources a ns
-            [X] [tiles] background   // uniquement en 16x16
-            [X] [object] foreground // uniquement  %16 = 0
+            [X] [tiles] background
+            [X] [object] foreground
 
     NOT DONE YET:
         [-] correct minor bug (action half complete from user)
