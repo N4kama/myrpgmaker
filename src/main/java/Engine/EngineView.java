@@ -135,8 +135,8 @@ public class EngineView extends JFrame implements Observer {
         this.getGraphics().setColor(Color.BLACK);
         gamePanel.setBackground(Color.BLACK);
         this.getGraphics().fillRect(0, 0, 600, 600);
-        gamePanel.drawTiles(this.getGraphics());
-        gamePanel.drayObjects(g);
+        gamePanel.revalidate();
+        gamePanel.repaint();
 /*
         repaintPos(g, new Position(x, y));
         repaintPos(g, new Position(x + 1, y));
@@ -209,6 +209,7 @@ public class EngineView extends JFrame implements Observer {
         if (msg == null)
             label.setText("");
         else {
+            model_.setStopMov(true);
             label.setText("NPC: " + msg);
             gamePanel.add(label, "North");
             gamePanel.revalidate();
@@ -217,6 +218,7 @@ public class EngineView extends JFrame implements Observer {
     }
 
     public void closeDialog() {
+        model_.setStopMov(false);
         gamePanel.remove(label);
         revalidate();
         repaint();
