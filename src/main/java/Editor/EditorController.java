@@ -99,7 +99,7 @@ public class EditorController extends Observable {
             int width = 100;
             int x_ = 0;
             int y_ = 0;
-            String default_tile_path = "backgroundTile/grass.png";
+            String default_tile_path = "resources/backgroundTile/grass.png";
             //popup asking for width  and height
             String w = JOptionPane.showInputDialog("enter map width");
             width = Integer.parseInt(w);

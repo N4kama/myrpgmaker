@@ -158,12 +158,12 @@ public class EditorView extends JFrame implements Observer {
     private JTabbedPane create_spriteTab() {
         // Init MVC
         SpriteModel backgroundSpriteModel = new SpriteModel(
-                "backgroundTile/", true, false, false);
+                "resources/backgroundTile/", true, false, false);
         SpriteModel foregroundSpriteModel = new SpriteModel(
-                "foregroundObject/", false, false, false);
-        SpriteModel NPCSpriteModel = new SpriteModel("npc/", false, true,
+                "resources/foregroundObject/", false, false, false);
+        SpriteModel NPCSpriteModel = new SpriteModel("resources/npc/", false, true,
                 false);
-        SpriteModel PlayerSpriteModel = new SpriteModel("player/", false,
+        SpriteModel PlayerSpriteModel = new SpriteModel("resources/player/", false,
                 false, true);
         SpriteView backgroundSpriteView = new SpriteView(backgroundSpriteModel);
         SpriteView foregroundSpriteView = new SpriteView(foregroundSpriteModel);
@@ -244,7 +244,7 @@ public class EditorView extends JFrame implements Observer {
     }
 
     private ImageIcon get_icon(String file) {
-        return new ImageIcon(new ImageIcon("icons/" + file).getImage()
+        return new ImageIcon(new ImageIcon("resources/icons/" + file).getImage()
                 .getScaledInstance(20, 20, Image.SCALE_SMOOTH));
     }
 
