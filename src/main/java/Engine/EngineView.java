@@ -26,7 +26,6 @@ public class EngineView extends JFrame implements Observer {
     JButton startButton;
     JButton exitButton;
     JButton continueButton;
-    EngineMapView map_view;
     EngineMapView gamePanel;
     JPanel menuPanel;
     JPanel textPanel;
@@ -80,8 +79,7 @@ public class EngineView extends JFrame implements Observer {
         setSize(450, 250);
 
         MapModel mapModel = new MapModel(model_.getGameWorld().getCurMap(), EditorModel.singleton);
-        map_view = new EngineMapView(mapModel, this);
-        gamePanel = map_view;
+        gamePanel = new EngineMapView(mapModel, this);
         label = new JLabel("");
         label.setOpaque(true);
         label.setVisible(true);
@@ -135,10 +133,10 @@ public class EngineView extends JFrame implements Observer {
         
         super.paint(this.getGraphics());
         this.getGraphics().setColor(Color.BLACK);
-        map_view.setBackground(Color.BLACK);
+        gamePanel.setBackground(Color.BLACK);
         this.getGraphics().fillRect(0, 0, 600, 600);
-        map_view.drawTiles(this.getGraphics());
-        map_view.drayObjects(g);
+        gamePanel.drawTiles(this.getGraphics());
+        gamePanel.drayObjects(g);
 /*
         repaintPos(g, new Position(x, y));
         repaintPos(g, new Position(x + 1, y));
