@@ -40,6 +40,20 @@ public class ChangeMapEvent implements GameEvents {
         return false;
     }
 
+    /**
+     * @return the p
+     */
+    public Map getP() {
+        return p;
+    }
+
+    /**
+     * @return the np
+     */
+    public Position getNp() {
+        return np;
+    }
+
     private EngineObj c;
     private Map p;
     private Position np;

@@ -3,12 +3,15 @@ package Engine.Character;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import Editor.EditorModel;
 import Engine.Direction;
 import Engine.Position;
 import Game.Map;
 import Game.Tile;
+import Game.World;
+import Utils.SpriteTools;
 import Engine.Event.ChangeMapEvent;
 import Engine.Event.GameEvents;
 import Engine.Event.MoveEvent;
@@ -25,6 +28,11 @@ public class EngineObj {
     private boolean stop = false;
     private boolean changedMap = false;
     private transient EngineObj talkTo;
+    private Direction move_;
+    private boolean move_event;
+    private boolean teleport_event;
+    private Position teleport_to;
+    private int teleport_to_map;
 
     public EngineObj(int x, int y, String sprite_path) {
         this.position_ = new Position(x, y);
@@ -40,8 +48,7 @@ public class EngineObj {
     }
 
     public void setCur_map(Map cur_map_) {
-        if(cur_map !=  null)
-        {
+        if (cur_map != null) {
             this.cur_map.getEngineObjs().remove(this);
         }
         cur_map_.addEngineObj(this);
@@ -66,19 +73,56 @@ public class EngineObj {
 
     public boolean run_events() {
         boolean res = true;
-        if(events == null)
-        {
+        if (events == null) {
             events = new ArrayList<>();
         }
         for (GameEvents e : events) {
             res &= e.run();
         }
+        if (teleport_event) {
+            World m = EditorModel.singleton.gameWorld;
+            Map p = m.getMap(teleport_to_map);
+            Position np = teleport_to;
+            EngineObj e = m.player_;
+            BufferedImage img = SpriteTools.openObject(getSprite_());
+            int w = img.getWidth() / 16;
+            int h = img.getHeight() / 16;
+            w = w < 1 ? 1 : w;
+            h = h < 1 ? 1 : h;
+            if (e.isIs_player() && e.getPosition_().is_in(getPosition_(), w, h)) {
+                Tile t = m.getCurMap().getTile(e.getPosition_());
+                m.changeMap(m.getGameWorld().indexOf(p));
+                t.setHas_Obj(false);
+                e.setChangedMap(true);
+                e.setCur_map(p);
+                e.setPosition_(new Position(np.getX() % p.getWidth(), np.getY() % p.getHeight()));
+                t = p.getTile(e.getPosition_());
+                t.setHas_Obj(true);
+            }
+        }
+        if (move_event) {
+            World w = EditorModel.singleton.gameWorld;
+            EngineObj e = this;
+            if (move_ == null) {
+                Random rnd = new Random();
+                switch (rnd.nextInt(3)) {
+                case 0:
+                    return e.move(Direction.UP, w.getCurMap());
+                case 1:
+                    return e.move(Direction.LEFT, w.getCurMap());
+                case 2:
+                    return e.move(Direction.RIGHT, w.getCurMap());
+                default:
+                    return e.move(Direction.DOWN, w.getCurMap());
+                }
+            }
+            move(move_, EditorModel.singleton.gameWorld.getCurMap());
+        }
         return res;
     }
 
     public void animate(Direction d) {
-        if(es == null)
-        {
+        if (es == null) {
             reloadSprites();
         }
         Animation cur = es.getCurAnim();
@@ -242,7 +286,18 @@ public class EngineObj {
     }
 
     public void add_event(GameEvents e) {
-        events.add(e);
+        if (e instanceof MoveEvent) {
+            move_event = true;
+            MoveEvent m = (MoveEvent) e;
+            move_ = m.get_dir();
+        }
+        if (e instanceof ChangeMapEvent) {
+            teleport_event = true;
+            ChangeMapEvent m = (ChangeMapEvent) e;
+            teleport_to = m.getNp();
+            teleport_to_map = EditorModel.singleton.gameWorld.getGameWorld().indexOf(m.getP());
+        }
+        // events.add(e);
     }
 
     /**

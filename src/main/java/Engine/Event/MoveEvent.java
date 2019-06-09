@@ -40,6 +40,11 @@ public class MoveEvent implements GameEvents {
         return e.move(d, w.getCurMap());
     }
 
+    public Direction get_dir()
+    {
+        return d;
+    }
+
     private int c;
     private Direction d;
 }
