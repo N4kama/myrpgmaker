@@ -2,6 +2,7 @@ package InspectorPannel;
 
 import Engine.Direction;
 import Engine.Position;
+import Engine.Event.ChangeMapEvent;
 import Engine.Event.MoveEvent;
 import Engine.Event.TeleportEvent;
 
@@ -44,15 +45,21 @@ public class InspectorController {
     private ActionListener get_new_teleport() {
         return actionEvent -> {
             Position data;
+            int mapid = EditorModel.singleton.gameWorld.gameWorld_.indexOf(EditorModel.singleton.gameWorld.getCurMap());
             if (view.get_telx.getText().equals("") || view.get_tely.getText().equals(""))
                 data = null;
             else {
                 data = new Position(Integer.parseInt((view.get_telx.getText())),
                         Integer.parseInt((view.get_tely.getText())));
-                int mapid = Integer.parseInt(view.get_mapid.getText());
+                        
+                try {
+                    mapid = Integer.parseInt(view.get_mapid.getText());
+                } catch (Exception e) {
+                    //TODO: handle exception
+                }
             }
             if (model.obj != null) {
-                model.obj.add_event(new TeleportEvent(model.obj, data.getX(), data.getY(), EditorModel.singleton.gameWorld));
+                model.obj.add_event(new ChangeMapEvent(model.obj, mapid, data, EditorModel.singleton.gameWorld));
             }
 
         };
