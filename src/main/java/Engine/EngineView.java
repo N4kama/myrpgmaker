@@ -46,6 +46,7 @@ public class EngineView extends JFrame implements Observer {
 
     private void displayStartMenu(int pause) throws IOException {
         setResizable(false);
+        
         gameImage = ImageIO.read(getClass().getResource("icons/game.png"));
         setSize(gameImage.getWidth(), gameImage.getHeight());
 
