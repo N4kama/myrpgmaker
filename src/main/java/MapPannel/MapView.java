@@ -78,36 +78,32 @@ public class MapView extends JPanel implements Observer {
     public void update(Observable o, Object arg) {
         if (arg.getClass() == Tile.class) {
             switch (SpriteTools.mousePointerState) {
-            case MOVE:
-                if (mapModel.is_moving)
+                case SET_WALKABLE_OR_NOT:
                     paintComponent(this.getGraphics(), (Tile) arg);
-                else
-                    paintComponent(this.getGraphics(), (Tile) arg);
-                break;
-            case SET_WALKABLE_OR_NOT:
-                paintComponent(this.getGraphics(), (Tile) arg);
-            default:
-                paintComponent(this.getGraphics(), (Tile) arg);
+                default:
+                    revalidate();
+                    repaint();
             }
         } else if (arg.getClass() == EngineObj.class) {
             switch (SpriteTools.mousePointerState) {
-            case DELETE:
-                deleteEngineOBJ(this.getGraphics(), (EngineObj) arg);
-                break;
-            case MOVE:
-                if (mapModel.is_moving)
+                case DELETE:
                     deleteEngineOBJ(this.getGraphics(), (EngineObj) arg);
-                else
+                    break;
+                case MOVE:
+                    if (mapModel.is_moving)
+                        deleteEngineOBJ(this.getGraphics(), (EngineObj) arg);
+                    else
+                        paintComponent(this.getGraphics(), (EngineObj) arg);
+                    break;
+                default: {
+                    EngineObj e = (EngineObj) arg;
+                    if (e.isIs_player()) {
+                        deletePlayer(this.getGraphics(), (EngineObj) arg);
+                    }
                     paintComponent(this.getGraphics(), (EngineObj) arg);
-                break;
-            default: {
-                EngineObj e = (EngineObj) arg;
-                if (e.isIs_player()) {
-                    deletePlayer(this.getGraphics(), (EngineObj) arg);
                 }
-                paintComponent(this.getGraphics(), (EngineObj) arg);
             }
-        }} else if (arg.getClass() == String.class && arg.equals("toggleGrid")) {
+        } else if (arg.getClass() == String.class && arg.equals("toggleGrid")) {
             if (SpriteTools.grid_display)
                 drawGrid(getGraphics());
             else {
@@ -116,8 +112,7 @@ public class MapView extends JPanel implements Observer {
             }
         } else if (arg.getClass() == Rectangle.class) {
             drawSelection(this.getGraphics());
-        }
-        else if (arg.getClass() == String.class && arg.equals("clearSelection")) {
+        } else if (arg.getClass() == String.class && arg.equals("clearSelection")) {
             revalidate();
             repaint();
         }

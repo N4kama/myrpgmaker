@@ -84,7 +84,7 @@ public class MapModel extends Observable implements Observer {
         if (SpriteTools.selectedSprite == null)
             return;
         if (SpriteTools.is_background) {
-            res = map.setTile(x, y, SpriteTools.selectedSprite);
+            res = map.setTile(x / 16, y / 16, SpriteTools.selectedSprite);
             DoTools.addUndoEvent(new EditorEvent(EditorEvent.EventType.ADD_TILE, map, x, y));
 
         } else {
