@@ -94,9 +94,9 @@ public class EditorView extends JFrame implements Observer {
 
         // Placing the different scrollPane in order into the main frame
         JSplitPane sprite_inspector = new JSplitPane(JSplitPane.VERTICAL_SPLIT, spriteTab, inspectorTab);
-        sprite_inspector.setResizeWeight(0.35);
+        sprite_inspector.setResizeWeight(0.60);
         JSplitPane leftPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, sprite_inspector, fileExplorerTab);
-        leftPane.setResizeWeight(0.7);
+        leftPane.setResizeWeight(0.99);
         JSplitPane panelsOrganization = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPane, mapTab);
         panelsOrganization.setResizeWeight(0.33);
         JScrollPane panelOrg = new JScrollPane(panelsOrganization);
