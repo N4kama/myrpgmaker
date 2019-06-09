@@ -18,7 +18,7 @@ public class EngineObj {
     private transient Map cur_map;
 
     private Boolean is_player;
-    private List<GameEvents> events;
+    private transient List<GameEvents> events;
     private boolean teleported;
     private Position teleportedPos;
     private transient EngineSprite es;
@@ -66,6 +66,10 @@ public class EngineObj {
 
     public boolean run_events() {
         boolean res = true;
+        if(events == null)
+        {
+            events = new ArrayList<>();
+        }
         for (GameEvents e : events) {
             res &= e.run();
         }
