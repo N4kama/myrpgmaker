@@ -134,9 +134,7 @@ public class Map {
     }
 
     public Tile setTile(int x, int y, String path) {
-        if (getGameObject(x, y, false) != null)
-            return null;
-        Tile tile = getGameTile(x / 16, y / 16);
+        Tile tile = getGameTile(x, y);
         tile.set_path(path);
         return tile;
     }
