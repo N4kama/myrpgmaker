@@ -16,7 +16,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class MapModel extends Observable implements Observer {
-    protected Rectangle selection_rect;
+    protected Rectangle selection_rect = null;
     protected int x_rect;
     protected int y_rect;
     protected BufferedImage unwalkable = SpriteTools.openTile("/misc/not_walkable.png");
@@ -43,10 +43,15 @@ public class MapModel extends Observable implements Observer {
         if (new_selection) {
             x_rect = x / 16;
             y_rect = y / 16;
+            selection_rect = null;
             setChanged();
             notifyObservers("clearSelection");
         } else {
             selection_rect = new Rectangle(x_rect, y_rect, x / 16 - x_rect + 1, y / 16 - y_rect + 1);
+            if (selection_rect.height == 1 && selection_rect.width == 1) {
+                selection_rect = null;
+                return;
+            }
             setChanged();
             notifyObservers(selection_rect);
         }
@@ -80,13 +85,21 @@ public class MapModel extends Observable implements Observer {
     }
 
     public void modifySprite(int x, int y) {
-        Object res;
+        Object res = null;
         if (SpriteTools.selectedSprite == null)
             return;
         if (SpriteTools.is_background) {
-            res = map.setTile(x / 16, y / 16, SpriteTools.selectedSprite);
-            DoTools.addUndoEvent(new EditorEvent(EditorEvent.EventType.ADD_TILE, map, x, y));
-
+            if (selection_rect != null && ((selection_rect.x <= x / 16 && x / 16 <= selection_rect.x + selection_rect.width)
+                    && (selection_rect.y <= y / 16 && y / 16 <= selection_rect.y + selection_rect.height))) {
+                for (int i = selection_rect.x; i < selection_rect.x + selection_rect.width; i++) {
+                    for (int j = selection_rect.y; j < selection_rect.y + selection_rect.height; j++) {
+                        res = map.setTile(i, j, SpriteTools.selectedSprite);
+                    }
+                }
+            } else {
+                res = map.setTile(x / 16, y / 16, SpriteTools.selectedSprite);
+                DoTools.addUndoEvent(new EditorEvent(EditorEvent.EventType.ADD_TILE, map, x, y));
+            }
         } else {
             if (SpriteTools.playerModelSelected) {
                 res = map.setPlayer(x, y, SpriteTools.selectedSprite);
@@ -127,13 +140,21 @@ public class MapModel extends Observable implements Observer {
         if (res != null)
             DoTools.addUndoEvent(new EditorEvent(EditorEvent.EventType.DEL_OBJECT, map, x, y));
         else {
-            res = map.deleteTile(x / 16, y / 16);
-            DoTools.addUndoEvent(new EditorEvent(EditorEvent.EventType.DEL_OBJECT, map, x, y));
-        }
-
-        if (res != null) {
-            setChanged();
-            notifyObservers(res);
+            if (selection_rect != null && ((selection_rect.x <= x / 16 && x / 16 <= selection_rect.x + selection_rect.width)
+                    && (selection_rect.y <= y / 16 && y / 16 <= selection_rect.y + selection_rect.height))) {
+                for (int i = selection_rect.x; i < selection_rect.x + selection_rect.width; i++) {
+                    for (int j = selection_rect.y; j < selection_rect.y + selection_rect.height; j++) {
+                        res = map.deleteTile(i, j);
+                    }
+                }
+            } else {
+                res = map.deleteTile(x / 16, y / 16);
+                DoTools.addUndoEvent(new EditorEvent(EditorEvent.EventType.DEL_OBJECT, map, x, y));
+            }
+            if (res != null) {
+                setChanged();
+                notifyObservers(res);
+            }
         }
     }
 
