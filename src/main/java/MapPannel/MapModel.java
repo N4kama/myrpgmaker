@@ -19,7 +19,7 @@ public class MapModel extends Observable implements Observer {
     protected Rectangle selection_rect;
     protected int x_rect;
     protected int y_rect;
-    protected BufferedImage unwalkable = SpriteTools.openTile(System.getProperty("user.dir") + "/resources/misc/not_walkable.png");
+    protected BufferedImage unwalkable = SpriteTools.openTile("misc/not_walkable.png");
 
     @Override
     public void update(Observable o, Object arg) {

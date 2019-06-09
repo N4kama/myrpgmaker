@@ -32,7 +32,7 @@ public class SpriteTools {
         if(img == null) 
         {
             try {
-                img = ImageIO.read(new File(path));
+                img = ImageIO.read(SpriteTools.class.getResource(path));
                 registerSprite(img, path);
                 if (img.getWidth() != 16 || img.getHeight() != 16) {
                     System.out.println("Wrong file format : " + path);
@@ -52,7 +52,7 @@ public class SpriteTools {
         if(img == null) 
         {
             try {
-                img = ImageIO.read(new File(path));
+                img = ImageIO.read(SpriteTools.class.getResource(path));
                 registerSprite(img, path);
                 return img;
             } catch (IOException e) {

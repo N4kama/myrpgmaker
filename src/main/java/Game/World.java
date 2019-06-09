@@ -33,7 +33,7 @@ public class World {
 
     private String name_;
     public EngineObj player_;
-    private String default_player_path = System.getProperty("user.dir") + "/resources/player/hero.png";
+    private String default_player_path = "player/hero.png";
 
     public World(String s, String player_sprite_path) {
         this.gameWorld_ = new ArrayList<>();

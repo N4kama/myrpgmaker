@@ -46,8 +46,7 @@ public class EngineView extends JFrame implements Observer {
 
     private void displayStartMenu(int pause) throws IOException {
         setResizable(false);
-        File f = new File("resources/icons/game.png");
-        gameImage = ImageIO.read(f);
+        gameImage = ImageIO.read(getClass().getResource("resources/icons/game.png"));
         setSize(gameImage.getWidth(), gameImage.getHeight());
 
         menuPanel = create_menuPanel(this.getSize());

@@ -99,7 +99,7 @@ public class EditorController extends Observable {
             int width = 100;
             int x_ = 0;
             int y_ = 0;
-            String default_tile_path = System.getProperty("user.dir") + "/resources/backgroundTile/grass.png";
+            String default_tile_path = "backgroundTile/grass.png";
             //popup asking for width  and height
             String w = JOptionPane.showInputDialog("enter map width");
             width = Integer.parseInt(w);
@@ -202,7 +202,7 @@ public class EditorController extends Observable {
                 Path filePath = Paths.get(file.getPath());
 
                 try {
-                    BufferedImage img = ImageIO.read(file);
+                    BufferedImage img = ImageIO.read(getClass().getResource(file.getPath()));
                     if ((img.getHeight() / 16 == 1 && img.getWidth() / 16 == 1 && destPath.equals("resources/backgroundTile/")) ||
                             (img.getHeight() % 16 == 0 && img.getWidth() % 16 == 0 && (destPath.equals("resources/foregroundObject/")) || (destPath.equals("resources/npc/")))) {
                         Files.copy(filePath, (new File(destPath + file.getName()).toPath()),

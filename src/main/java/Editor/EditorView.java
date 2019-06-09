@@ -122,7 +122,7 @@ public class EditorView extends JFrame implements Observer {
     private JTabbedPane create_mapTab() {
         // Creating world at program launch
         model.setWorld(new World("Asuma", System.getProperty("user.dir") + "resources/player/hero.png"));
-        String default_tile_path = System.getProperty("user.dir") + "/resources/backgroundTile/grass.png";
+        String default_tile_path = "backgroundTile/grass.png";
         // model.gameWorld.addMap(new Map("Shikamaru", 100, 100, default_tile_path));
 
         // Init MVC
@@ -158,12 +158,12 @@ public class EditorView extends JFrame implements Observer {
     private JTabbedPane create_spriteTab() {
         // Init MVC
         SpriteModel backgroundSpriteModel = new SpriteModel(
-                System.getProperty("user.dir") + "/resources/backgroundTile/", true, false, false);
+                "backgroundTile/", true, false, false);
         SpriteModel foregroundSpriteModel = new SpriteModel(
-                System.getProperty("user.dir") + "/resources/foregroundObject/", false, false, false);
-        SpriteModel NPCSpriteModel = new SpriteModel(System.getProperty("user.dir") + "/resources/npc/", false, true,
+                "foregroundObject/", false, false, false);
+        SpriteModel NPCSpriteModel = new SpriteModel("npc/", false, true,
                 false);
-        SpriteModel PlayerSpriteModel = new SpriteModel(System.getProperty("user.dir") + "/resources/player/", false,
+        SpriteModel PlayerSpriteModel = new SpriteModel("player/", false,
                 false, true);
         SpriteView backgroundSpriteView = new SpriteView(backgroundSpriteModel);
         SpriteView foregroundSpriteView = new SpriteView(foregroundSpriteModel);
@@ -244,7 +244,7 @@ public class EditorView extends JFrame implements Observer {
     }
 
     private ImageIcon get_icon(String file) {
-        return new ImageIcon(new ImageIcon(System.getProperty("user.dir") + "/resources/icons/" + file).getImage()
+        return new ImageIcon(new ImageIcon("icons/" + file).getImage()
                 .getScaledInstance(20, 20, Image.SCALE_SMOOTH));
     }
 
