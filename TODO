@@ -1,19 +1,32 @@
 My RPG Maker:
 
     EDITOR:
-        [-] Selectors buttons
-        [-] File (wrld) selector
+        [X] Menu
+        [X] ToolBar
+        [X] Sprite Panel
+        [X] World panel
+        [X] Map panel :
+            [X] Tiles and tools handling
+            [X] EngineOBJ and tools handling
+            [X] Special action handling (walkable, grid mode)
+
 
     GAME ENGINE:
-        [-] Player
-        [-] NPC
-        [-] Event
+        [X] Player
+        [X] NPC
+        [X] Event
+        [X] Screen drawing optimizations
+        [X] Teleport
+
 
     BIN:
        [DONE] Choisir le nom du fichier à save
-       [-] Reussir à load
-       [-] Wrld Selector to load
+       [X] Reussir à load
+       [X] Wrld Selector to load
 
-       [Done] Copy les sprites dans nos ressources a ns
-            [-] [tiles] background   // uniquement en 16x16
-            [-] [object] foreground // uniquement  %16 = 0
+       [X] Copy les sprites dans nos ressources a ns
+            [X] [tiles] background   // uniquement en 16x16
+            [X] [object] foreground // uniquement  %16 = 0
+
+    NOT DONE YET:
+        [-] correct minor bug (action half complete from user)
