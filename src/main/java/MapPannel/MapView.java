@@ -31,6 +31,8 @@ public class MapView extends JPanel implements Observer {
         if (SpriteTools.grid_display)
             drawGrid(g);
         drayObjects(g);
+        if (mapModel.selection_rect != null)
+            drawSelection(g);
     }
 
     private void drawGrid(Graphics g) {
@@ -78,8 +80,18 @@ public class MapView extends JPanel implements Observer {
     public void update(Observable o, Object arg) {
         if (arg.getClass() == Tile.class) {
             switch (SpriteTools.mousePointerState) {
+                case PLACE:
+                case DELETE:
+                    if (mapModel.selection_rect == null)
+                        paintComponent(this.getGraphics(), (Tile)arg);
+                    else {
+                        revalidate();
+                        repaint();
+                    }
+                    break;
                 case SET_WALKABLE_OR_NOT:
                     paintComponent(this.getGraphics(), (Tile) arg);
+                    break;
                 default:
                     revalidate();
                     repaint();
